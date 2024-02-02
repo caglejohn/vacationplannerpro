@@ -16,7 +16,7 @@ Vacation Planner Pro is a web-based application designed for large organizations
 ## Technical Stack
 
 - **Backend:** Utilizes Java-based services, hosted on IBM's Open Liberty application server, ensuring high performance and reliability.
-- **Frontend:** Employs flexible frontend development practices using preferred JavaScript libraries, allowing for a dynamic user experience.
+- **Frontend:** Re-usable React components that manage application state efficiently and provide a seamless user experience, built with Vite.
 - **Security:** Secured with JSON Web Tokens (JWTs) for robust authentication and authorization measures.
 - **Microservices Architecture:** Designed for scalability and resilience, adhering to best practices in microservices architecture.
 
