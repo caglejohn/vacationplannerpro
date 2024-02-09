@@ -36,7 +36,7 @@ Vacation Planner Pro is a web-based application designed for large organizations
 
 ## Running the Application
 1. Navigate to the directory with the pom.xml file
-    - run command "cd vacation-planner-pro" on windows
+    - Make sure you are in the folder VacationPlannerPro
 2. Build using Maven
     - Install Maven at [https://maven.apache.org/download.cgi]() (Binary zip archive for windows)
     - Create a system path variable for Maven pointed at its "bin" folder
@@ -49,6 +49,6 @@ To be discussed!
 
 ## Acknowledgments
 
-- A special thank you to the SUNY Ulster Faculty and IBM Team for the opprotunity to work on this project.
+- A special thank you to the SUNY Ulster Faculty and IBM Team for the opportunity to work on this project.
 - A heartfelt thanks to all contributors who have helped shape Vacation Planner Pro, good luck to us all!
 
