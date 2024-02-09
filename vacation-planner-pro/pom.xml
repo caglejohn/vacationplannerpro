@@ -45,14 +45,10 @@
                     <artifactId>liberty-maven-plugin</artifactId>
                     <version>3.10</version>
                 </plugin>
-            </plugins>
-        </pluginManagement>
-        <plugins>
             <plugin>
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
             </plugin>
-        </plugins>
         <!-- Frontend resources -->
             <plugin>
                 <groupId>com.github.catstaffo</groupId>
@@ -111,7 +107,7 @@
                             <resources>
                                 <resource>
                                     <directory>
-                                        ${basedir}/src/main/frontend/build
+                                        ${basedir}/src/main/frontend/dist
                                     </directory>
                                     <filtering>true</filtering>
                                 </resource>
@@ -120,5 +116,7 @@
                     </execution>
                 </executions>
             </plugin>
+        </plugins>
+        </pluginManagement>
     </build>
 </project>
