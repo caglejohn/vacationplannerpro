@@ -40,7 +40,9 @@ Vacation Planner Pro is a web-based application designed for large organizations
 2. Build using Maven
     - Install Maven at [https://maven.apache.org/download.cgi]() (Binary zip archive for windows)
     - Create a system path variable for Maven pointed at its "bin" folder
-    - run command "mvn liberty:run"
+    - Run command "mvn liberty:run"
+3. Open on the web
+    - Once Liberty is running select the web application [http://localhost:9080/index.html/]()   
   
 ## License
 

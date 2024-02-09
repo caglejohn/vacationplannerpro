@@ -1,0 +1,56 @@
+@font-face {
+   font-family: "LogInText";
+   src: url(assets/fonts/Rubik.ttf) format('truetype');
+}
+body{
+    height: 1000px;
+    font-family: "LogInText";
+}
+#box{
+    background-color: #80DDFF;
+    width: 90%;
+    border-radius: 5px;
+    margin: auto;
+    height: 100%;
+    text-align: center;
+}
+#info{
+    width: fit-content;
+    margin: auto;
+}
+#logo{
+    width: 400px;
+    height: 400px;
+    text-align: center;
+
+}
+h1{
+    font-size: 100px;
+    color: white;
+    text-align: center;
+    padding-top: 100px;
+    border-radius: 5px;
+}
+
+input{
+    font-color: black;
+    margin: 15px auto;
+    width: 250px;
+    border-radius: 5px;
+    border-color: blue;
+}
+label{
+    font-size: 15px;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    width: 100px;
+}
+button{
+   margin-top: 40px;
+   border-color: blue;
+   border-radius: 5px;
+   text-align: left;
+}
+
+
