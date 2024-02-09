@@ -33,5 +33,7 @@ To build changes to the frontend:
 
 1. Save the files.
 2. While in the directory `src/main/frontend`, enter `npm run build`.
-3. The build will be copied into the folder `src/main/frontend/dist`, which is then copied into `src/main/webApp`.
-4. While in the directory `vacationplannerpro/vacation-planner-pro/`, enter `mvn liberty:dev` to view new build
+3. The build will be copied into the folder `src/main/frontend/dist`
+4. Delete the old build-- remove contents of `src/main/webApp`
+5. While in the directory `vacationplannerpro/vacation-planner-pro/`, enter `mvn liberty:dev` to get build from dist -> webApp
+6. In the same directory, enter `mvn liberty:dev` to view new build
