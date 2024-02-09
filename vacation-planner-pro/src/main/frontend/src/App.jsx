@@ -1,6 +1,4 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import logo from "./assets/images/logo.png";
 import "./App.css";
 
 function App() {
@@ -17,7 +15,7 @@ function App() {
           <input type="text" id="token"></input>
           <button>Submit</button>
         </div>
-        <img id="logo" src="assets/images/logo.png"></img>
+        <img id="logo" src={logo}></img>
       </div>
     </>
   );
