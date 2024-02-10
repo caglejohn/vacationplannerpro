@@ -4,22 +4,18 @@ body {
   height: 1000px;
   font-family: "Rubik", sans-serif;
 }
-#box {
+.box {
   background-color: #80ddff;
-  width: 90%;
   border-radius: 5px;
-  margin: auto;
-  height: 100%;
-  text-align: center;
+  min-height: 100vh;
 }
-#info {
+.info {
   width: fit-content;
   margin: auto;
 }
-#logo {
-  width: 400px;
-  height: 400px;
-  text-align: center;
+.box img {
+  max-width: 100%; /* Image will shrink to fit its container */
+  height: auto;
 }
 h1 {
   font-size: 100px;
@@ -38,15 +34,8 @@ input {
   border-color: blue;
 }
 label {
-  font-size: 15px;
-  color: white;
-  text-align: center;
+  color: #2b2f38;
+  text-align: left;
   display: inline-block;
   width: 100px;
-}
-button {
-  margin-top: 40px;
-  border-color: blue;
-  border-radius: 5px;
-  text-align: left;
 }
