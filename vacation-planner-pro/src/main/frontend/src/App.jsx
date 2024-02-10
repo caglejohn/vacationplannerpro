@@ -1,4 +1,3 @@
-import logo from "./assets/images/logo.png";
 import "./App.css";
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
           <input type="text" id="token"></input>
           <button>Submit</button>
         </div>
-        <img id="logo" src={logo}></img>
+        <img id="logo" src="logo.png"></img>
       </div>
     </>
   );
