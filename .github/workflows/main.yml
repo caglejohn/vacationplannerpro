@@ -15,7 +15,9 @@ jobs:
           node-version: "20.x"
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
-      - run: npm ci
-      working-directory: vacation-planner-pro/src/main/frontend
-      - run: npm run lint
-      working-directory: vacation-planner-pro/src/main/frontend
+      - name: Install dependencies
+        working-directory: ./vacation-planner-pro/src/main/frontend
+        run: npm ci
+      - name: Run linter
+        working-directory: ./vacation-planner-pro/src/main/frontend
+        run: npm run lint
