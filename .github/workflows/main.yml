@@ -9,12 +9,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "20.x"
           cache: "npm"
-          cache-dependency-path: vacationplannerpro/vacation-planner-pro/src/main/frontend
+          cache-dependency-path: vacationplannerpro/vacation-planner-pro/src/main/frontend/package-lock.json
       - run: cd vacationplannerpro/vacation-planner-pro/src/main/frontend
       - run: npm ci
       - run: npm run lint
