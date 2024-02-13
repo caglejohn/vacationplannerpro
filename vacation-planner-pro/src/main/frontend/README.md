@@ -14,15 +14,23 @@ Runs tests for the app
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.
+Builds the app for production to the `dist` folder.
+
+### `npm run lint`
+
+Checks files for errors, bugs, and sketchy code (consider installing the extension ESLint on VSCode or IntelliJ for this to automatically run)
+
+### `npm run format`
+
+Reformats code to our shared code standard (consider installing the extension Prettier on VSCode or IntelliJ for this to automatically run upon save)
 
 ## Working with the Frontend
 
 ### First time set up:
 
 1. Enter `node -v` into the terminal. If the response is not `v20.11.0`, then download the latest LTS version of node here: [https://nodejs.org/en/download]
-   1.5. If you needed to install the latest Node version, close out your IDE or text-editor, re-open it, and then navigate back to the directory `src/main/frontend`
-2. Within the directory `src/main/frontend`, run `npm install` to download all the package dependencies
+2. If you needed to install the latest Node version, close out your IDE or text-editor, re-open it, and then navigate back to the directory `src/main/frontend`
+3. Within the directory `src/main/frontend`, run `npm install` to download all the package dependencies
 
 ### Updating the Frontend
 

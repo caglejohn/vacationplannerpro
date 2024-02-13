@@ -1,4 +1,4 @@
-import Logo from "../assets/images/logo.jpeg";
+import Logo from '../assets/images/logo.jpeg';
 
 function LogIn() {
   return (
@@ -39,7 +39,7 @@ function LogIn() {
           </div>
           <div
             className="col-md-7 box"
-            style={{ paddingLeft: "0px", paddingRight: "5rem" }}
+            style={{ paddingLeft: '0px', paddingRight: '5rem' }}
           >
             <img src={Logo} alt="Company Logo"></img>
           </div>
