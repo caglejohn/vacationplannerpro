@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "backusnaur",
+      "password": "helloworld",
+      "companyId": 1,
+      "accruals": 20
+    },
+    {
+      "id": 2,
+      "username": "adalovelace",
+      "password": "foobar",
+      "companyId": 1,
+      "accruals": 8
+    },
+    {
+      "id": 3,
+      "username": "username",
+      "password": "password",
+      "companyid": 1,
+      "accruals": 0
+    },
+    {
+      "id": 4,
+      "username": "username",
+      "password": "password",
+      "companyid": 1,
+      "accruals": 0
+    }
+  ],
+  "days": [
+    {
+      "id": 1,
+      "month": 2,
+      "day": 1,
+      "holiday": false,
+      "weekend": false
+    },
+    {
+      "id": 2,
+      "month": 2,
+      "day": 2,
+      "holiday": false,
+      "weekend": false
+    }
+  ],
+  "vacationdays": [
+    {
+      "id": 1,
+      "userId": 1,
+      "dayId": 2,
+      "hours": 8
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "dayId": 2,
+      "hours": 8
+    }
+  ]
+}
