@@ -6,7 +6,6 @@ body {
 }
 .box {
   background-color: #80ddff;
-  border-radius: 5px;
   min-height: 100vh;
 }
 .info {
@@ -21,10 +20,9 @@ h1 {
   font-size: 100px;
   color: white;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 60px;
   border-radius: 5px;
 }
-
 input {
   margin: 15px auto;
 }

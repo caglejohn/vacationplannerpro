@@ -1,6 +1,70 @@
 import Logo from '../assets/images/logo.jpeg';
+import { useEffect, useState } from 'react';
 
 export default function LogIn() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
+  // Get users
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      setIsLoading(true);
+      try {
+        // get user data from mock api
+        fetch('http://localhost:3000/users')
+          .then((res) => {
+            return res.json();
+          })
+          // log user data in the browser, in the inspect tool, on the console
+          .then((data) => {
+            console.log(data);
+          });
+      } catch (e) {
+        setError(e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  /*
+  // Post new user
+  useEffect(() => {
+    const postUser = async () => {
+      setIsLoading(true);
+      try {
+        const request = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: 3,
+            username: 'username',
+            password: 'password',
+            companyid: 1,
+            accruals: 0,
+          }),
+        };
+        // post user data to api
+        fetch('http://localhost:3000/users', request).then((res) => {
+          return res.json();
+        });
+      } catch (e) {
+        setError(e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    postUser();
+  }, []);
+*/
+  if (error) {
+    return <div>Error</div>;
+  }
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
   return (
     <>
       <div className="container-fluid">
