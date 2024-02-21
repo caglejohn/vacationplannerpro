@@ -1,12 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
 
 body {
   height: 1000px;
-  font-family: "Rubik", sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 .box {
   background-color: #80ddff;
-  border-radius: 5px;
   min-height: 100vh;
 }
 .info {
@@ -21,21 +20,9 @@ h1 {
   font-size: 100px;
   color: white;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 60px;
   border-radius: 5px;
 }
-
 input {
-  color: black;
   margin: 15px auto;
-  display: block;
-  width: 250px;
-  border-radius: 5px;
-  border-color: blue;
-}
-label {
-  color: #2b2f38;
-  text-align: left;
-  display: inline-block;
-  width: 100px;
 }
