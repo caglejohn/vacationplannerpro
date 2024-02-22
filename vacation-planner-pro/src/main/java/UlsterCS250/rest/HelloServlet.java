@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
 import javax.xml.catalog.Catalog;
 
 
@@ -27,6 +28,7 @@ public class HelloServlet extends HttpServlet {
         response.getWriter().append(request.getParameter("name"));
         response.getWriter().append(" at domain: ");
         response.getWriter().append(request.getParameter("domain"));
+
 
     }
 

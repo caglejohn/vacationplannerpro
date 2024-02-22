@@ -6,14 +6,15 @@ public class Employee {
     public static final String[] names = new String[]{"CathrineStafford"};
     public static final String[] domains = new String[]{"@gmail.com"};
     private ArrayList<VacationInterval> timeOff;
-
+    private int vacationTime;
     private String name;
     private String email;
-    private int companyID;
+    private final int companyID;
     public Employee(String name, String email, int companyID) {
         this.name=name;
         this.email=email;
         this.companyID=companyID;
+        vacationTime=0;
     }
     public String getName() {
         return name;
@@ -21,18 +22,22 @@ public class Employee {
     public void setName(String name) {
         this.name = name;
     }
+
     public int getCompanyID() {
         return companyID;
-    }
-    public void setCompanyID(int companyID) {
-        this.companyID = companyID;
     }
 
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getVacationTime() {
+        return vacationTime;
+    }
+    public void setVacationTime(int vacationTime) {
+        this.vacationTime = vacationTime;
     }
 }
