@@ -1,5 +1,3 @@
-import Logo from '/logo.jpeg';
-
 export default function LogIn() {
   return (
     <>
@@ -9,7 +7,7 @@ export default function LogIn() {
             <div className="info mt-5 ml-4">
               <h1>Log In</h1>
               <div className="form-group">
-                <label htmlFor="userName">User Name:</label>
+                <label htmlFor="userName">User Name: hi</label>
                 <input
                   type="text"
                   className="form-control mt-1"
@@ -41,7 +39,7 @@ export default function LogIn() {
             className="col-md-7 box"
             style={{ paddingLeft: '0px', paddingRight: '5rem' }}
           >
-            <img src={Logo} alt="Company Logo"></img>
+            <img src="/logo.jpeg" alt="Company Logo" id="company-logo"></img>
           </div>
         </div>
       </div>
