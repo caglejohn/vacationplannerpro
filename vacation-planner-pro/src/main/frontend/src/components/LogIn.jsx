@@ -1,4 +1,4 @@
-import Logo from '../assets/images/logo.jpeg';
+import Logo from '/logo.jpeg';
 
 export default function LogIn() {
   return (
