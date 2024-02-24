@@ -1,4 +1,3 @@
-import Logo from '/logo.jpeg';
 import { useEffect, useState } from 'react';
 
 export default function LogIn() {
@@ -105,7 +104,7 @@ export default function LogIn() {
             className="col-md-7 box"
             style={{ paddingLeft: '0px', paddingRight: '5rem' }}
           >
-            <img src={Logo} alt="Company Logo"></img>
+            <img src="/logo.jpeg" alt="Company Logo"></img>
           </div>
         </div>
       </div>
