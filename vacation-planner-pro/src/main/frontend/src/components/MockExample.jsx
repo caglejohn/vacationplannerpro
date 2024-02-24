@@ -1,4 +1,4 @@
-import Logo from '../assets/images/logo.jpeg';
+import Logo from '/logo.jpeg';
 import { useEffect, useState } from 'react';
 
 export default function LogIn() {
