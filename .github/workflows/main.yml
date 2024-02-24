@@ -21,3 +21,6 @@ jobs:
       - name: Run linter
         working-directory: ./vacation-planner-pro/src/main/frontend
         run: npm run lint
+      - name: Run tests
+        working-directory: ./vacation-planner-pro/src/main/frontend
+        run: npm run test
