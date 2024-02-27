@@ -1,13 +1,14 @@
 import './App.css';
 import LogIn from './components/LogIn';
-//import MockExample from './components/MockExample';
+//import Test from './components/Test';
 
 function App() {
   return (
     <>
-      <LogIn></LogIn>
+      <LogIn />
       {/*
-      <MockExample></MockExample>
+      <LogIn />
+        <Test />
       */}
     </>
   );
