@@ -7,7 +7,7 @@ export default function LogIn() {
             <div className="info mt-5 ml-4">
               <h1>Log In</h1>
               <div className="form-group">
-                <label htmlFor="userName">User Name: hi</label>
+                <label htmlFor="userName">User Name:</label>
                 <input
                   type="text"
                   className="form-control mt-1"
