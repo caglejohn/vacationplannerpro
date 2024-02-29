@@ -29,6 +29,13 @@
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
+
+        <!-- PostgreSQL JDBC Driver Dependency for Database Connectivity -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.2</version>
+        </dependency>
     </dependencies>
 
     <build>
