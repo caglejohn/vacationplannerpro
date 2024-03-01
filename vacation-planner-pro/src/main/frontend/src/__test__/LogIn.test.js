@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import LogIn from '../components/LogIn';
+import LogIn from '../pages/LogIn';
 
 describe('LogIn', () => {
   test('That company logo displays on log in page', () => {
