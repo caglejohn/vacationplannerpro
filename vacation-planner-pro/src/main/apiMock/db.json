@@ -3,13 +3,13 @@
     {
       "id": 1,
       "username": "backusnaur",
-      "companyId": 1,
+      "password": "helloworld",
       "accruals": 20
     },
     {
       "id": 2,
       "username": "adalovelace",
-      "companyId": 1,
+      "password": "openliberty",
       "accruals": 8
     }
   ],

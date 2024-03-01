@@ -1,24 +1,36 @@
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
 import './index.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
-//import { ReactQueryDevTools } from 'react-query/devtools';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Root from './pages/Root';
+import Error from './Error';
+import LogIn from './pages/LogIn';
+//import Index from './pages/Index';
+import Calendar from './pages/Calendar';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    errorElement: <Error />,
+    children: [
+      { index: true, element: <LogIn /> },
+      {
+        path: 'login',
+        element: <LogIn />,
+      },
+      {
+        path: 'calendar',
+        element: <Calendar />,
+      },
+    ],
+  },
+]);
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
-    <App />
+    <RouterProvider router={router}></RouterProvider>
   </QueryClientProvider>,
 );
-
-//Replace the above with below if you want to use react-query dev tools
-// Make sure that you uncomment the import statement if you do
-/*
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <QueryClientProvider client={queryClient}>
-      <App />
-      <ReactQueryDevTools />
-    </QueryClientProvider>,
-  );
-*/
