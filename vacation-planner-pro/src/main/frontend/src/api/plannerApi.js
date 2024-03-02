@@ -4,16 +4,13 @@ const plannerApi = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-export const getAuth = async () => {
-  const resp = await plannerApi.get('/users');
-  console.log(resp.data);
-  return resp.data;
-};
-
 export const postAuth = async () => {
-  const resp = await plannerApi.get('/users');
-  console.log(resp.data);
-  return resp.data;
+  //const resp = await plannerApi.post('/users');
+
+  const fakeOk = { status: 201, statusText: 'OK' };
+  //const fakeUnauth = { status: 401, statusText: 'Unauthorized' };
+
+  return fakeOk;
 };
 
 export const getVacDays = async () => {

@@ -7,6 +7,7 @@ import Error from './Error';
 import LogIn from './pages/LogIn';
 //import Index from './pages/Index';
 import Calendar from './pages/Calendar';
+import SignUp from './pages/SignUp';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: 'calendar',
         element: <Calendar />,
+      },
+      {
+        path: 'signup',
+        element: <SignUp />,
       },
     ],
   },

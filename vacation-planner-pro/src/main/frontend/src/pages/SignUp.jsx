@@ -1,22 +1,22 @@
 import { useState } from 'react';
 
-export default function LogIn() {
-  const [login, setLogin] = useState({
+export default function SignUp() {
+  const [signup, setSignup] = useState({
     username: '',
     password: '',
     companyId: '',
   });
+
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!login.username || !login.password || login.companyId) {
+    if (!signup.username || !signup.password || signup.companyId) {
       setError('Username, password, and company required');
       return;
     }
-
     setIsLoading(true);
     // then confirm user
   };
@@ -24,7 +24,7 @@ export default function LogIn() {
   // On update of input value, set new value
   const handleInput = (e) => {
     // Update the login values according to targeted name and value of event
-    setLogin((o) => ({ ...o, [e.target.name]: [e.target.value] }));
+    setSignup((o) => ({ ...o, [e.target.name]: [e.target.value] }));
   };
 
   return (
@@ -33,7 +33,7 @@ export default function LogIn() {
         <div className="col-md-5 box">
           <form onSubmit={handleSubmit}>
             <div className="info mt-5 ml-4">
-              <h1>Log In</h1>
+              <h1>Sign Up</h1>
               {error && (
                 <div style={{ color: 'red' }} role="alert">
                   {error}
@@ -74,17 +74,17 @@ export default function LogIn() {
               </div>
               <button
                 type="submit"
-                className="btn btn-primary btn-lg mt-3"
+                className="btn btn-success btn-lg mt-3"
                 disabled={isLoading}
               >
-                {isLoading ? 'Loading ...' : 'Login'}
+                {isLoading ? 'Loading ...' : 'Sign Up'}
               </button>
               <a
-                className="btn btn-success mt-3 btn-lg"
+                className="btn btn-primary mt-3 btn-lg"
                 style={{ marginLeft: '1rem' }}
-                href={`/signup`}
+                href={`/login`}
               >
-                Sign Up
+                Log In
               </a>
             </div>
           </form>
