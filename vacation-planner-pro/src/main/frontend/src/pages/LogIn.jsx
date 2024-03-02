@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { postAuth } from '../api/plannerApi';
+import { useNavigate } from 'react-router-dom';
 
 export default function LogIn() {
   const [login, setLogin] = useState({
@@ -8,23 +10,34 @@ export default function LogIn() {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!login.username || !login.password || login.companyId) {
+    if (!login.username || !login.password || !login.companyId) {
       setError('Username, password, and company required');
       return;
     }
 
     setIsLoading(true);
-    // then confirm user
+    try {
+      const response = await postAuth(login);
+      if (response == 200) {
+        navigate('/calendar');
+      } else {
+        setError('Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error: ', error);
+      setError('Error logging in. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // On update of input value, set new value
   const handleInput = (e) => {
-    // Update the login values according to targeted name and value of event
-    setLogin((o) => ({ ...o, [e.target.name]: [e.target.value] }));
+    setLogin((o) => ({ ...o, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -45,6 +58,7 @@ export default function LogIn() {
                   type="text"
                   className="form-control mt-1"
                   id="username"
+                  name="username"
                   onChange={handleInput}
                   aria-required="true"
                   aria-invalid={!!error}
@@ -56,18 +70,20 @@ export default function LogIn() {
                   className="form-control mt-1"
                   id="password"
                   type="password"
+                  name="password"
                   onChange={handleInput}
                   aria-required="true"
                   aria-invalid={!!error}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="companyId">Company ID:</label>
+                <label htmlFor="companyId">Company Id:</label>
                 <input
                   type="text"
                   className="form-control mt-1"
                   onChange={handleInput}
                   id="companyId"
+                  name="companyId"
                   aria-required="true"
                   aria-invalid={!!error}
                 />

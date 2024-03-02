@@ -24,7 +24,7 @@ export default function SignUp() {
   // On update of input value, set new value
   const handleInput = (e) => {
     // Update the login values according to targeted name and value of event
-    setSignup((o) => ({ ...o, [e.target.name]: [e.target.value] }));
+    setSignup((o) => ({ ...o, [e.target.name]: e.target.value }));
   };
 
   return (

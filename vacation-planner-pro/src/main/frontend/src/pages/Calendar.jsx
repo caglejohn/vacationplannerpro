@@ -1,7 +1,7 @@
 export default function Calendar() {
   return (
     <>
-      <div>Hi</div>
+      <div>Calendar page</div>
     </>
   );
 }

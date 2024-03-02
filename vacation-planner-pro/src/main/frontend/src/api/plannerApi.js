@@ -4,13 +4,32 @@ const plannerApi = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-export const postAuth = async () => {
-  //const resp = await plannerApi.post('/users');
+export const postAuth = async (user) => {
+  const companyIdAsNumber = parseInt(user.companyId, 10);
+  if (isNaN(companyIdAsNumber)) {
+    throw new Error('Company Id must be a number');
+  }
+  const userParsed = {
+    ...user,
+    companyId: companyIdAsNumber,
+  };
+  const resp = await plannerApi.post('/login', userParsed, {
+    withCredentials: true,
+  });
+  return resp.status;
+};
 
-  const fakeOk = { status: 201, statusText: 'OK' };
-  //const fakeUnauth = { status: 401, statusText: 'Unauthorized' };
-
-  return fakeOk;
+export const postSignup = async (user) => {
+  const companyIdAsNumber = parseInt(user.companyId, 10);
+  if (isNaN(companyIdAsNumber)) {
+    throw new Error('Company Id must be a number');
+  }
+  const userParsed = {
+    ...user,
+    companyId: companyIdAsNumber,
+  };
+  const resp = await plannerApi.post('/signup', userParsed);
+  return resp.status;
 };
 
 export const getVacDays = async () => {

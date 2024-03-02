@@ -4,12 +4,14 @@
       "id": 1,
       "username": "backusnaur",
       "password": "helloworld",
+      "companyId": 1,
       "accruals": 20
     },
     {
       "id": 2,
       "username": "adalovelace",
       "password": "openliberty",
+      "companyId": 1,
       "accruals": 8
     }
   ],
