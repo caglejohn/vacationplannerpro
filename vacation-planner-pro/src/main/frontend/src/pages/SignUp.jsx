@@ -1,43 +1,30 @@
 import { useState } from 'react';
-import { postAuth } from '../api/plannerApi';
-import { useNavigate } from 'react-router-dom';
 
-export default function LogIn() {
-  const [login, setLogin] = useState({
+export default function SignUp() {
+  const [signup, setSignup] = useState({
     username: '',
     password: '',
     companyId: '',
   });
+
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!login.username || !login.password || !login.companyId) {
+    if (!signup.username || !signup.password || signup.companyId) {
       setError('Username, password, and company required');
       return;
     }
-
     setIsLoading(true);
-    try {
-      const response = await postAuth(login);
-      if (response == 200) {
-        navigate('/calendar');
-      } else {
-        setError('Invalid credentials');
-      }
-    } catch (error) {
-      console.error('Error: ', error);
-      setError('Error logging in. Please try again later.');
-    } finally {
-      setIsLoading(false);
-    }
+    // then confirm user
   };
 
+  // On update of input value, set new value
   const handleInput = (e) => {
-    setLogin((o) => ({ ...o, [e.target.name]: e.target.value }));
+    // Update the login values according to targeted name and value of event
+    setSignup((o) => ({ ...o, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -46,7 +33,7 @@ export default function LogIn() {
         <div className="col-md-5 box">
           <form onSubmit={handleSubmit}>
             <div className="info mt-5 ml-4">
-              <h1>Log In</h1>
+              <h1>Sign Up</h1>
               {error && (
                 <div style={{ color: 'red' }} role="alert">
                   {error}
@@ -58,7 +45,6 @@ export default function LogIn() {
                   type="text"
                   className="form-control mt-1"
                   id="username"
-                  name="username"
                   onChange={handleInput}
                   aria-required="true"
                   aria-invalid={!!error}
@@ -70,37 +56,35 @@ export default function LogIn() {
                   className="form-control mt-1"
                   id="password"
                   type="password"
-                  name="password"
                   onChange={handleInput}
                   aria-required="true"
                   aria-invalid={!!error}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="companyId">Company Id:</label>
+                <label htmlFor="companyId">Company ID:</label>
                 <input
                   type="text"
                   className="form-control mt-1"
                   onChange={handleInput}
                   id="companyId"
-                  name="companyId"
                   aria-required="true"
                   aria-invalid={!!error}
                 />
               </div>
               <button
                 type="submit"
-                className="btn btn-primary btn-lg mt-3"
+                className="btn btn-success btn-lg mt-3"
                 disabled={isLoading}
               >
-                {isLoading ? 'Loading ...' : 'Login'}
+                {isLoading ? 'Loading ...' : 'Sign Up'}
               </button>
               <a
-                className="btn btn-success mt-3 btn-lg"
+                className="btn btn-primary mt-3 btn-lg"
                 style={{ marginLeft: '1rem' }}
-                href={`/signup`}
+                href={`/login`}
               >
-                Sign Up
+                Log In
               </a>
             </div>
           </form>
