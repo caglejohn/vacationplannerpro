@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  authdb:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB1_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - authdbdata:/var/lib/postgresql/data
+
+  vacationdb:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB2_NAME}
+    ports:
+      - "5433:5432"
+    volumes:
+      - vacationdbdata:/var/lib/postgresql/data
+
+  auditdb:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB3_NAME}
+    ports:
+      - "5434:5432"
+    volumes:
+      - auditdbdata:/var/lib/postgresql/data
+
+volumes:
+  authdbdata:
+  vacationdbdata:
+  auditdbdata:
