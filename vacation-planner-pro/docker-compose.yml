@@ -9,6 +9,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
+      - ./src/main/resources/db/authdb_init.sql:/docker-entrypoint-initdb.d/authdb_init.sql
       - authdbdata:/var/lib/postgresql/data
 
   vacationdb:
@@ -20,6 +21,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
+      - ./src/main/resources/db/vacationdb_init.sql:/docker-entrypoint-initdb.d/vacationdb_init.sql
       - vacationdbdata:/var/lib/postgresql/data
 
   auditdb:
@@ -31,6 +33,7 @@ services:
     ports:
       - "5434:5432"
     volumes:
+      - ./src/main/resources/db/auditdb_init.sql:/docker-entrypoint-initdb.d/auditdb_init.sql
       - auditdbdata:/var/lib/postgresql/data
 
 volumes:
