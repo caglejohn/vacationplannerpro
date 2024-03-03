@@ -28,7 +28,9 @@ export const postSignup = async (user) => {
     ...user,
     companyId: companyIdAsNumber,
   };
-  const resp = await plannerApi.post('/signup', userParsed);
+  const resp = await plannerApi.post('/signup', userParsed, {
+    withCredentials: true,
+  });
   return resp.status;
 };
 
