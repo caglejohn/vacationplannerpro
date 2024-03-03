@@ -66,6 +66,7 @@ app.post("/login", (req, res) => {
 
 app.post("/signup", (req, res) => {
   const { username, password, companyId } = req.body;
+  console.log(req.body);
   const users = loadUsers();
 
   const existingUser = users.find(
@@ -81,6 +82,30 @@ app.post("/signup", (req, res) => {
   saveUsers(users);
 
   res.status(201).json({ message: "User created successfully" });
+});
+
+app.get("/calendar", (req, res) => {
+  const { username, password, companyId } = req.body;
+  const users = loadUsers();
+
+  const user = users.find(
+    (user) =>
+      user.username === username &&
+      user.password === password &&
+      user.companyId === companyId
+  );
+
+  if (user) {
+    const authToken = "auth-token";
+    res.cookie("authToken", authToken, {
+      httpOnly: false,
+      sameSite: "none",
+      secure: true,
+    });
+    res.status(200).json({ message: "OK" });
+  } else {
+    res.status(401).json({ message: "Unauthorized" });
+  }
 });
 
 app.listen(PORT, () => {

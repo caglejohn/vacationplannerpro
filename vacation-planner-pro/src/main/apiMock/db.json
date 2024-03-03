@@ -14,47 +14,5 @@
       "companyId": 1,
       "accruals": 8
     }
-  ],
-  "days": [
-    {
-      "id": 1,
-      "month": 2,
-      "day": 1,
-      "holiday": false,
-      "weekend": false
-    },
-    {
-      "id": 2,
-      "month": 2,
-      "day": 2,
-      "holiday": false,
-      "weekend": false
-    }
-  ],
-  "vacationdays": [
-    {
-      "id": 1,
-      "userId": 1,
-      "dayId": 2,
-      "hours": 8
-    },
-    {
-      "id": 2,
-      "userId": 2,
-      "dayId": 2,
-      "hours": 8
-    },
-    {
-      "userId": 1,
-      "dayId": 2,
-      "hours": "8",
-      "id": 3
-    },
-    {
-      "userId": 1,
-      "dayId": 2,
-      "hours": "4",
-      "id": 4
-    }
   ]
 }

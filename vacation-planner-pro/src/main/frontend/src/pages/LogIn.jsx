@@ -53,7 +53,7 @@ export default function LogIn() {
                 </div>
               )}
               <div className="form-group">
-                <label htmlFor="username">User Name:</label>
+                <label htmlFor="username">Username:</label>
                 <input
                   type="text"
                   className="form-control mt-1"
