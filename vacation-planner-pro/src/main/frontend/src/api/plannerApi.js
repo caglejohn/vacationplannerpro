@@ -16,7 +16,7 @@ export const postAuth = async (user) => {
   const resp = await plannerApi.post('/login', userParsed, {
     withCredentials: true,
   });
-  return resp.status;
+  return resp;
 };
 
 export const postSignup = async (user) => {

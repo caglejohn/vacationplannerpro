@@ -1,107 +1,187 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { postAuth } from '../api/plannerApi';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 
 export default function LogIn() {
-  const [login, setLogin] = useState({
-    username: '',
-    password: '',
-    companyId: '',
-  });
-  const [error, setError] = useState('');
+  const loginRef = useRef();
+
+  const [validUsername, setValidUsername] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+  const [validCompany, setValidCompany] = useState(true);
+
+  const usernameRegex = /^[a-zA-Z0-9_]{5,15}$/;
+  const passwordRegex = /.{8,24}/;
+  const companyRegex = /^[0-9]+$/;
+
+  const [formError, setFormError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!login.username || !login.password || !login.companyId) {
-      setError('Username, password, and company required');
+    setIsLoading(true);
+    let valC = validateCompany();
+    let valU = validateUsername();
+    let valP = validatePassword();
+    if (!valU || !valC || !valP) {
+      setIsLoading(false);
       return;
     }
-
-    setIsLoading(true);
     try {
-      const response = await postAuth(login);
-      if (response == 200) {
+      const user = {
+        username: loginRef.current.username.value,
+        password: loginRef.current.password.value,
+        companyId: loginRef.current.companyId.value,
+      };
+      const response = await postAuth(user);
+      if (response.status == 200) {
         navigate('/calendar');
-      } else {
-        setError('Invalid credentials');
       }
     } catch (error) {
-      console.error('Error: ', error);
-      setError('Error logging in. Please try again later.');
+      setFormError('Invalid login credentials');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleInput = (e) => {
-    setLogin((o) => ({ ...o, [e.target.name]: e.target.value }));
-  };
+  function validateUsername() {
+    const result = usernameRegex.test(loginRef.current.username.value);
+    setValidUsername(result);
+    return result;
+  }
+
+  function validatePassword() {
+    const result = passwordRegex.test(loginRef.current.password.value);
+    setValidPassword(result);
+    return result;
+  }
+
+  function validateCompany() {
+    const result = companyRegex.test(loginRef.current.companyId.value);
+    setValidCompany(result);
+    return result;
+  }
 
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-5 box">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} ref={loginRef}>
             <div className="info mt-5 ml-4">
               <h1>Log In</h1>
-              {error && (
-                <div style={{ color: 'red' }} role="alert">
-                  {error}
-                </div>
+              {formError && (
+                <p className="text-danger font-weight-bold" role="alert">
+                  {formError}
+                </p>
               )}
-              <div className="form-group">
-                <label htmlFor="username">Username:</label>
+              <div className="form-group mb-2">
+                <label htmlFor="username">
+                  Username:
+                  {!validUsername && (
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
+                      <i
+                        className="fa fa-times text-danger ml-6"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  )}
+                </label>
                 <input
                   type="text"
-                  className="form-control mt-1"
+                  className="form-control mt-1 mb-0"
                   id="username"
                   name="username"
-                  onChange={handleInput}
+                  maxLength={20}
                   aria-required="true"
-                  aria-invalid={!!error}
+                  aria-invalid={!!validUsername}
+                  aria-describedby="usernote"
                 />
+                {!validUsername && (
+                  <small
+                    className="text-danger"
+                    style={{ fontWeight: 400 }}
+                    role="alert"
+                    id="usernote"
+                  >
+                    5-15 characters and/or underscores
+                  </small>
+                )}
               </div>
-              <div className="form-group">
-                <label htmlFor="password">Password:</label>
+              <div className="form-group mb-2">
+                <label htmlFor="password">
+                  Password:
+                  {!validPassword && (
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
+                      <i
+                        className="fa fa-times text-danger ml-6"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  )}
+                </label>
                 <input
-                  className="form-control mt-1"
+                  className="form-control mt-1 mb-0"
                   id="password"
                   type="password"
                   name="password"
-                  onChange={handleInput}
+                  maxLength={30}
                   aria-required="true"
-                  aria-invalid={!!error}
+                  aria-invalid={!!validPassword}
+                  aria-describedby="passwordnote"
                 />
+                {!validPassword && (
+                  <small className="text-danger" role="alert" id="passwordnote">
+                    8-24 characters long
+                  </small>
+                )}
               </div>
-              <div className="form-group">
-                <label htmlFor="companyId">Company Id:</label>
+              <div className="form-group mb-1">
+                <label htmlFor="companyId">
+                  Company Id:
+                  {!validCompany && (
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
+                      <i
+                        className="fa fa-times text-danger ml-6"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  )}
+                </label>
                 <input
                   type="text"
-                  className="form-control mt-1"
-                  onChange={handleInput}
+                  className="form-control mt-1 mb-0"
                   id="companyId"
                   name="companyId"
+                  maxLength={10}
                   aria-required="true"
-                  aria-invalid={!!error}
+                  aria-invalid={!!validCompany}
+                  aria-describedby="companynote"
                 />
+                {!validCompany && (
+                  <small className="text-danger" role="alert" id="companynote">
+                    1 or more numbers
+                  </small>
+                )}
               </div>
-              <button
-                type="submit"
-                className="btn btn-primary btn-lg mt-3"
-                disabled={isLoading}
-              >
-                {isLoading ? 'Loading ...' : 'Login'}
-              </button>
-              <a
-                className="btn btn-success mt-3 btn-lg"
-                style={{ marginLeft: '1rem' }}
-                href={`/signup`}
-              >
-                Sign Up
-              </a>
+              <div>
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-lg mt-3"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Loading ...' : 'Log In'}
+                </button>
+                <p className="mt-3">
+                  Not a user yet? <a href={`/signup`}>Sign Up</a>
+                </p>
+              </div>
             </div>
           </form>
         </div>
