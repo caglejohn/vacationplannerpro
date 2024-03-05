@@ -1,4 +1,4 @@
-window.onload = function () {
+document.onload = function () {
   let nav = 0;
   let clicked = null;
 

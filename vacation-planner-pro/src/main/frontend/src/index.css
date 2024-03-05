@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
 
 body {
-  height: 1000px;
   font-family: 'Rubik', sans-serif;
 }
 .box {
@@ -13,15 +12,16 @@ body {
   margin: auto;
 }
 .box img {
-  max-width: 100%; /* Image will shrink to fit its container */
+  max-width: 90%;
   height: auto;
 }
 h1 {
-  font-size: 100px;
-  color: white;
-  text-align: center;
+  font-size: 80px;
+  color: rgb(255, 255, 255);
   padding-top: 60px;
-  border-radius: 5px;
+  font-weight: 400;
+  -webkit-text-stroke-width: 1.9px;
+  -webkit-text-stroke-color: rgb(38, 42, 90);
 }
 input {
   margin: 15px auto;

@@ -96,7 +96,7 @@ export default function SignUp() {
       <div className="row">
         <div className="col-md-5 box">
           <form onSubmit={handleSubmit}>
-            <div className="info mt-5 ml-4">
+            <div className="info ml-4">
               <h1>Sign Up</h1>
               {error && (
                 <p style={{ color: 'red' }} role="alert" aria-live="assertive">
@@ -107,7 +107,9 @@ export default function SignUp() {
                 <label htmlFor="username">
                   Username:
                   {validUsername && (
-                    <span style={{ marginLeft: '5px' }}>
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
                       <i
                         className="fa fa-check text-success ml-6"
                         aria-hidden="true"
@@ -115,7 +117,9 @@ export default function SignUp() {
                     </span>
                   )}
                   {!validUsername && username && (
-                    <span style={{ marginLeft: '5px' }}>
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
                       <i
                         className="fa fa-times text-danger ml-6"
                         aria-hidden="true"
@@ -152,7 +156,9 @@ export default function SignUp() {
                 <label htmlFor="password">
                   Password:
                   {validPassword && (
-                    <span style={{ marginLeft: '5px' }}>
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
                       <i
                         className="fa fa-check text-success ml-6"
                         aria-hidden="true"
@@ -160,7 +166,9 @@ export default function SignUp() {
                     </span>
                   )}
                   {!validPassword && password && (
-                    <span style={{ marginLeft: '5px' }}>
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
                       <i
                         className="fa fa-times text-danger ml-6"
                         aria-hidden="true"
@@ -193,7 +201,9 @@ export default function SignUp() {
                 <label htmlFor="match">
                   Confirm password:
                   {validMatch && match && (
-                    <span style={{ marginLeft: '5px' }}>
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
                       <i
                         className="fa fa-check text-success ml-6"
                         aria-hidden="true"
@@ -201,7 +211,9 @@ export default function SignUp() {
                     </span>
                   )}
                   {!validMatch && match && (
-                    <span style={{ marginLeft: '5px' }}>
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
                       <i
                         className="fa fa-times text-danger ml-6"
                         aria-hidden="true"
@@ -234,7 +246,9 @@ export default function SignUp() {
                 <label htmlFor="companyId">
                   Company Id:
                   {validCompany && company && (
-                    <span style={{ marginLeft: '5px' }}>
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
                       <i
                         className="fa fa-check text-success ml-6"
                         aria-hidden="true"
@@ -242,7 +256,9 @@ export default function SignUp() {
                     </span>
                   )}
                   {!validCompany && company && (
-                    <span style={{ marginLeft: '5px' }}>
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
                       <i
                         className="fa fa-times text-danger ml-6"
                         aria-hidden="true"
@@ -284,7 +300,7 @@ export default function SignUp() {
               >
                 {isLoading ? 'Loading ...' : 'Sign Up'}
               </button>
-              <p className="mt-2">
+              <p className="mt-3">
                 Already registered? <a href={`/login`}>Log In</a>
               </p>
             </div>
