@@ -12,6 +12,6 @@ describe('LogIn', () => {
     const image = getByAltText('Company Logo');
 
     expect(image).toBeInTheDocument();
-    expect(image.src).toContain('/logo.jpeg');
+    expect(image.src).toContain('/logo-crop.jpeg');
   });
 });

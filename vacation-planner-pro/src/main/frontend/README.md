@@ -41,15 +41,3 @@ To make desired changes to the frontend:
 3. While in the directory `src/main/frontend`, enter `npm run dev`.
 4. Open the localhost link to view changes. Vite does hot reloads on changes, so you only need to enter `npm run dev` once, and Vite will automatically refresh the view upon saves.
 5. If committing, in the directory `src/main/frontend`, run `npm run lint` to check for bugs
-
-### Building Changes to the Frontend
-
-To build changes to the frontend:
-
-1. Save the files.
-2. In the directory `src/main/frontend`, run `npm run lint` to check for bugs
-3. In same directory, enter `npm run build`.
-4. The build will be copied into the folder `src/main/frontend/dist`
-5. Delete the old build-- remove contents of `src/main/webApp`
-6. While in the directory `vacationplannerpro/vacation-planner-pro/`, enter `mvn process-resources` to get build from dist -> webApp
-7. In the same directory, enter `mvn liberty:dev` to view new build
