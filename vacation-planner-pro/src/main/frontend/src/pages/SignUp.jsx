@@ -94,10 +94,10 @@ export default function SignUp() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-5 box">
-          <form onSubmit={handleSubmit}>
-            <div className="info ml-4">
-              <h1>Sign Up</h1>
+        <div className="col-md-6 box pt-4">
+          <div className="login-box">
+            <form onSubmit={handleSubmit}>
+              <h1 className="text-center">Sign Up</h1>
               {error && (
                 <p style={{ color: 'red' }} role="alert" aria-live="assertive">
                   {error}
@@ -148,8 +148,6 @@ export default function SignUp() {
                   id="usernote"
                 >
                   5 to 15 characters long
-                  <br />
-                  Only alphanumeric characters & underscores
                 </p>
               )}
               <div className="form-group">
@@ -272,6 +270,7 @@ export default function SignUp() {
                   className="form-control mt-1"
                   onChange={(e) => setCompany(e.target.value)}
                   id="companyId"
+                  autoComplete="off"
                   aria-required="true"
                   aria-invalid={validCompany ? 'false' : 'true'}
                   aria-describedby="companynote"
@@ -287,9 +286,10 @@ export default function SignUp() {
                   At least 1 or more numbers
                 </p>
               )}
+
               <button
                 type="submit"
-                className="btn btn-success btn-lg mt-1"
+                className="btn btn-success btn-lg"
                 disabled={
                   isLoading ||
                   !validCompany ||
@@ -300,17 +300,26 @@ export default function SignUp() {
               >
                 {isLoading ? 'Loading ...' : 'Sign Up'}
               </button>
-              <p className="mt-3">
-                Already registered? <a href={`/login`}>Log In</a>
-              </p>
-            </div>
-          </form>
+
+              <hr></hr>
+
+              <a
+                href={`/login`}
+                className="btn btn-outline-primary w-100"
+                disabled={isLoading}
+              >
+                Log In
+              </a>
+            </form>
+          </div>
         </div>
-        <div
-          className="col-md-7 box"
-          style={{ paddingLeft: '0px', paddingRight: '5rem' }}
-        >
-          <img src="/logo.jpeg" alt="Company Logo" id="company-logo" />
+        <div className="col-md-6 box" style={{ paddingTop: '3rem' }}>
+          <div
+            className="image-container"
+            style={{ marginRight: '6rem', padding: '3rem' }}
+          >
+            <img src="/logo-crop.jpeg" alt="Company Logo" id="company-logo" />
+          </div>
         </div>
       </div>
     </div>
