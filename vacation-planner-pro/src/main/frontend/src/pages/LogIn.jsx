@@ -66,10 +66,10 @@ export default function LogIn() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-5 box">
-          <form onSubmit={handleSubmit} ref={loginRef}>
-            <div className="info mt-5 ml-4">
-              <h1>Log In</h1>
+        <div className="col-md-6 box pt-5">
+          <div className="login-box">
+            <form onSubmit={handleSubmit} ref={loginRef}>
+              <h1 className="text-center">Log In</h1>
               {formError && (
                 <p className="text-danger font-weight-bold" role="alert">
                   {formError}
@@ -155,7 +155,7 @@ export default function LogIn() {
                   )}
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control mt-1 mb-0"
                   id="companyId"
                   name="companyId"
@@ -178,18 +178,26 @@ export default function LogIn() {
                 >
                   {isLoading ? 'Loading ...' : 'Log In'}
                 </button>
-                <p className="mt-3">
-                  Not a user yet? <a href={`/signup`}>Sign Up</a>
-                </p>
+                <hr></hr>
+
+                <a
+                  href={`/signup`}
+                  className="btn btn-outline-success w-100"
+                  disabled={isLoading}
+                >
+                  Sign Up
+                </a>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-        <div
-          className="col-md-7 box"
-          style={{ paddingLeft: '0px', paddingRight: '5rem' }}
-        >
-          <img src="/logo.jpeg" alt="Company Logo" id="company-logo" />
+        <div className="col-md-6 box" style={{ paddingTop: '3rem' }}>
+          <div
+            className="image-container"
+            style={{ marginRight: '6rem', padding: '3rem' }}
+          >
+            <img src="/logo-crop.jpeg" alt="Company Logo" id="company-logo" />
+          </div>
         </div>
       </div>
     </div>
