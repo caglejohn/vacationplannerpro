@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
 import { postAuth } from '../api/plannerApi';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/Header';
 
 export default function LogIn() {
   const loginRef = useRef();

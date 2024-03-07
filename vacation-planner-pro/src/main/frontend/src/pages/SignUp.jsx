@@ -3,54 +3,83 @@ import { postSignup } from '../api/plannerApi';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
+  const [form, setForm] = useState({
+    username: '',
+    password: '',
+    match: '',
+    company: '',
+  });
+  const [valid, setValid] = useState({
+    username: false,
+    password: false,
+    match: false,
+    company: false,
+  });
+  const [focus, setfocus] = useState({
+    username: false,
+    password: false,
+    match: false,
+    company: false,
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
+  const signupRef = useRef();
+
   const usernameRegex = /^[a-zA-Z0-9_]{5,15}$/;
   const passwordRegex = /.{8,24}/;
   const companyRegex = /^[0-9]+$/;
 
-  const signupRef = useRef();
-  const errorRef = useRef();
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-  const [username, setUsername] = useState('');
-  const [validUsername, setValidUsername] = useState(false);
-  const [usernameFocus, setUsernameFocus] = useState(false);
+  useEffect(() => {
+    signupRef.current.focus();
+  }, [signupRef]);
 
-  const [password, setPassword] = useState('');
-  const [validPassword, setValidPassword] = useState(false);
-  const [passwordFocus, setPasswordFocus] = useState(false);
-
-  const [match, setMatch] = useState('');
-  const [validMatch, setValidMatch] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
-
-  const [company, setCompany] = useState('');
-  const [validCompany, setValidCompany] = useState(false);
-  const [companyFocus, setCompanyFocus] = useState(false);
-
-  const [error, setError] = useState('');
-  const [isValid, setIsValid] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const navigate = useNavigate();
+  useEffect(() => {
+    const { username, password, match, company } = form;
+    const userVal = usernameRegex.test(username);
+    const passwordVal = passwordRegex.test(password);
+    const matchVal = password === match;
+    const companyVal = companyRegex.test(company);
+    setValid({
+      username: userVal,
+      password: passwordVal,
+      match: matchVal,
+      company: companyVal,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const valUser = usernameRegex.test(username);
-    const valPassword = passwordRegex.test(password);
-    const valCompany = companyRegex.test(company);
-    if (!valUser || !valPassword || !valCompany) {
+    const { username, password, company } = form;
+
+    const isValid = Object.values(valid).every((val) => val === true);
+    if (!isValid) {
       setError('Invalid submission');
+      setIsLoading(false);
       return;
     }
+
     const newUser = {
       username: username.trim(),
       password: password,
       companyId: company,
       accruals: 8,
     };
+
     try {
-      const response = await postSignup(newUser);
-      if (response == 201) {
+      const resp = await postSignup(newUser);
+      if (resp === 201) {
         navigate('/login');
       } else {
         setError('Invalid credentials');
@@ -63,33 +92,12 @@ export default function SignUp() {
     }
   };
 
-  useEffect(() => {
-    signupRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    const result = usernameRegex.test(username);
-    setValidUsername(result);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username]);
-
-  useEffect(() => {
-    const result = passwordRegex.test(password);
-    setValidPassword(result);
-    const isMatch = password === match ? true : false;
-    setValidMatch(isMatch);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [password, match]);
-
-  useEffect(() => {
-    const result = companyRegex.test(company);
-    setValidCompany(result);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [company]);
-
-  useEffect(() => {
-    setError('');
-  }, [username, password, match, company]);
+  const handleFocus = (field, isFocused) => {
+    setfocus((prev) => ({
+      ...prev,
+      [field]: isFocused,
+    }));
+  };
 
   return (
     <div className="container-fluid">
@@ -99,14 +107,14 @@ export default function SignUp() {
             <form onSubmit={handleSubmit}>
               <h1 className="text-center">Sign Up</h1>
               {error && (
-                <p style={{ color: 'red' }} role="alert" aria-live="assertive">
+                <p className="text-danger" role="alert" aria-live="assertive">
                   {error}
                 </p>
               )}
               <div className="form-group">
                 <label htmlFor="username">
                   Username:
-                  {validUsername && (
+                  {valid.username && (
                     <span
                       style={{ marginLeft: '5px', verticalAlign: 'middle' }}
                     >
@@ -116,7 +124,7 @@ export default function SignUp() {
                       ></i>
                     </span>
                   )}
-                  {!validUsername && username && (
+                  {!valid.username && form.username && (
                     <span
                       style={{ marginLeft: '5px', verticalAlign: 'middle' }}
                     >
@@ -130,19 +138,20 @@ export default function SignUp() {
                 <input
                   type="text"
                   className="form-control mt-1"
+                  name="username"
                   autoComplete="off"
                   id="username"
                   ref={signupRef}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={handleInput}
                   aria-required="true"
-                  aria-invalid={validUsername ? 'false' : 'true'}
+                  aria-invalid={!!valid.username}
                   aria-describedby="usernote"
-                  onFocus={() => setUsernameFocus(true)}
-                  onBlur={() => setUsernameFocus(false)}
+                  onFocus={() => handleFocus('username', true)}
+                  onBlur={() => handleFocus('username', false)}
                   maxLength={20}
                 />
               </div>
-              {usernameFocus && !validUsername && username && (
+              {focus.username && !valid.username && form.username && (
                 <p
                   className="form-text text-white bg-dark p-2 rounded"
                   id="usernote"
@@ -153,7 +162,7 @@ export default function SignUp() {
               <div className="form-group">
                 <label htmlFor="password">
                   Password:
-                  {validPassword && (
+                  {valid.password && (
                     <span
                       style={{ marginLeft: '5px', verticalAlign: 'middle' }}
                     >
@@ -163,7 +172,7 @@ export default function SignUp() {
                       ></i>
                     </span>
                   )}
-                  {!validPassword && password && (
+                  {!valid.password && form.password && (
                     <span
                       style={{ marginLeft: '5px', verticalAlign: 'middle' }}
                     >
@@ -178,16 +187,17 @@ export default function SignUp() {
                   className="form-control mt-1"
                   id="password"
                   type="password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
+                  onChange={handleInput}
                   maxLength={30}
                   aria-required="true"
-                  aria-invalid={validPassword ? 'false' : 'true'}
+                  aria-invalid={!!valid.password}
                   aria-describedby="passwordnote"
-                  onFocus={() => setPasswordFocus(true)}
-                  onBlur={() => setPasswordFocus(false)}
+                  onFocus={() => handleFocus('password', true)}
+                  onBlur={() => handleFocus('password', false)}
                 />
               </div>
-              {passwordFocus && !validPassword && (
+              {focus.password && !valid.password && (
                 <p
                   className="form-text text-white bg-dark p-2 rounded"
                   id="passwordnote"
@@ -198,22 +208,22 @@ export default function SignUp() {
               <div className="form-group">
                 <label htmlFor="match">
                   Confirm password:
-                  {validMatch && match && (
+                  {valid.match && form.match && (
                     <span
                       style={{ marginLeft: '5px', verticalAlign: 'middle' }}
                     >
                       <i
-                        className="fa fa-check text-success ml-6"
+                        className="fa fa-check text-success ml-1"
                         aria-hidden="true"
                       ></i>
                     </span>
                   )}
-                  {!validMatch && match && (
+                  {!valid.match && form.match && (
                     <span
                       style={{ marginLeft: '5px', verticalAlign: 'middle' }}
                     >
                       <i
-                        className="fa fa-times text-danger ml-6"
+                        className="fa fa-times text-danger ml-1"
                         aria-hidden="true"
                       ></i>
                     </span>
@@ -223,16 +233,17 @@ export default function SignUp() {
                   className="form-control mt-1"
                   id="match"
                   type="password"
+                  name="match"
                   maxLength={30}
-                  onChange={(e) => setMatch(e.target.value)}
+                  onChange={handleInput}
                   aria-required="true"
-                  aria-invalid={validMatch ? 'false' : 'true'}
-                  onFocus={() => setMatchFocus(true)}
-                  onBlur={() => setMatchFocus(false)}
+                  aria-invalid={!!valid.match}
+                  onFocus={() => handleFocus('match', true)}
+                  onBlur={() => handleFocus('match', false)}
                   aria-describedby="matchnote"
                 />
               </div>
-              {matchFocus && !validMatch && (
+              {focus.match && !valid.match && (
                 <p
                   className="form-text text-white bg-dark p-2 rounded"
                   id="matchnote"
@@ -243,7 +254,7 @@ export default function SignUp() {
               <div className="form-group">
                 <label htmlFor="companyId">
                   Company Id:
-                  {validCompany && company && (
+                  {valid.company && form.company && (
                     <span
                       style={{ marginLeft: '5px', verticalAlign: 'middle' }}
                     >
@@ -253,7 +264,7 @@ export default function SignUp() {
                       ></i>
                     </span>
                   )}
-                  {!validCompany && company && (
+                  {!valid.company && form.company && (
                     <span
                       style={{ marginLeft: '5px', verticalAlign: 'middle' }}
                     >
@@ -265,20 +276,21 @@ export default function SignUp() {
                   )}
                 </label>
                 <input
-                  type="text"
+                  type="number"
+                  name="company"
                   maxLength={10}
                   className="form-control mt-1"
-                  onChange={(e) => setCompany(e.target.value)}
+                  onChange={handleInput}
                   id="companyId"
                   autoComplete="off"
                   aria-required="true"
-                  aria-invalid={validCompany ? 'false' : 'true'}
+                  aria-invalid={!!valid.company}
                   aria-describedby="companynote"
-                  onFocus={() => setCompanyFocus(true)}
-                  onBlur={() => setCompanyFocus(false)}
+                  onFocus={() => handleFocus('company', true)}
+                  onBlur={() => handleFocus('company', false)}
                 />
               </div>
-              {companyFocus && !validCompany && (
+              {focus.company && !valid.company && (
                 <p
                   className="form-text text-white bg-dark p-2 rounded"
                   id="companynote"
@@ -292,10 +304,10 @@ export default function SignUp() {
                 className="btn btn-success btn-lg"
                 disabled={
                   isLoading ||
-                  !validCompany ||
-                  !validMatch ||
-                  !validPassword ||
-                  !validUsername
+                  !valid.company ||
+                  !valid.match ||
+                  !valid.password ||
+                  !valid.username
                 }
               >
                 {isLoading ? 'Loading ...' : 'Sign Up'}

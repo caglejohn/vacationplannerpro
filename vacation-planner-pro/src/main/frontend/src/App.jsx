@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
   createBrowserRouter,
@@ -16,6 +15,11 @@ const isAuthenticated = () => {
     .split(';')
     .find((cookie) => cookie.trim().startsWith('authToken'));
   return cookie !== undefined;
+};
+
+// eslint-disable-next-line react/prop-types
+const ProtectedRoute = ({ element }) => {
+  return isAuthenticated() ? element : <Navigate to="/login" />;
 };
 
 const routes = [
@@ -38,7 +42,7 @@ const routes = [
       },
       {
         path: 'calendar',
-        element: <Calendar />,
+        element: <ProtectedRoute element={<Calendar />} />,
       },
       {
         path: 'signup',
