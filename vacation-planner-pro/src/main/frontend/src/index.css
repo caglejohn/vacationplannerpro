@@ -10,6 +10,13 @@ body {
   border-radius: 1rem;
 }
 
+.image-container {
+  height: 100vh;
+  background-image: url('/logo-bg.png');
+  background-size: cover;
+  background-position: center;
+}
+
 .login-box button {
   width: 100%;
 }

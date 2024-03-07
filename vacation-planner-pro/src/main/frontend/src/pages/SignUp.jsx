@@ -82,11 +82,11 @@ export default function SignUp() {
       if (resp === 201) {
         navigate('/login');
       } else {
-        setError('Invalid credentials');
+        setError('Error signing up, please try later');
       }
     } catch (error) {
       console.error('Error: ', error);
-      setError('Error signing up. Please try again later.');
+      setError(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -107,7 +107,11 @@ export default function SignUp() {
             <form onSubmit={handleSubmit}>
               <h1 className="text-center">Sign Up</h1>
               {error && (
-                <p className="text-danger" role="alert" aria-live="assertive">
+                <p
+                  className="text-danger mb-2"
+                  role="alert"
+                  aria-live="assertive"
+                >
                   {error}
                 </p>
               )}
@@ -325,14 +329,7 @@ export default function SignUp() {
             </form>
           </div>
         </div>
-        <div className="col-md-6 box" style={{ paddingTop: '3rem' }}>
-          <div
-            className="image-container"
-            style={{ marginRight: '6rem', padding: '3rem' }}
-          >
-            <img src="/logo-crop.jpeg" alt="Company Logo" id="company-logo" />
-          </div>
-        </div>
+        <div className="col-md-6 image-container"></div>
       </div>
     </div>
   );
