@@ -55,7 +55,7 @@
     <dataSource id="VacationDataSource" jndiName="jdbc/vacationDatabase">
         <jdbcDriver libraryRef="postgresql-library"/>
         <properties.postgresql serverName="localhost"
-                               portNumber="5432"
+                               portNumber="5433"
                                databaseName="${env.DB2_NAME}"
                                user="${env.DB_USERNAME}"
                                password="${env.DB_PASSWORD}"/>
@@ -65,7 +65,7 @@
     <dataSource id="AuditDataSource" jndiName="jdbc/auditDatabase">
         <jdbcDriver libraryRef="postgresql-library"/>
         <properties.postgresql serverName="localhost"
-                               portNumber="5432"
+                               portNumber="5434"
                                databaseName="${env.DB3_NAME}"
                                user="${env.DB_USERNAME}"
                                password="${env.DB_PASSWORD}"/>
@@ -73,7 +73,7 @@
 
     <!-- PostgreSQL JDBC Driver Library -->
     <library id="postgresql-library">
-        <file name="${server.config.dir}/postgresql-42.2.8.jar"/>
+        <file name="${server.config.dir}/postgresql-42.7.2.jar"/>
     </library>
     <!-- ==================== PostgreSQL Databases Configuration End ==================== -->
 
