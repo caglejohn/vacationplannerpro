@@ -31,7 +31,7 @@ public class Planner {
         if(pattern.length%14!=0) throw new RuntimeException("pattern length error");
         if(calendar.get(startInd).getStart()[3]!=0) throw new RuntimeException("startInd must point to a AM HalfDay");
         System.out.println("starting at: "+calendar.get(startInd));
-        int ind=2*(calendar.get(startInd).getId().getCalId()-1);
+        int ind=2*(calendar.get(startInd).getId()-1);
         startInd-=ind;
         System.out.println("start ind: "+ind);
         while(ind+startInd<=endInd&&ind+startInd<calendar.size()){
