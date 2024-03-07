@@ -4,6 +4,7 @@ const fs = require("fs");
 const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const PORT = 3000;
@@ -52,15 +53,26 @@ app.post("/login", (req, res) => {
   );
 
   if (user) {
-    const authToken = "auth-token";
-    res.cookie("authToken", authToken, {
-      httpOnly: false,
-      sameSite: "none",
+    const authToken = jwt.sign(
+      { username: user.username },
+      "jwt-auth-token-secret-key",
+      { expiresIn: "1m" }
+    );
+    const refreshToken = jwt.sign(
+      { username: user.username },
+      "jwt-refresh-token-secret-key",
+      { expiresIn: "5m" }
+    );
+    res.cookie("authToken", authToken, { maxAge: 60000 });
+    res.cookie("refreshToken", refreshToken, {
+      maxAge: 300000,
+      httpOnly: true,
       secure: true,
+      sameSite: "strict",
     });
-    res.status(200).json({ message: "OK" });
+    res.status(200).json({ valid: true, message: "OK" });
   } else {
-    res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ valid: false, message: "Unauthorized" });
   }
 });
 
@@ -73,7 +85,9 @@ app.post("/signup", (req, res) => {
     (user) => user.username === username && user.companyId === companyId
   );
   if (existingUser) {
-    res.status(400).json({ message: "Username already exists in system" });
+    res
+      .status(400)
+      .json({ valid: false, message: "Username already exists in system" });
     return;
   }
 
@@ -84,28 +98,47 @@ app.post("/signup", (req, res) => {
   res.status(201).json({ message: "User created successfully" });
 });
 
-app.get("/calendar", (req, res) => {
-  const { username, password, companyId } = req.body;
-  const users = loadUsers();
-
-  const user = users.find(
-    (user) =>
-      user.username === username &&
-      user.password === password &&
-      user.companyId === companyId
-  );
-
-  if (user) {
-    const authToken = "auth-token";
-    res.cookie("authToken", authToken, {
-      httpOnly: false,
-      sameSite: "none",
-      secure: true,
-    });
-    res.status(200).json({ message: "OK" });
+const refresh = (req, res) => {
+  let isValid = false;
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) {
+    return res.status(401).json({ valid: false, message: "Unauthorized" });
   } else {
-    res.status(401).json({ message: "Unauthorized" });
+    jwt.verify(authToken, "jwt-refresh-secret-key", (err, o) => {
+      if (err) {
+        return res.status(401).json({ valid: false, message: "Unauthorized" });
+      } else {
+        const authToken = jwt.sign(
+          { username: decoded.user.username },
+          "jwt-auth-token-secret-key",
+          { expiresIn: "1m" }
+        );
+        res.cookie("authToken", authToken, { maxAge: 60000 });
+        isValid = true;
+      }
+    });
   }
+  return isValid;
+};
+
+const validateUser = (req, res, next) => {
+  const authToken = req.cookies.authToken;
+  if (!authToken) {
+    if (refresh(req, res)) next();
+  } else {
+    jwt.verify(authToken, "jwt-auth-secret-key", (err, o) => {
+      if (err) {
+        return res.status(401).json({ valid: false, message: "Unauthorized" });
+      } else {
+        req.username = o.username;
+        next();
+      }
+    });
+  }
+};
+
+app.get("/calendar", validateUser, (req, res) => {
+  return res.status(200).json({ valid: true, message: "OK" });
 });
 
 app.listen(PORT, () => {

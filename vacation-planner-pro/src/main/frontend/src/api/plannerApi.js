@@ -34,26 +34,9 @@ export const postSignup = async (user) => {
   return resp.status;
 };
 
-export const getVacDays = async () => {
-  const resp = await plannerApi.get('/vacationdays');
+export const getCalendar = async () => {
+  const resp = await plannerApi.get('/calendar');
   return resp.data;
-};
-
-export const getVacDay = async ({ id }) => {
-  const resp = await plannerApi.get(`/vacationdays/${id}`, id);
-  return resp.data;
-};
-
-export const createVacDay = async (vacDay) => {
-  return await plannerApi.post(`/vacationdays/`, vacDay);
-};
-
-export const updateVacDay = async (vacDay) => {
-  return await plannerApi.patch(`/vacationdays/${vacDay.id}`, vacDay);
-};
-
-export const deleteVacDay = async ({ id }) => {
-  return await plannerApi.delete(`/vacationdays/${id}`, id);
 };
 
 export default plannerApi;
