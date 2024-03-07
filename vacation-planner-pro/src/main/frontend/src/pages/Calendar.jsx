@@ -75,19 +75,35 @@ export default function Calendar() {
     load();
 
     return () => {
-      document.getElementById('nextButton').removeEventListener('click');
-      document.getElementById('backButton').removeEventListener('click');
+      const nextButton = document.getElementById('nextButton');
+      const backButton = document.getElementById('backButton');
+
+      if (nextButton) {
+        nextButton.removeEventListener('click', () => {
+          setNav(nav + 1);
+        });
+      }
+
+      if (backButton) {
+        backButton.removeEventListener('click', () => {
+          setNav(nav - 1);
+        });
+      }
     };
   }, [nav]);
 
   return (
-    <div className="calendar">
+    <div id="cal-page">
       <div id="container">
         <div id="header">
           <div id="monthDisplay"></div>
           <div>
-            <button id="backButton">Back</button>
-            <button id="nextButton">Next</button>
+            <button className="cal-button" id="backButton">
+              Back
+            </button>
+            <button className="cal-button" id="nextButton">
+              Next
+            </button>
           </div>
         </div>
 

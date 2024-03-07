@@ -56,16 +56,16 @@ app.post("/login", (req, res) => {
     const authToken = jwt.sign(
       { username: user.username },
       "jwt-auth-token-secret-key",
-      { expiresIn: "1m" }
+      { expiresIn: "5m" }
     );
     const refreshToken = jwt.sign(
       { username: user.username },
       "jwt-refresh-token-secret-key",
-      { expiresIn: "5m" }
+      { expiresIn: "10m" }
     );
-    res.cookie("authToken", authToken, { maxAge: 60000 });
+    res.cookie("authToken", authToken, { maxAge: 300000 });
     res.cookie("refreshToken", refreshToken, {
-      maxAge: 300000,
+      maxAge: 600000,
       httpOnly: true,
       secure: true,
       sameSite: "strict",
@@ -111,9 +111,9 @@ const refresh = (req, res) => {
         const authToken = jwt.sign(
           { username: decoded.user.username },
           "jwt-auth-token-secret-key",
-          { expiresIn: "1m" }
+          { expiresIn: "5m" }
         );
-        res.cookie("authToken", authToken, { maxAge: 60000 });
+        res.cookie("authToken", authToken, { maxAge: 300000 });
         isValid = true;
       }
     });

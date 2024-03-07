@@ -70,7 +70,7 @@ export default function LogIn() {
             <form onSubmit={handleSubmit} ref={loginRef}>
               <h1 className="text-center">Log In</h1>
               {formError && (
-                <p className="text-danger font-weight-bold" role="alert">
+                <p className="text-danger font-weight-bold mb-2" role="alert">
                   {formError}
                 </p>
               )}
@@ -190,14 +190,7 @@ export default function LogIn() {
             </form>
           </div>
         </div>
-        <div className="col-md-6 box" style={{ paddingTop: '3rem' }}>
-          <div
-            className="image-container"
-            style={{ marginRight: '6rem', padding: '3rem' }}
-          >
-            <img src="/logo-crop.jpeg" alt="Company Logo" id="company-logo" />
-          </div>
-        </div>
+        <div className="col-md-6 image-container"></div>
       </div>
     </div>
   );
