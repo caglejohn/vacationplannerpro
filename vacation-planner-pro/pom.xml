@@ -119,6 +119,21 @@
                         </execution>
                     </executions>
                 </plugin>
+
+                <!-- dotenv Maven Plugin to use environment variables from .env file -->
+                <plugin>
+                    <groupId>io.github.ferstl</groupId>
+                    <artifactId>dotenv-maven-plugin</artifactId>
+                    <version>1.2.1</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>dotenv</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
             </plugins>
         </pluginManagement>
     </build>
