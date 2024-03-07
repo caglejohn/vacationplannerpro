@@ -38,4 +38,44 @@
 
     <!-- Default SSL configuration enables trust for default certificates from the Java runtime -->
     <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
+
+
+    <!-- ==================== PostgreSQL Databases Configuration Start ==================== -->
+    <!-- DataSource Configuration for auth_database -->
+    <dataSource id="AuthDataSource" jndiName="jdbc/authDatabase">
+        <jdbcDriver libraryRef="postgresql-library"/>
+        <properties.postgresql serverName="localhost"
+                               portNumber="5432"
+                               databaseName="${env.DB1_NAME}"
+                               user="${env.DB_USERNAME}"
+                               password="${env.DB_PASSWORD}"/>
+    </dataSource>
+
+    <!-- DataSource Configuration for vacation_management -->
+    <dataSource id="VacationDataSource" jndiName="jdbc/vacationDatabase">
+        <jdbcDriver libraryRef="postgresql-library"/>
+        <properties.postgresql serverName="localhost"
+                               portNumber="5432"
+                               databaseName="${env.DB2_NAME}"
+                               user="${env.DB_USERNAME}"
+                               password="${env.DB_PASSWORD}"/>
+    </dataSource>
+
+    <!-- DataSource Configuration for audit_and_security_database -->
+    <dataSource id="AuditDataSource" jndiName="jdbc/auditDatabase">
+        <jdbcDriver libraryRef="postgresql-library"/>
+        <properties.postgresql serverName="localhost"
+                               portNumber="5432"
+                               databaseName="${env.DB3_NAME}"
+                               user="${env.DB_USERNAME}"
+                               password="${env.DB_PASSWORD}"/>
+    </dataSource>
+
+    <!-- PostgreSQL JDBC Driver Library -->
+    <library id="postgresql-library">
+        <file name="${server.config.dir}/postgresql-42.2.8.jar"/>
+    </library>
+    <!-- ==================== PostgreSQL Databases Configuration End ==================== -->
+
+
 </server>
