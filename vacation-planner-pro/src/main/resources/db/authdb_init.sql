@@ -1,5 +1,5 @@
 -- Enable the 'citext' extension to allow case-insensitive text fields.
--- This command is idempotent and won cause errors if the extension
+-- This command is idempotent and won't cause errors if the extension
 -- is already enabled in the database.
 CREATE EXTENSION IF NOT EXISTS citext;
 
