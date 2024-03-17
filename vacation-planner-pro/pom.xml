@@ -44,6 +44,13 @@
             <version>3.0.0</version>
         </dependency>
 
+        <!-- OWASP Encoder Dependency for preventing XSS by safely encoding user input -->
+        <dependency>
+            <groupId>org.owasp.encoder</groupId>
+            <artifactId>encoder-jsp</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>

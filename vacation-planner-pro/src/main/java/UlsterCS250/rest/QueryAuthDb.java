@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = "/QueryUser")
-public class QueryUserServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/QueryAuthDb")
+public class QueryAuthDb extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
