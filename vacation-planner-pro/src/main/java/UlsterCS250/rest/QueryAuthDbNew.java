@@ -27,7 +27,6 @@ public class QueryAuthDbNew extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         // get database connection details from environment variables
-        // dbUrl = "jdbc:postgresql://localhost:5432/" + System.getenv("DB1_NAME");
         dbUrl = "jdbc:postgresql://localhost:5432/auth_database";
         //user = System.getenv("DB_USERNAME");
         user = "vcpp";

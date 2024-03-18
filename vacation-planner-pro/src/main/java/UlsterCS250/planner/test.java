@@ -3,10 +3,10 @@ import java.util.TimeZone;
 
 public class test {
     public static void main(String[] args){
-        Planner p = new Planner(TimeZone.getTimeZone("EST"));
-        boolean[] pattern=new boolean[]{true,true,true,true,true,true,true,false,true,true,false,false,true,true};
-        p.setWeeklyWorkPattern(0,732,pattern);
+        Calendar p = new Calendar(TimeZone.getTimeZone("EST"));
+        boolean[] pattern=new boolean[]{false,false,true,true,true,true,true,true,true,true,true,true,false,false};
+        p.setWeeklyWorkPattern(8,732,pattern);
+        p.setWorkDay(133, false);
         System.out.println(p);
-        System.out.println(Employee.generateEmployees().size());
     }
 }
