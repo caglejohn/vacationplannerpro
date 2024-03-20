@@ -190,7 +190,7 @@ export default function LogIn() {
             </form>
           </div>
         </div>
-        <div className="col-md-6 image-container"></div>
+        <div className="col-md-6 image-container2"></div>
       </div>
     </div>
   );
