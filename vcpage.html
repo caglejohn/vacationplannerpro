@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Vacation Planner</title>
+    <link rel="stylesheet" href="vcpagestyle.css">
+</head>
+<body>
+    <h1>Schedule Your Time Off</h1>
+    <form id="timeOffForm">
+        <div class="form-group">
+            <label for="leaveType">Leave Type:</label>
+            <select id="leaveType" name="leaveType" required>
+                <option value="annualLeave">Paid Leave</option>
+                <option value="sickLeave">Sick Leave</option>
+                <option value="unpaidLeave">Unpaid Leave</option>
+                <option value="maternityLeave">Maternity/Paternity Leave</option>
+            </select>
+        </div>
+      
+        <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required>
+        </div>
+        <div class="form-group">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required>
+        </div>
+        <div class="form-group">
+            <label for="reason">Reason for Leave:</label>
+            <textarea id="reason" name="reason" rows="4" required></textarea>
+        </div>
+ 
+        <button type="submit">Submit Time Off Request</button>
+    </form>
+
+    <script src="vcpage.js"></script>
+</body>
+</html>
