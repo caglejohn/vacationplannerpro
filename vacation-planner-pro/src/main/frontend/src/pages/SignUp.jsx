@@ -329,7 +329,7 @@ export default function SignUp() {
             </form>
           </div>
         </div>
-        <div className="col-md-6 image-container"></div>
+        <div className="col-md-6 image-container2"></div>
       </div>
     </div>
   );
