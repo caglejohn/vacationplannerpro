@@ -17,12 +17,14 @@
   font-size: 16px;
   outline: none;
   border-radius: 5px;
-  color: #80DDFF;
-  background-color: #EA3A3D;
+  color: #80ddff;
+  background-color: #ea3a3d;
 }
 
 .edit-button {
-  position: relative; left:15px; top:190px;
+  position: relative;
+  left: 15px;
+  top: 190px;
   margin: 0.25rem;
   padding: 0rem 0.75rem;
   cursor: pointer;
@@ -31,29 +33,30 @@
   font-size: 16px;
   outline: none;
   border-radius: 5px;
-  color: #80DDFF;
-  background-color: #EA3A3D;
+  color: #80ddff;
+  background-color: #ea3a3d;
   transform: translate(-10%, -10%);
 }
 
 #header {
-  position: relative; top:30px;
+  position: relative;
+  top: 30px;
   padding: 1rem 3rem;
-  color: #3AAAF0;
+  color: #3aaaf0;
   font-family: sans-serif;
   display: flex;
   justify-content: space-between;
   font-size: 40px;
 }
 
-.image-container {
-  left:0;
+.nav-container {
+  left: 0;
   height: 170px;
   width: 170px;
   background-size: cover;
   background-image: url('/VacationPlannerProLOGO.png');
 }
-
+/*
 .image-container2 {
   height: 1400px;
   width: 1000px;
@@ -64,7 +67,7 @@
 #container {
   width: 770;
 }
-
+*/
 #weekdays {
   justify-content: center;
   width: 100%;
@@ -102,7 +105,7 @@
 }
 
 .day:hover {
-  background-color: #FFB122;
+  background-color: #ffb122;
 }
 
 .day + #currentDay {

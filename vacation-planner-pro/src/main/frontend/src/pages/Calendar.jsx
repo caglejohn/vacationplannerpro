@@ -1,8 +1,15 @@
 import '../styles/styleCal.css';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Calendar() {
   const [nav, setNav] = useState(0);
+
+  const navigate = useNavigate();
+
+  const handleCreate = () => {
+    navigate('/calendar/create');
+  };
 
   useEffect(() => {
     const calendar = document.getElementById('calendar');
@@ -96,22 +103,26 @@ export default function Calendar() {
     <div id="cal-page">
       <div id="container">
         <div id="header">
-          <div className="image-container">
+          <div className="nav-container">
             <div className="container">
-	            <div id="button">
-	                <button className="edit-button" id="addButton">
+              <div id="button">
+                <button
+                  className="edit-button"
+                  id="addButton"
+                  onClick={handleCreate}
+                >
                   Schedule Vacation
-                  </button>
-                  <button className="edit-button" id="updateButton">
+                </button>
+                <button className="edit-button" id="updateButton">
                   Update Vacation
-                  </button>
-                  <button className="edit-button" id="cancelButton">
+                </button>
+                <button className="edit-button" id="cancelButton">
                   Cancel Vacation
-                  </button>
-		          </div>  
+                </button>
+              </div>
             </div>
           </div>
-           
+
           <div id="monthDisplay"></div>
           <div>
             <button className="cal-button" id="backButton">
@@ -135,7 +146,6 @@ export default function Calendar() {
 
         <div id="calendar"></div>
       </div>
-      <script src="./scriptCal.js"></script>{' '}
     </div>
   );
 }
