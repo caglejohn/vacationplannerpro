@@ -8,13 +8,13 @@ CREATE TABLE IF NOT EXISTS Departments (
     department_name VARCHAR(255) NOT NULL
 );
 
--- Dummy Data
+-- Departments Dummy Data
 INSERT INTO Departments (department_name) VALUES
     ('Human Resources'),
     ('Engineering'),
     ('Marketing');
 
--- Creates the 'users' table with various fields
+-- Creates the 'Employees' table with various fields
 CREATE TABLE IF NOT EXISTS Employees (
     employee_id SERIAL PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Employees (
     FOREIGN KEY (department_id) REFERENCES Departments(department_id) ON DELETE SET NULL
 );
 
--- Dummy Data
+-- Employees Dummy Data
 INSERT INTO Employees (
     username,
     password_hash,
@@ -56,7 +56,7 @@ INSERT INTO Employees (
       ('chloewilson', 'hashed_password10', 'chloewilson@example.com', 'Chloe', 'Wilson', TRUE, TRUE, NOW(), 1, 6);
 
 -- Note: The FOREIGN KEY constraint on 'department_id' in the 'users' table is set to ON DELETE SET NULL.
--- This means that if a department is deleted, the 'department_id' in the associated user records will be set to NULL.
+-- So, if a department is deleted, the 'department_id' in the associated user records will be set to NULL.
 
 -------------------------------------------------------------------------------------------
 
@@ -72,6 +72,15 @@ CREATE TABLE IF NOT EXISTS VacationProfiles (
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE -- Cascading delete with employee deletion
 );
 
+-- VacationProfiles Dummy Data
+INSERT INTO VacationProfiles (employee_id, total_vacation_days, personal_choice_days, vacation_days_taken, vacation_days_remaining, personal_choice_taken, personal_choice_days_remaining) VALUES
+    (1, 22, 3, 5, 17, 2, 1), -- More personal choice days used
+    (2, 18, 5, 0, 18, 0, 5), -- Hasn't taken any days yet
+    (3, 20, 2, 10, 10, 1, 1), -- Half of the vacation days already used
+    (4, 25, 5, 3, 22, 0, 5), -- Minimal vacation days taken
+    (5, 15, 5, 7, 8, 4, 1), -- Most personal choice days used
+    (6, 30, 10, 15, 15, 5, 5); -- High entitlement, half used
+
 -- VacationRequests Table: Manages detailed vacation requests for each employee.
 CREATE TABLE IF NOT EXISTS VacationRequests (
     request_id SERIAL PRIMARY KEY, -- Unique request identifier
@@ -80,10 +89,38 @@ CREATE TABLE IF NOT EXISTS VacationRequests (
     start_date DATE NOT NULL, -- Vacation start date
     end_date DATE NOT NULL, -- Vacation end date
     type VARCHAR(255) NOT NULL, -- Type of vacation (e.g., full day, half day, personal choice)
+    reason VARCHAR(255), -- Reason for the request
     status VARCHAR(255) NOT NULL, -- Status of the request (e.g., approved, pending, declined)
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE, -- Cascading delete with employee deletion
     FOREIGN KEY (approver_id) REFERENCES Employees(employee_id) ON DELETE SET NULL -- Approver deletion sets field to NULL
 );
+
+-- VacationRequests Dummy Data
+INSERT INTO VacationRequests (employee_id, approver_id, start_date, end_date, type, reason, status) VALUES
+    -- Employee 1's approved vacation for a family vacation
+    (1, 3, '2023-04-01', '2023-04-03', 'Full Day', 'Family vacation', 'Approved'),
+
+    -- Employee 2's approved half-day PM for a medical appointment
+    (2, 1, '2023-04-15', '2023-04-15', 'Half Day PM', 'Medical appointment', 'Approved'),
+
+    -- Employee 3's pending full-day vacation request for attending a wedding
+    (3, 2, '2023-05-05', '2023-05-06', 'Full Day', 'Attending a wedding', 'Pending'),
+
+    -- Employee 4's approved personal choice day off
+    (4, 3, '2023-06-10', '2023-06-10', 'Personal Choice', 'Personal day off', 'Approved'),
+
+    -- Employee 5's declined full-day vacation request for a summer trip
+    (5, 1, '2023-07-20', '2023-07-22', 'Full Day', 'Summer trip', 'Declined'),
+
+    -- Employee 6's approved half-day AM for a dentist appointment
+    (6, 2, '2023-08-15', '2023-08-15', 'Half Day AM', 'Dentist appointment', 'Approved'),
+
+    -- Employee 1's pending personal choice request for a long weekend getaway
+    (1, 3, '2023-09-01', '2023-09-02', 'Personal Choice', 'Long weekend getaway', 'Pending'),
+
+    -- Employee 6's approved full-day vacation for a family event
+    (6, 1, '2023-10-05', '2023-10-06', 'Full Day', 'Family event', 'Approved');
+
 
 -- DepartmentVacationsView: Provides an aggregated view of vacation requests by department.
 CREATE VIEW DepartmentVacationsView AS
@@ -109,27 +146,7 @@ CREATE TABLE IF NOT EXISTS EmployeeTimeOffs (
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE -- Cascading delete with employee deletion
 );
 
--- Dummy Data
-INSERT INTO VacationProfiles (employee_id, total_vacation_days, personal_choice_days, vacation_days_taken, vacation_days_remaining, personal_choice_taken, personal_choice_days_remaining) VALUES
-    (1, 22, 3, 5, 17, 2, 1), -- More personal choice days used
-    (2, 18, 5, 0, 18, 0, 5), -- Hasn't taken any days yet
-    (3, 20, 2, 10, 10, 1, 1), -- Half of the vacation days already used
-    (4, 25, 5, 3, 22, 0, 5), -- Minimal vacation days taken
-    (5, 15, 5, 7, 8, 4, 1), -- Most personal choice days used
-    (6, 30, 10, 15, 15, 5, 5); -- High entitlement, half used
-
--- Dummy Data
-INSERT INTO VacationRequests (employee_id, approver_id, start_date, end_date, type, status) VALUES
-    (1, 3, '2023-04-01', '2023-04-03', 'Full Day', 'Approved'), -- Approved full days
-    (2, 1, '2023-04-15', '2023-04-15', 'Half Day PM', 'Approved'), -- Approved half day
-    (3, 2, '2023-05-05', '2023-05-06', 'Full Day', 'Pending'), -- Pending full days
-    (4, 3, '2023-06-10', '2023-06-10', 'Personal Choice', 'Approved'), -- Personal choice day
-    (5, 1, '2023-07-20', '2023-07-22', 'Full Day', 'Declined'), -- Declined request
-    (6, 2, '2023-08-15', '2023-08-15', 'Half Day AM', 'Approved'), -- Approved AM half day
-    (1, 3, '2023-09-01', '2023-09-02', 'Personal Choice', 'Pending'), -- Pending personal choice
-    (6, 1, '2023-10-05', '2023-10-06', 'Full Day', 'Approved'); -- Multiple employees
-
--- Dummy Data
+-- EmployeeTimeOffs Dummy Data
 INSERT INTO EmployeeTimeOffs (employee_id, date, is_am, is_pm, is_personal) VALUES
     (1, '2023-04-01', TRUE, TRUE, FALSE),
     (1, '2023-04-02', TRUE, TRUE, FALSE),
@@ -157,7 +174,7 @@ CREATE INDEX idx_audit_logs_user_id ON audit_logs(user_id);
 -- Index for optimizing queries by timestamp
 CREATE INDEX idx_audit_logs_timestamp ON audit_logs(timestamp);
 
--- Dummy Data
+-- audit_logs Dummy Data
 INSERT INTO audit_logs (user_id, action, timestamp, details) VALUES
     (1, 'login', '2023-03-20 08:00:00+00', '{"ip": "192.168.1.1", "status": "success"}'),
     (2, 'update_profile', '2023-03-20 09:15:00+00', '{"field": "email", "old_value": "old@example.com", "new_value": "new@example.com"}'),
