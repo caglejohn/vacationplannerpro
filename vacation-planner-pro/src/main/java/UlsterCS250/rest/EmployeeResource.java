@@ -1,5 +1,4 @@
 package UlsterCS250.rest;
-
 import UlsterCS250.planner.Employee;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
