@@ -11,16 +11,20 @@ import java.sql.SQLException;
 
 import UlsterCS250.entities.Employee; // comment this line out if using original
 import UlsterCS250.repository.EmployeeRepository;
+import UlsterCS250.viewModels.EmployeeVM;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
@@ -87,6 +91,29 @@ public class EmployeeResource {
         }
 
         return Response.ok(employee).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createEmployee(EmployeeVM employee) {
+        try {
+            String username = employee.getUsername();
+            String password = employee.getPassword();
+
+            employeeRepository.addEmployee(username, password);
+            return Response.status(Response.Status.CREATED).build();
+        } catch (SQLException e) {
+            if (e.getMessage().contains("Username already exists")) {
+                return Response.status(Response.Status.CONFLICT)
+                        .entity("Username already exists")
+                        .build();
+            } else {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                        .entity("Error creating employee: " + e.getMessage())
+                        .build();
+            }
+        }
     }
 
     /*
