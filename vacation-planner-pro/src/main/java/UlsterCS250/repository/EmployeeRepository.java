@@ -46,6 +46,18 @@ public class EmployeeRepository {
         }
         return employeesList;
     }
+    
+    public boolean isUsernameUnique(String username) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Employees WHERE username = ?")) {
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                rs.next();
+                int count = rs.getInt(1);
+                return count == 0;
+            }
+        }
+    }
 
     public Employee findByUsername(String username) {
 
@@ -81,5 +93,33 @@ public class EmployeeRepository {
         }
     }
     
+    public void addEmployee(String username, String password) throws SQLException {
+        if (!isUsernameUnique(username)) {
+            throw new SQLException("Username already exists");
+        }
+
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Employees (username, password_hash, email, first_name, last_name, is_manager, is_active, last_login, created_at, department_id, years_of_service) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)")) {
+    
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            stmt.setString(3, "test@test.com");
+            stmt.setString(4, "test");
+            stmt.setString(5, "test");
+            stmt.setBoolean(6, false);
+            stmt.setBoolean(7, true);
+            stmt.setInt(8, 1);
+            stmt.setInt(9, 1);
+    
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                LOGGER.info("Employee added successfully");
+            } else {
+                LOGGER.warning("Failed to add employee");
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error while adding employee", e);
+        }
+    }
 
 }
