@@ -1,15 +1,5 @@
 package UlsterCS250.rest;
-
-/*import UlsterCS250.planner.Employee;
-import java.sql.ResultSet;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-*/
-
-import UlsterCS250.entities.Employee; // comment this line out if using original
+import UlsterCS250.entities.Employee;
 import UlsterCS250.repository.EmployeeRepository;
 import UlsterCS250.viewModels.EmployeeVM;
 import jakarta.ws.rs.PathParam;
@@ -24,6 +14,7 @@ import jakarta.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+import jakarta.inject.Inject;
 
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
@@ -31,15 +22,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Path("/employees")
 public class EmployeeResource {
     
+    @Inject
     private EmployeeRepository employeeRepository;
     private static final Logger LOGGER = Logger.getLogger(EmployeeResource.class.getName());
-    /* private static String dbUrl = "jdbc:postgresql://localhost:5432/auth_database";
-    private static String user = "vcpp";
-    private static String pass = "abc123"; */
-
-    public EmployeeResource(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

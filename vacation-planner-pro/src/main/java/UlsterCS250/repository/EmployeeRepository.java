@@ -47,9 +47,9 @@ public class EmployeeRepository {
         return employeesList;
     }
     
-    public boolean isUsernameUnique(String username) throws SQLException {
+    public boolean isUsernameUnique(String username, String passowrd) throws SQLException {
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Employees WHERE username = ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Employees WHERE username = ? AND hashed_password = ?")) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
                 rs.next();
