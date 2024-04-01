@@ -11,7 +11,7 @@ import java.util.logging.*;
 import UlsterCS250.entities.Employee;
 
 public class EmployeeRepository {
-    
+ 
     private static String dbUrl = "jdbc:postgresql://localhost:5432/auth_database";
     private static String user = "vcpp";
     private static String pass = "abc123";

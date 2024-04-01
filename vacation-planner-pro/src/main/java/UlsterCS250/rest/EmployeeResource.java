@@ -124,4 +124,46 @@ public class EmployeeResource {
     }*/
 
 }
+/*
+@GET
+@Path("/{employeeLogIn}")
+@Produces(MediaType.APPLICATION_JSON)
+@APIResponses(
+     value = {
+         @APIResponse(
+             responseCode = "404",
+             description = "Invaild Username or Password"),
+         @APIResponse(
+             responseCode = "200",
+             description = "Success")})
+public Response getEmployeeByUsernameAndPassword(@PathParam("username") String username) {
+    LOGGER.warning("Received username into API call: " + username);
 
+    if (employee == null) {
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    return Response.ok().build();
+}
+*/
+/*
+@POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response LogIn(EmployeeVM employee) {
+        try {
+            return Response.status(Response.Status.CREATED).build();
+        } catch (SQLException e) {
+            if (e.getMessage().contains("")) {
+                return Response.status(Response.Status.CONFLICT)
+                        .entity("")
+                        .build();
+            } else {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                        .entity(" " + e.getMessage())
+                        .build();
+            }
+        }
+    }
+
+*/
