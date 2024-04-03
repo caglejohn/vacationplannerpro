@@ -2,6 +2,7 @@ package UlsterCS250.entities;
 
 public class VacationProfile {
     private Long id;
+    private Long totalDaysTaken;
     private Long personalChoiceDays;
     private Long vacationDaysTaken;
     private Long vacationDaysRemaining;
@@ -12,7 +13,7 @@ public class VacationProfile {
 
     }
 
-    public VacationProfile(Long id, Long personalChoiceDays, 
+    public VacationProfile(Long id, Long totalDaysTaken, Long personalChoiceDays, 
             Long vacationDaysTaken, Long vacationDaysRemaining, Long personalChoiceTaken,
             Long personalChoiceDaysRemaining){
                 this.id = id;
@@ -31,6 +32,14 @@ public class VacationProfile {
 
     public void setId(Long id) {
     this.id = id;
+    }
+
+    public Long getTotalDaysTaken() {
+        return totalDaysTaken;
+    }
+
+    public void setTotalDaysTaken(Long totalDaysTaken) {
+    this.totalDaysTaken = totalDaysTaken;
     }
 
     public Long getPersonalChoiceDays(){

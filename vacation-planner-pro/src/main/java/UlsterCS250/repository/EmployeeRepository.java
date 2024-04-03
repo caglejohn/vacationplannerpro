@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.*;
 
 import UlsterCS250.entities.Employee;
+import UlsterCS250.viewModels.EmployeeVM;
 
 public class EmployeeRepository {
  
@@ -119,6 +120,19 @@ public class EmployeeRepository {
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error while adding employee", e);
+        }
+    }
+
+    public boolean addSession(EmployeeVM employee) throws SQLException{
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Employees WHERE username = ? AND password_hash = ?")){
+            stmt.setString(1, employee.getPassword());
+            stmt.setString(2, employee.getPassword());
+            try(ResultSet rs = stmt.executeQuery()){
+                rs.next();
+                int count = rs.getInt(2);
+                return count == 1;
+            }
         }
     }
 

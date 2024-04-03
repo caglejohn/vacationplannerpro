@@ -124,9 +124,9 @@ public class EmployeeResource {
     }*/
 
 }
-/*
-@GET
-@Path("/{employeeLogIn}")
+
+@POST
+@Path("/session")
 @Produces(MediaType.APPLICATION_JSON)
 @APIResponses(
      value = {
@@ -136,16 +136,14 @@ public class EmployeeResource {
          @APIResponse(
              responseCode = "200",
              description = "Success")})
-public Response getEmployeeByUsernameAndPassword(@PathParam("username") String username) {
-    LOGGER.warning("Received username into API call: " + username);
-
-    if (employee == null) {
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }
-
-    return Response.ok().build();
+public Response addSession(@PathParam("username") String username,
+@PathParam("password_hash") String password) {
+    LOGGER.warning("Received session into API call: " + username + password) ;
+    Employee employee = employeeRepository.addSession(employee);
+    return Response.ok(true).build();
 }
-*/
+
+
 /*
 @POST
     @Consumes(MediaType.APPLICATION_JSON)
