@@ -12,22 +12,24 @@ import java.util.logging.*;
 import UlsterCS250.entities.EmployeeTimeOff;
 
 public class EmployeeTimeOffRepository {
-    
+    private static String dbUrl = "jdbc:postgresql://localhost:5432/auth_database";
+    private static String user = "vcpp";
+    private static String pass = "abc123";
     private static final Logger LOGGER = Logger.getLogger(EmployeeRepository.class.getName());
 
     public ArrayList<EmployeeTimeOff> findAll() {
         ArrayList<EmployeeTimeOff> timeOffList = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Employees ORDER BY id")) {
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM EmployeeTimeOffs ORDER BY id")) {
                 try (ResultSet rs = stmt.executeQuery()) {
                     while(rs.next()){
                         EmployeeTimeOff timeOff = new EmployeeTimeOff(
                         rs.getLong("id"),
-                        rs.getLong("employeeId"),
+                        rs.getLong("employee_id"),
                         rs.getDate("date"),
-                        Boolean.parseBoolean(rs.getString("isAm")),
-                        Boolean.parseBoolean(rs.getString("isPm")),
-                        Boolean.parseBoolean(rs.getString("isPersonal"))
+                        Boolean.parseBoolean(rs.getString("is_am")),
+                        Boolean.parseBoolean(rs.getString("is_pm")),
+                        Boolean.parseBoolean(rs.getString("is_personal"))
                         );
                         timeOffList.add(timeOff);
                 }
@@ -40,9 +42,15 @@ public class EmployeeTimeOffRepository {
     }
 
     public boolean isDateTaken(Date date) {
-        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM EmployeesTimeOff WHERE date = ?")
-        return date;
-
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM EmployeeTimeOff WHERE date = ?")){
+            stmt.setDate(1, Date date);
+            try (ResultSet rs = stmt.executeQuery()) {
+                rs.next();
+                int count = rs.getInt(1);
+                return count == 0;
+            }
+         }   
     }
 
     public void addDayOff(Long id, Long employeeId, Date date) throws SQLException {
@@ -50,7 +58,7 @@ public class EmployeeTimeOffRepository {
             throw new SQLException("Day already requested off");
         }
 
-        try (Connection conn = DriverManager.getConnection();
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO EmployeeTimeOff (id, employee_id, date, is_am, is_pm, is_personal) VALUES (?,?,?,?,?,?)")) {
     
             stmt.setLong(1, id);
