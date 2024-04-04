@@ -44,7 +44,7 @@ const routes = [
       },
       {
         path: 'reports',
-        element: <VacationProfiles />,
+        element: <ProtectedRoute element={<VacationProfiles />} />,
       },
       {
         path: 'calendar',

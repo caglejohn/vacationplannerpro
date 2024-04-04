@@ -79,7 +79,7 @@ export default function SignUp() {
 
     try {
       const resp = await postSignup(newUser);
-      if (resp === 201) {
+      if (resp.status == 201) {
         navigate('/login');
       } else {
         setError('Error signing up, please try later');
