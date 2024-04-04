@@ -320,7 +320,7 @@ export default function SignUp() {
               <hr></hr>
 
               <Link
-                to="login"
+                to="/login"
                 className="btn btn-outline-primary w-100"
                 disabled={isLoading}
               >

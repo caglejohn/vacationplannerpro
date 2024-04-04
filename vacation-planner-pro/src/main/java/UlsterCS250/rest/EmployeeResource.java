@@ -9,10 +9,12 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.NewCookie;
 import jakarta.ws.rs.core.Response;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import jakarta.inject.Inject;
 
@@ -158,7 +160,16 @@ public Response addSession(EmployeeVM employee) {
         LOGGER.warning("Received session into API call: " + employee.getUsername() + employee.getPassword()) ;
 
         employeeRepository.addSession(employee);
-        return Response.status(Response.Status.CREATED).build();
+        NewCookie authTokenCookie = new NewCookie.Builder("authToken")
+                .value("valid_token")
+                .path("/")
+                .comment("Session cookie")
+                .maxAge(3600)
+                .build();
+
+        return Response.status(Response.Status.CREATED)
+                .cookie(authTokenCookie)
+                .build();
     }
     catch (SQLException e)
     {

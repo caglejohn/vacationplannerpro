@@ -34,7 +34,8 @@ export default function LogIn() {
         companyId: loginRef.current.companyId.value,
       };
       const response = await postAuth(user);
-      if (response.status == 200) {
+      console.log(response);
+      if (response.status == 201) {
         navigate('/calendar');
       }
     } catch (error) {
