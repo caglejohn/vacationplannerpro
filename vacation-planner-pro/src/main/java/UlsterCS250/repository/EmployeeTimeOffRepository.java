@@ -35,26 +35,29 @@ public class EmployeeTimeOffRepository {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error while finding employees", e);
+            LOGGER.log(Level.SEVERE, "Error while finding employee time off data", e);
             e.printStackTrace();
         }
         return timeOffList;
     }
 
-    public boolean isDateTaken(Date date) {
+    public boolean isDateFree(Date date) {
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
         PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM EmployeeTimeOff WHERE date = ?")){
-            stmt.setDate(1, Date date);
+            stmt.setString(1, date.toString());
             try (ResultSet rs = stmt.executeQuery()) {
                 rs.next();
                 int count = rs.getInt(1);
                 return count == 0;
             }
-         }   
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error while attempting to retrieve vacation data", e);
+            return false;
+        }
     }
 
     public void addDayOff(Long id, Long employeeId, Date date) throws SQLException {
-        if (!isDateTaken(date)) {
+        if (isDateFree(date)) {
             throw new SQLException("Day already requested off");
         }
 
@@ -63,7 +66,7 @@ public class EmployeeTimeOffRepository {
     
             stmt.setLong(1, id);
             stmt.setLong(2, employeeId);
-            stmt.setDate(3, date);
+            stmt.setString(3, date.toString());
             stmt.setBoolean(4, false);
             stmt.setBoolean(5, true);
             stmt.setBoolean(6, true);
@@ -71,12 +74,12 @@ public class EmployeeTimeOffRepository {
     
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
-                LOGGER.info("Employee added successfully");
+                LOGGER.info("Vacation time added successfully");
             } else {
-                LOGGER.warning("Failed to add employee");
+                LOGGER.warning("Failed to add vacation");
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error while adding employee", e);
+            LOGGER.log(Level.SEVERE, "Error while adding vacation", e);
         }
     }
 
