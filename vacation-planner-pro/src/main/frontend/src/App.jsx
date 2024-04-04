@@ -10,6 +10,7 @@ import LogIn from './pages/LogIn';
 import Calendar from './pages/Calendar';
 import SignUp from './pages/SignUp';
 import CreateVacation from './pages/CreateVacation';
+import VacationProfiles from './pages/Reports';
 
 const isAuthenticated = () => {
   const cookie = document.cookie
@@ -40,6 +41,10 @@ const routes = [
       {
         path: 'login',
         element: <LogIn />,
+      },
+      {
+        path: 'reports',
+        element: <VacationProfiles />,
       },
       {
         path: 'calendar',
