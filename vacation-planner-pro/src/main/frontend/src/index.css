@@ -41,3 +41,15 @@ h1 {
 input {
   margin-bottom: 1rem;
 }
+
+th {
+  cursor: pointer;
+}
+
+th:hover {
+  background-color: #ff0000;
+}
+
+tr:hover td {
+  background-color: #ffee00; /* Highlight the entire row */
+}
