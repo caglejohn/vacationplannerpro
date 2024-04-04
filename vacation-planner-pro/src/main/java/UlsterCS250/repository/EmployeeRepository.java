@@ -60,6 +60,26 @@ public class EmployeeRepository {
         }
     }
 
+    public boolean addSession(EmployeeVM employee) throws SQLException {
+        LOGGER.log(Level.SEVERE, "login hit: ");
+
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Employees WHERE username = ? AND password_hash = ?")) {
+            stmt.setString(1, employee.getUsername());
+            stmt.setString(2, employee.getPassword());
+            try (ResultSet rs = stmt.executeQuery()) {
+                rs.next();
+                int count = rs.getInt(1);
+                LOGGER.log(Level.SEVERE, "count: ", count);
+
+                return count == 1;
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error while attempting to log in: ", e);
+            return false;
+        }
+    }
+
     public Employee findByUsername(String username) {
 
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -120,19 +140,6 @@ public class EmployeeRepository {
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error while adding employee", e);
-        }
-    }
-
-    public boolean addSession(EmployeeVM employee) throws SQLException{
-        try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Employees WHERE username = ? AND password_hash = ?")){
-            stmt.setString(1, employee.getPassword());
-            stmt.setString(2, employee.getPassword());
-            try(ResultSet rs = stmt.executeQuery()){
-                rs.next();
-                int count = rs.getInt(2);
-                return count == 1;
-            }
         }
     }
 

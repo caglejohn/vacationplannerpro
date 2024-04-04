@@ -1,6 +1,7 @@
 package UlsterCS250.viewModels;
 
 public class EmployeeVM {
+
     private String username;
     private String password;
 

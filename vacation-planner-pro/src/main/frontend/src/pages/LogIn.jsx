@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { postAuth } from '../api/plannerApi';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function LogIn() {
   const loginRef = useRef();
@@ -179,13 +179,13 @@ export default function LogIn() {
                 </button>
                 <hr></hr>
 
-                <a
-                  href={`/signup`}
+                <Link
+                  to="/signup"
                   className="btn btn-outline-success w-100"
                   disabled={isLoading}
                 >
                   Sign Up
-                </a>
+                </Link>
               </div>
             </form>
           </div>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const plannerApi = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:9080',
 });
 
 export const postAuth = async (user) => {
@@ -10,10 +10,10 @@ export const postAuth = async (user) => {
     throw new Error('Company Id must be a number');
   }
   const userParsed = {
-    ...user,
-    companyId: companyIdAsNumber,
+    username: user.username,
+    password: user.password,
   };
-  const resp = await plannerApi.post('/login', userParsed, {
+  const resp = await plannerApi.post('/api/employees/session', userParsed, {
     withCredentials: true,
   });
   return resp;
@@ -25,10 +25,10 @@ export const postSignup = async (user) => {
     throw new Error('Company Id must be a number');
   }
   const userParsed = {
-    ...user,
-    companyId: companyIdAsNumber,
+    username: user.username,
+    password: user.password,
   };
-  const resp = await plannerApi.post('/signup', userParsed, {
+  const resp = await plannerApi.post('/api/employees', userParsed, {
     withCredentials: true,
   });
   return resp.status;
