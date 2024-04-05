@@ -1,4 +1,4 @@
-package UlsterCS250.rest;
+package UlsterCS250.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

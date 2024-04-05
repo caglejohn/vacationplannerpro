@@ -1,0 +1,26 @@
+.create-vac label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.create-vac input,
+.create-vac textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.create-vac button {
+  padding: 10px 20px;
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-vac button:hover {
+  background-color: #004494;
+}

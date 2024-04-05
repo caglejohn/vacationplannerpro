@@ -9,6 +9,7 @@ import Error from './Error';
 import LogIn from './pages/LogIn';
 import Calendar from './pages/Calendar';
 import SignUp from './pages/SignUp';
+import CreateVacation from './pages/CreateVacation';
 
 const isAuthenticated = () => {
   const cookie = document.cookie
@@ -43,6 +44,10 @@ const routes = [
       {
         path: 'calendar',
         element: <ProtectedRoute element={<Calendar />} />,
+      },
+      {
+        path: 'calendar/create',
+        element: <ProtectedRoute element={<CreateVacation />} />,
       },
       {
         path: 'signup',

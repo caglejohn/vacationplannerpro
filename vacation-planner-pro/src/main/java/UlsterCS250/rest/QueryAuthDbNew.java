@@ -38,7 +38,7 @@ public class QueryAuthDbNew extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users ORDER BY user_id")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Employees ORDER BY employee_id")) {
             try (ResultSet rs = stmt.executeQuery()) {
                 ResultSetMetaData metaData = rs.getMetaData();
                 int columnCount = metaData.getColumnCount();
