@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { postSignup } from '../api/plannerApi';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -79,7 +79,7 @@ export default function SignUp() {
 
     try {
       const resp = await postSignup(newUser);
-      if (resp === 201) {
+      if (resp.status == 201) {
         navigate('/login');
       } else {
         setError('Error signing up, please try later');
@@ -319,13 +319,13 @@ export default function SignUp() {
 
               <hr></hr>
 
-              <a
-                href={`/login`}
+              <Link
+                to="/login"
                 className="btn btn-outline-primary w-100"
                 disabled={isLoading}
               >
                 Log In
-              </a>
+              </Link>
             </form>
           </div>
         </div>

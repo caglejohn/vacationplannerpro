@@ -11,6 +11,10 @@ export default function Calendar() {
     navigate('/calendar/create');
   };
 
+  const handleReports = () => {
+    navigate('/reports');
+  };
+
   useEffect(() => {
     const calendar = document.getElementById('calendar');
     const weekdays = [
@@ -118,6 +122,9 @@ export default function Calendar() {
                 </button>
                 <button className="edit-button" id="cancelButton">
                   Cancel Vacation
+                </button>
+                <button className="edit-button" onClick={handleReports}>
+                  Vacation Reports
                 </button>
               </div>
             </div>
