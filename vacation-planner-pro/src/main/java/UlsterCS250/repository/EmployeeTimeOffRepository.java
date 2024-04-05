@@ -1,4 +1,4 @@
-package UlsterCS250.repository;
+/*package UlsterCS250.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.logging.*;
 
 import UlsterCS250.entities.EmployeeTimeOff;
+
 
 public class EmployeeTimeOffRepository {
     private static String dbUrl = "jdbc:postgresql://localhost:5432/auth_database";
@@ -82,6 +83,5 @@ public class EmployeeTimeOffRepository {
             LOGGER.log(Level.SEVERE, "Error while adding vacation", e);
         }
     }
-
-    
 }
+*/

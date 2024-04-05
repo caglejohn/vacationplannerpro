@@ -1,16 +1,12 @@
 package UlsterCS250.rest;
 
 import UlsterCS250.planner.Calendar;
-import UlsterCS250.planner.Employee;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-
-import java.util.AbstractList;
 import java.util.TimeZone;
 
 @Path("/planner")
 public class PlannerResource {
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Calendar getCalendar(){

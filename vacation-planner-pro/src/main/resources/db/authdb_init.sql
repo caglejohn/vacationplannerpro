@@ -62,7 +62,8 @@ INSERT INTO Employees (
 
 -- VacationProfiles Table: Tracks individual vacation accruals and usage for each employee.
 CREATE TABLE IF NOT EXISTS VacationProfiles (
-    employee_id INTEGER PRIMARY KEY, -- References the unique employee ID
+    vacation_profile_id SERIAL PRIMARY KEY,
+    employee_id INTEGER, -- References the unique employee ID
     total_vacation_days INTEGER NOT NULL, -- Total allocated vacation days
     personal_choice_days INTEGER NOT NULL, -- Total allocated personal choice days
     vacation_days_taken INTEGER NOT NULL, -- Total vacation days taken
@@ -83,43 +84,40 @@ INSERT INTO VacationProfiles (employee_id, total_vacation_days, personal_choice_
 
 -- VacationRequests Table: Manages detailed vacation requests for each employee.
 CREATE TABLE IF NOT EXISTS VacationRequests (
-    request_id SERIAL PRIMARY KEY, -- Unique request identifier
-    employee_id INTEGER NOT NULL, -- Employee making the request
+    vacation_request_id SERIAL PRIMARY KEY, -- Unique request identifier
     approver_id INTEGER, -- Employee ID of the approver
-    start_date DATE NOT NULL, -- Vacation start date
-    end_date DATE NOT NULL, -- Vacation end date
-    type VARCHAR(255) NOT NULL, -- Type of vacation (e.g., full day, half day, personal choice)
+    employee_time_off_id INTEGER NOT NULL,
     reason VARCHAR(255), -- Reason for the request
     status VARCHAR(255) NOT NULL, -- Status of the request (e.g., approved, pending, declined)
-    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE, -- Cascading delete with employee deletion
     FOREIGN KEY (approver_id) REFERENCES Employees(employee_id) ON DELETE SET NULL -- Approver deletion sets field to NULL
+    FOREIGN KEY (employee_time_off_id) REFERENCES EmployeeTimeOffs(employee_time_off_id)
 );
 
 -- VacationRequests Dummy Data
-INSERT INTO VacationRequests (employee_id, approver_id, start_date, end_date, type, reason, status) VALUES
+INSERT INTO VacationRequests (approver_id, time_off_id, reason, status) VALUES
     -- Employee 1's approved vacation for a family vacation
-    (1, 3, '2023-04-01', '2023-04-03', 'Full Day', 'Family vacation', 'Approved'),
+    (3, 1, 'Family vacation', 'Approved'),
 
     -- Employee 2's approved half-day PM for a medical appointment
-    (2, 1, '2023-04-15', '2023-04-15', 'Half Day PM', 'Medical appointment', 'Approved'),
+    (1, 2, 'Medical appointment', 'Approved'),
 
     -- Employee 3's pending full-day vacation request for attending a wedding
-    (3, 2, '2023-05-05', '2023-05-06', 'Full Day', 'Attending a wedding', 'Pending'),
+    (2, 3, 'Attending a wedding', 'Pending'),
 
     -- Employee 4's approved personal choice day off
-    (4, 3, '2023-06-10', '2023-06-10', 'Personal Choice', 'Personal day off', 'Approved'),
+    (3, 4, 'Personal day off', 'Approved'),
 
     -- Employee 5's declined full-day vacation request for a summer trip
-    (5, 1, '2023-07-20', '2023-07-22', 'Full Day', 'Summer trip', 'Declined'),
+    (1, 5, 'Summer trip', 'Declined'),
 
     -- Employee 6's approved half-day AM for a dentist appointment
-    (6, 2, '2023-08-15', '2023-08-15', 'Half Day AM', 'Dentist appointment', 'Approved'),
+    (2, 6, 'Dentist appointment', 'Approved'),
 
     -- Employee 1's pending personal choice request for a long weekend getaway
-    (1, 3, '2023-09-01', '2023-09-02', 'Personal Choice', 'Long weekend getaway', 'Pending'),
+    (3, 7, 'Long weekend getaway', 'Pending'),
 
     -- Employee 6's approved full-day vacation for a family event
-    (6, 1, '2023-10-05', '2023-10-06', 'Full Day', 'Family event', 'Approved');
+    (1, 8, 'Family event', 'Approved');
 
 
 -- DepartmentVacationsView: Provides an aggregated view of vacation requests by department.
@@ -137,31 +135,41 @@ FROM Departments d
 
 -- EmployeeTimeOffs Table: Tracks employee time offs, allowing for half-day (AM/PM) and full-day tracking.
 CREATE TABLE IF NOT EXISTS EmployeeTimeOffs (
-    id SERIAL PRIMARY KEY, -- Unique identifier for each time off record
+    employee_time_off_id SERIAL PRIMARY KEY, -- Unique identifier for each time off record
     employee_id INTEGER NOT NULL, -- References the unique employee ID
-    date DATE NOT NULL, -- Date of the time off
-    is_am BOOLEAN DEFAULT FALSE, -- Indicates if the time off is for the morning (AM)
-    is_pm BOOLEAN DEFAULT FALSE, -- Indicates if the time off is for the afternoon (PM)
+    half_day_id INTEGER NOT NULL,
     is_personal BOOLEAN DEFAULT FALSE, -- Indicates if the time off is personal choice
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE -- Cascading delete with employee deletion
+    FOREIGN KEY (half_day_id) REFERENCES HalfDays(half_day_id) ON DELETE CASCADE -- Cascading delete with day deletion
 );
 
 -- EmployeeTimeOffs Dummy Data
-INSERT INTO EmployeeTimeOffs (employee_id, date, is_am, is_pm, is_personal) VALUES
-    (1, '2023-04-01', TRUE, TRUE, FALSE),
-    (1, '2023-04-02', TRUE, TRUE, FALSE),
-    (2, '2023-04-15', FALSE, TRUE, FALSE),
-    (4, '2023-06-10', TRUE, TRUE, TRUE), -- Personal choice day
-    (6, '2023-08-15', TRUE, FALSE, FALSE),
-    (6, '2023-10-05', TRUE, TRUE, FALSE),
-    (6, '2023-10-06', TRUE, TRUE, FALSE),
-    (1, '2023-09-01', TRUE, TRUE, TRUE); -- Another example of personal choice day
+INSERT INTO EmployeeTimeOffs (employee_id, half_day_id, is_personal) VALUES
+    (1, 0, FALSE),
+    (1, 0, FALSE),
+    (2, 1, FALSE),
+    (4, 1, TRUE), -- Personal choice day
+    (6, 1, FALSE),
+    (6, 1, FALSE),
+    (6, 0, FALSE),
+    (1, 0, TRUE); -- Another example of personal choice day
 
+CREATE TABLE IF NOT EXISTS HalfDays (
+    half_day_id INTEGER PRIMARY KEY NOT NULL, --index of where this day is located
+    is_am BOOLEAN NOT NULL, -- what part of the day this half day is
+    day_of_week_id INTEGER NOT NULL, -- the day of the week this half day is in
+    start_date DATE NOT NULL, -- start date
+    end_date DATE NOT NULL, -- end date
+    work_day BOOLEAN NOT NULL -- whether or not company works this day
+);
+INSERT INTO HalfDays (ind, is_am, day_of_week_id, start_date, end_date, work_day) VALUES
+    (0, TRUE, 1, '2024-01-01', '2024-01-01', TRUE),
+    (1, FALSE, 1, '2024-01-01', '2024-01-02', TRUE);
 ------------------------------------------------------------------------------------
 
 -- Audit Logs Table: Stores user actions for audit purposes.
 CREATE TABLE IF NOT EXISTS audit_logs (
-    log_id SERIAL PRIMARY KEY, -- Unique audit log entry identifier
+    audit_log_id SERIAL PRIMARY KEY, -- Unique audit log entry identifier
     user_id INTEGER NOT NULL, -- User ID (reference handled at application level)
     action VARCHAR(255) NOT NULL, -- Description of the action performed
     timestamp TIMESTAMP WITH TIME ZONE NOT NULL, -- Time when the action was performed

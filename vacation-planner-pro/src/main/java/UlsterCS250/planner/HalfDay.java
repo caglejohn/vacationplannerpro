@@ -1,10 +1,15 @@
 package UlsterCS250.planner;
+import UlsterCS250.entities.JEmployee;
+import UlsterCS250.entities.JHalfDay;
+
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class HalfDay {
     public static final String[] weekDays = new String[]{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+    public static final String[] months = new String[]{"January","February","March","April","May","June","July","August","September","October","November","December"};
     private int id;
     private int index;
     private String name;
@@ -13,7 +18,6 @@ public class HalfDay {
     private String startString;
     private String endString;
     private boolean workDay;
-    private ArrayList<Employee> takenOff;
 
     public HalfDay(GregorianCalendar c, int index){
         id=c.get(Calendar.DAY_OF_WEEK);
@@ -21,6 +25,27 @@ public class HalfDay {
         this.index=index;
         workDay=true;
     }
+
+    public static JHalfDay convert(int index, int dayOfWeek, Date startDate, Date endDate, boolean workDay, boolean isAm, ArrayList<JEmployee> takenOff) {
+        JHalfDay halfDay = new JHalfDay();
+        halfDay.setIndex(index);
+        halfDay.setWorkDay(workDay);
+        String[] start = startDate.toString().split("-");
+        String[] end = endDate.toString().split("-");
+        halfDay.setStart(new int[] {Integer.parseInt(start[1]),Integer.parseInt(start[2]),Integer.parseInt(start[0]), isAm ? 0 : 12});
+        halfDay.setEnd(new int[] {Integer.parseInt(end[1]),Integer.parseInt(end[2]),Integer.parseInt(end[0]), isAm ? 12 : 24});
+        halfDay.setStartHour(isAm ? "12:00 AM" : "12:00 PM");
+        halfDay.setEndHour(isAm ? "12:00 PM" : "12:00 AM");
+        halfDay.setStartWeekDay(weekDays[dayOfWeek]);
+        halfDay.setEndWeekDay(isAm ? weekDays[dayOfWeek] : weekDays[(dayOfWeek+1)%7]);
+        halfDay.setStartMonth(months[halfDay.getStart()[0]-1]);
+        halfDay.setEndMonth(months[halfDay.getEnd()[0]-1]);
+        halfDay.setStartYear(start[0]);
+        halfDay.setEndYear(end[0]);
+        halfDay.setTakenOff(takenOff);
+        return halfDay;
+    }
+
     public static String getDayString(int id){
         return weekDays[id-1];
     }
@@ -38,7 +63,6 @@ public class HalfDay {
     public String toString() {
         return startString + " to " + endString+" "+(workDay ? "WORK":"OFF");
     }
-
     public String getName() {
         return name;
     }
@@ -60,19 +84,7 @@ public class HalfDay {
     public int getId(){
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int[] getStart(){
+    public int[] getStart() {
         return start;
-    }
-    public void setStart(int[] start) {
-        this.start = start;
-    }
-    public int[] getEnd() {
-        return end;
-    }
-    public void setEnd(int[] end) {
-        this.end = end;
     }
 }

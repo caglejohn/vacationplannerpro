@@ -1,4 +1,5 @@
 package UlsterCS250.planner;
+import java.sql.Date;
 import java.util.TimeZone;
 
 public class test {
@@ -8,5 +9,6 @@ public class test {
         p.setWeeklyWorkPattern(8,732,pattern);
         p.setWorkDay(133, false);
         System.out.println(p);
+        Date d = new Date(2024);
     }
 }
