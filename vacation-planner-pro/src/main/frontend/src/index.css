@@ -51,7 +51,7 @@ th:hover {
 }
 
 tr:hover td {
-  background-color: #ffee00b4; /* Highlight the entire row */
+  background-color: #ffb122; /* Highlight the entire row */
 }
 
 .sidebar {
