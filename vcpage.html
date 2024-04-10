@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Your Time Off</title>
+    <link rel="stylesheet" href="vcpagestyle.css"> 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Schedule Your Time Off</h1>
+        </header>
+        <div class="row">
+            <!-- Leave Type Form -->
+            <div class="col-md-6">
+                <form id="timeOffForm">
+                    <div class="form-group">
+                        <label for="leaveType">Leave Type:</label>
+                        <select id="leaveType" name="leaveType" class="form-control">
+                            <option value="personal">Personal</option>
+                            <option value="vacation">Vacation</option>
+                            <option value="sick">Sick</option>
+                            <option value="other">Maternity/Paternity Leave</option>
+                            <option value="other">Company Holiday</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" id="startDate" name="startDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date:</label>
+                        <input type="date" id="endDate" name="endDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason for Leave:</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+    
+            <!-- Status Cards -->
+            <div class="col-md-6">
+                <div class="row" id="cards">
+                    <div class="col-md-6 mb-3">
+                        <div class="status-card approved">
+                            <p class="status-number">3</p>
+                            <p class="status-type">Approved</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="status-card declined">
+                            <p class="status-number">0</p>
+                            <p class="status-type">Declined</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="status-card pending">
+                            <p class="status-number">1</p>
+                            <p class="status-type">Pending</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="status-card remaining">
+                            <p class="status-number">12</p>
+                            <p class="status-type">Remaining</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Calendar Week View -->
+    <div class="row">
+        <div class="col-12">
+            <div class="calendar-container p-4">
+                <div id="week-calendar" class="week-calendar">
+                <div class="day">Monday</div>
+                <div class="day">Tuesday</div>
+                <div class="day">Wednesday</div>
+                <div class="day">Thursday</div>
+                <div class="day">Friday</div>
+                <div class="day">Saturday</div>
+                <div class="day">Sunday</div>
+                <div class="day">18</div>
+                <div class="day">19</div>
+                <div class="day">20</div>
+                <div class="day">21</div>
+                <div class="day">22</div>
+                <div class="day">23</div>
+                <div class="day">24</div>
+            </div>
+            <div class="week-hours">     
+                <div class="hour">8:00 am</div>
+                <div class="hour">9:00 am</div>
+                <div class="hour">10:00 am</div>
+                <div class="hour">11:00 am</div>
+                <div class="hour">12:00 pm</div> 
+                <div class="hour">1:00 pm</div>
+                <div class="hour">2:00 pm</div>
+                <div class="hour">3:00 pm</div>
+                <div class="hour">4:00 pm</div>
+                <div class="hour">5:00 pm</div>
+                <div class="hour">6:00 pm</div>
+            </div>
+        </div>        
+    </div>
+</div>
+
+</div>
+   
+    <script src="vcpage.js"></script>
+</body>
+</html>
+
+
