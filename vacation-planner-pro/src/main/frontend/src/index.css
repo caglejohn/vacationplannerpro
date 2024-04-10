@@ -12,7 +12,7 @@ body {
 
 .image-container {
   height: 100vh;
-  background-image: url('/logo-bg.png');
+  background-image: url('/VPP.png');
   background-size: cover;
   background-position: center;
 }
