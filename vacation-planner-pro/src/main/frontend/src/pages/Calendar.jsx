@@ -120,9 +120,10 @@ export default function Calendar() {
                 <button className="edit-button" id="updateButton">
                   Update Vacation
                 </button>
-                <button className="edit-button" id="cancelButton">
+                {/*<button className="edit-button" id="cancelButton">
                   Cancel Vacation
                 </button>
+                */}
                 <button className="edit-button" onClick={handleReports}>
                   Vacation Reports
                 </button>
