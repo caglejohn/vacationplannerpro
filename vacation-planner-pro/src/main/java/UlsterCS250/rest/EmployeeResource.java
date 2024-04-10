@@ -1,5 +1,5 @@
 package UlsterCS250.rest;
-import UlsterCS250.entities.Employee;
+import UlsterCS250.entities.JEmployee;
 import UlsterCS250.repository.EmployeeRepository;
 import UlsterCS250.viewModels.EmployeeVM;
 import jakarta.ws.rs.PathParam;
@@ -16,11 +16,9 @@ import jakarta.ws.rs.core.Response;
 import java.net.http.HttpHeaders;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import jakarta.inject.Inject;
 
-import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
@@ -45,7 +43,7 @@ public class EmployeeResource {
                     description = "Internal server error")})
     public Response getEmployees() {
         try {
-            ArrayList<Employee> employees = employeeRepository.findAll();
+            ArrayList<JEmployee> employees = employeeRepository.findAll();
             if (employees.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                     .entity("No employees found")
@@ -73,7 +71,7 @@ public class EmployeeResource {
     public Response getEmployeeByUsername(@PathParam("username") String username) {
         LOGGER.info("Received username into API call: " + username);
 
-        Employee employee = employeeRepository.findByUsername(username);
+        JEmployee employee = employeeRepository.findByUsername(username);
 
         if (employee == null) {
             return Response.status(Response.Status.NOT_FOUND).build();

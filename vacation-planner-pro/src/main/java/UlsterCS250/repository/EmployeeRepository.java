@@ -17,7 +17,9 @@ public class EmployeeRepository {
     private static RepositoryProducer repositoryProducer = new RepositoryProducer();
 
     private static final Logger LOGGER = Logger.getLogger(EmployeeRepository.class.getName());
-    public ArrayList<JEmployee> findAll(boolean assignTimeOff) {
+    
+    public ArrayList<JEmployee> findAll() {
+        boolean assignTimeOff = true;
         ArrayList<JEmployee> employeesList = new ArrayList<>();
         try {
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -61,7 +63,8 @@ public class EmployeeRepository {
         }
     }
 
-    public JEmployee findByUsername(String username, boolean assignTimeOff) {
+    public JEmployee findByUsername(String username) {
+        boolean assignTimeOff = true;
         try {
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Employees WHERE username ILIKE ?");
