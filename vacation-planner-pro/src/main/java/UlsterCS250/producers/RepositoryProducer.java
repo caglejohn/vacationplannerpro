@@ -1,5 +1,6 @@
 package UlsterCS250.producers;
 
+import UlsterCS250.repository.ToFixEmployeeRepository;
 import UlsterCS250.repository.EmployeeRepository;
 //import UlsterCS250.repository.EmployeeTimeOffRepository;
 import UlsterCS250.repository.HalfDayRepository;
@@ -13,6 +14,12 @@ public class RepositoryProducer {
     @ApplicationScoped
     public EmployeeRepository produceEmployeeRepository() {
         return new EmployeeRepository();
+    }
+
+    @Produces
+    @ApplicationScoped
+    public ToFixEmployeeRepository produceToFixEmployeeRepository() {
+        return new ToFixEmployeeRepository();
     }
 
     @Produces

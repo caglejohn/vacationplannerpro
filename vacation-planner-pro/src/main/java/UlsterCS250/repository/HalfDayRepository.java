@@ -15,7 +15,7 @@ public class HalfDayRepository {
     private static String pass = "abc123";
     private static RepositoryProducer repositoryProducer = new RepositoryProducer();
     private static final Logger LOGGER = Logger.getLogger(HalfDayRepository.class.getName());
-
+/* 
     public ArrayList<JHalfDay> findAll(boolean assignTakenOff) {
         ArrayList<JHalfDay> halfDayList = new ArrayList<>();
         try {
@@ -44,7 +44,7 @@ public class HalfDayRepository {
             e.printStackTrace();
         }
         return halfDayList;
-    }
+    }/*
     public static JHalfDay makeHalfDay(ResultSet rs, boolean assignTakenOff) throws SQLException {
         return HalfDay.convert(
                 rs.getInt("half_day_id"),
@@ -55,5 +55,5 @@ public class HalfDayRepository {
                 rs.getBoolean("is_am"),
                 assignTakenOff ? repositoryProducer.produceEmployeeRepository().findByDayOff(rs.getInt("half_day_id"),false) : null
         );
-    }
+    }*/
 }

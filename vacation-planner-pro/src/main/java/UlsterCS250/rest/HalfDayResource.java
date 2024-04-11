@@ -16,7 +16,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 public class HalfDayResource {
     public HalfDayResource() {
     }
-
+/* 
     private HalfDayRepository halfDayRepository;
     private static final Logger LOGGER = Logger.getLogger(HalfDayResource.class.getName());
     public HalfDayResource(HalfDayRepository halfDayRepository) {
@@ -69,5 +69,5 @@ public class HalfDayResource {
         JHalfDay halfDay = halfDayRepository.findAll(true).get(0);
         if (halfDay == null) return Response.status(Response.Status.NOT_FOUND).build();
         return Response.ok(halfDay).build();
-    }
+    }*/
 }
