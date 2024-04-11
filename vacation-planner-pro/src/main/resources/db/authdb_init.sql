@@ -81,20 +81,6 @@ INSERT INTO VacationProfiles (employee_id, total_vacation_days, personal_choice_
     (5, 15, 5, 7, 8, 4, 1), -- Most personal choice days used
     (6, 30, 10, 15, 15, 5, 5); -- High entitlement, half used
 
--- VacationRequests Table: Manages detailed vacation requests for each employee.
-CREATE TABLE IF NOT EXISTS VacationRequests (
-    request_id SERIAL PRIMARY KEY, -- Unique request identifier
-    employee_id INTEGER NOT NULL, -- Employee making the request
-    approver_id INTEGER, -- Employee ID of the approver
-    start_date DATE NOT NULL, -- Vacation start date
-    end_date DATE NOT NULL, -- Vacation end date
-    type VARCHAR(255) NOT NULL, -- Type of vacation (e.g., full day, half day, personal choice)
-    reason VARCHAR(255), -- Reason for the request
-    status VARCHAR(255) NOT NULL, -- Status of the request (e.g., approved, pending, declined)
-    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE, -- Cascading delete with employee deletion
-    FOREIGN KEY (approver_id) REFERENCES Employees(employee_id) ON DELETE SET NULL -- Approver deletion sets field to NULL
-);
-
 -- VacationRequests Dummy Data
 INSERT INTO VacationRequests (employee_id, approver_id, start_date, end_date, type, reason, status) VALUES
     -- Employee 1's approved vacation for a family vacation
@@ -143,6 +129,11 @@ CREATE TABLE IF NOT EXISTS EmployeeTimeOffs (
     is_am BOOLEAN DEFAULT FALSE, -- Indicates if the time off is for the morning (AM)
     is_pm BOOLEAN DEFAULT FALSE, -- Indicates if the time off is for the afternoon (PM)
     is_personal BOOLEAN DEFAULT FALSE, -- Indicates if the time off is personal choice
+    approver_id INTEGER, -- Employee ID of the approver
+    reason VARCHAR(255), -- Reason for the request
+    status VARCHAR(255) NOT NULL, -- Status of the request (e.g., approved, pending, declined)
+    FOREIGN KEY (approver_id) REFERENCES Employees(employee_id) ON DELETE SET NULL -- Approver deletion sets field to NULL
+    FOREIGN KEY (employee_time_off_id) REFERENCES EmployeeTimeOffs(employee_time_off_id)
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE -- Cascading delete with employee deletion
 );
 
