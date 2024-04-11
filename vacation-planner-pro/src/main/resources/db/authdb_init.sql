@@ -82,16 +82,6 @@ INSERT INTO VacationProfiles (employee_id, total_vacation_days, personal_choice_
     (5, 15, 5, 7, 8, 4, 1), -- Most personal choice days used
     (6, 30, 10, 15, 15, 5, 5); -- High entitlement, half used
 
--- VacationRequests Table: Manages detailed vacation requests for each employee.
-CREATE TABLE IF NOT EXISTS VacationRequests (
-    vacation_request_id SERIAL PRIMARY KEY, -- Unique request identifier
-    approver_id INTEGER, -- Employee ID of the approver
-    employee_time_off_id INTEGER NOT NULL,
-    reason VARCHAR(255), -- Reason for the request
-    status VARCHAR(255) NOT NULL, -- Status of the request (e.g., approved, pending, declined)
-    FOREIGN KEY (approver_id) REFERENCES Employees(employee_id) ON DELETE SET NULL -- Approver deletion sets field to NULL
-    FOREIGN KEY (employee_time_off_id) REFERENCES EmployeeTimeOffs(employee_time_off_id)
-);
 
 -- VacationRequests Dummy Data
 INSERT INTO VacationRequests (approver_id, time_off_id, reason, status) VALUES
@@ -139,6 +129,11 @@ CREATE TABLE IF NOT EXISTS EmployeeTimeOffs (
     employee_id INTEGER NOT NULL, -- References the unique employee ID
     half_day_id INTEGER NOT NULL,
     is_personal BOOLEAN DEFAULT FALSE, -- Indicates if the time off is personal choice
+    approver_id INTEGER, -- Employee ID of the approver
+    reason VARCHAR(255), -- Reason for the request
+    status VARCHAR(255) NOT NULL, -- Status of the request (e.g., approved, pending, declined)
+    FOREIGN KEY (approver_id) REFERENCES Employees(employee_id) ON DELETE SET NULL -- Approver deletion sets field to NULL
+    FOREIGN KEY (employee_time_off_id) REFERENCES EmployeeTimeOffs(employee_time_off_id)
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE -- Cascading delete with employee deletion
     FOREIGN KEY (half_day_id) REFERENCES HalfDays(half_day_id) ON DELETE CASCADE -- Cascading delete with day deletion
 );
