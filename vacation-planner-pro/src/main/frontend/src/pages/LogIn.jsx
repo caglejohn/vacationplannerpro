@@ -10,7 +10,7 @@ export default function LogIn() {
   const [validCompany, setValidCompany] = useState(true);
 
   const usernameRegex = /^[a-zA-Z0-9_]{5,15}$/;
-  const passwordRegex = /.{8,24}/;
+  const passwordRegex = /^.{8,24}$/;
   const companyRegex = /^[0-9]+$/;
 
   const [formError, setFormError] = useState('');
@@ -34,7 +34,6 @@ export default function LogIn() {
         companyId: loginRef.current.companyId.value,
       };
       const response = await postAuth(user);
-      console.log(response);
       if (response.status == 201) {
         navigate('/calendar');
       }

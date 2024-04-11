@@ -12,6 +12,7 @@ export const postAuth = async (user) => {
   const userParsed = {
     username: user.username,
     password: user.password,
+    email: 'test@test.com',
   };
   const resp = await plannerApi.post('/api/employees/session', userParsed, {
     withCredentials: true,
@@ -27,11 +28,12 @@ export const postSignup = async (user) => {
   const userParsed = {
     username: user.username,
     password: user.password,
+    email: user.email,
   };
   const resp = await plannerApi.post('/api/employees', userParsed, {
     withCredentials: true,
   });
-  return resp.status;
+  return resp;
 };
 
 export const getCalendar = async () => {

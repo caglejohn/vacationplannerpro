@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { useState, useRef, useEffect } from 'react';
 import { postSignup } from '../api/plannerApi';
 import { useNavigate, Link } from 'react-router-dom';
@@ -8,18 +9,21 @@ export default function SignUp() {
     password: '',
     match: '',
     company: '',
+    email: '',
   });
   const [valid, setValid] = useState({
     username: false,
     password: false,
     match: false,
     company: false,
+    email: false,
   });
   const [focus, setfocus] = useState({
     username: false,
     password: false,
     match: false,
     company: false,
+    email: false,
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -28,8 +32,9 @@ export default function SignUp() {
   const signupRef = useRef();
 
   const usernameRegex = /^[a-zA-Z0-9_]{5,15}$/;
-  const passwordRegex = /.{8,24}/;
+  const passwordRegex = /^.{8,24}$/;
   const companyRegex = /^[0-9]+$/;
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -44,16 +49,18 @@ export default function SignUp() {
   }, [signupRef]);
 
   useEffect(() => {
-    const { username, password, match, company } = form;
+    const { username, password, match, company, email } = form;
     const userVal = usernameRegex.test(username);
     const passwordVal = passwordRegex.test(password);
     const matchVal = password === match;
     const companyVal = companyRegex.test(company);
+    const emailVal = emailRegex.test(email);
     setValid({
       username: userVal,
       password: passwordVal,
       match: matchVal,
       company: companyVal,
+      email: emailVal,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
@@ -61,7 +68,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const { username, password, company } = form;
+    const { username, password, company, email } = form;
 
     const isValid = Object.values(valid).every((val) => val === true);
     if (!isValid) {
@@ -74,6 +81,7 @@ export default function SignUp() {
       username: username.trim(),
       password: password,
       companyId: company,
+      email: email,
       accruals: 8,
     };
 
@@ -160,7 +168,55 @@ export default function SignUp() {
                   className="form-text text-white bg-dark p-2 rounded"
                   id="usernote"
                 >
-                  5 to 15 characters long
+                  5-15 alphanumeric chars and/or underscores
+                </p>
+              )}
+
+              <div className="form-group">
+                <label htmlFor="email">
+                  Email:
+                  {valid.email && form.email && (
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
+                      <i
+                        className="fa fa-check text-success ml-6"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  )}
+                  {!valid.email && form.email && (
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
+                      <i
+                        className="fa fa-times text-danger ml-6"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  )}
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  maxLength={50}
+                  className="form-control mt-1"
+                  onChange={handleInput}
+                  id="email"
+                  autoComplete="off"
+                  aria-required="true"
+                  aria-invalid={!!valid.email}
+                  aria-describedby="emailnote"
+                  onFocus={() => handleFocus('email', true)}
+                  onBlur={() => handleFocus('email', false)}
+                />
+              </div>
+              {focus.email && !valid.email && (
+                <p
+                  className="form-text text-white bg-dark p-2 rounded"
+                  id="emailnote"
+                >
+                  Please enter a valid email address
                 </p>
               )}
               <div className="form-group">
@@ -311,7 +367,8 @@ export default function SignUp() {
                   !valid.company ||
                   !valid.match ||
                   !valid.password ||
-                  !valid.username
+                  !valid.username ||
+                  !valid.email
                 }
               >
                 {isLoading ? 'Loading ...' : 'Sign Up'}
