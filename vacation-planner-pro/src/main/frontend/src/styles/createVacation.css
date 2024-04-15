@@ -27,13 +27,22 @@
 
 /* works for all pages, used to get back to calendar*/
 .nav-link {
-  margin: 0.25rem;
+  margin: 1.8rem;
   padding: 0rem 0.75rem;
   cursor: pointer;
   font-size: 18px;
   outline: none;
   border-radius: 5px;
+  position: relative; top: 150px;
   color: #80ddff;
   text-align: center;
   background-color: #ea3a3d;
+}
+
+.nav-container {
+  left: 0;
+  height: 170px;
+  width: 170px;
+  background-size: cover;
+  background-image: url('/VacationPlannerProLOGO.png');
 }
