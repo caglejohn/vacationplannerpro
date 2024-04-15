@@ -47,3 +47,7 @@
   background-size: cover;
   background-image: url('/VacationPlannerProLOGO.png');
 }
+
+h1{
+  text-align: center;
+}
