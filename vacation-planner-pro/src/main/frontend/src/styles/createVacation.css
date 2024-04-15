@@ -24,3 +24,16 @@
 .create-vac button:hover {
   background-color: #004494;
 }
+
+/* works for all pages, used to get back to calendar*/
+.nav-link {
+  margin: 0.25rem;
+  padding: 0rem 0.75rem;
+  cursor: pointer;
+  font-size: 18px;
+  outline: none;
+  border-radius: 5px;
+  color: #80ddff;
+  text-align: center;
+  background-color: #ea3a3d;
+}
