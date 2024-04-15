@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 function CreateVacation() {
   return (
+    
     <div className="create-vac container-fluid col-md-6 mt-4">
       <h1>Schedule Time Off</h1>
       <form className="col-md-8" id="timeOffForm">

@@ -110,13 +110,6 @@ const VacationProfiles = () => {
                     Update Vacation
                   </Link>
                 </li>
-                {/*}
-                <li className="nav-item">
-                  <Link className="nav-link" to="/">
-                    Delete Vacation
-                  </Link>
-                </li>
-              */}
               </ul>
             </div>
           </div>
