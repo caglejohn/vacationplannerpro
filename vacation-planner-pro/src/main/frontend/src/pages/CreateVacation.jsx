@@ -5,6 +5,15 @@ import { Link } from 'react-router-dom';
 
 function CreateVacation() {
   return (
+    <div id="create-page">
+    <div id="container">
+      <div id="header">
+        <div className="nav-container">  {/*to add logo to top left of the page*/}
+          <div className="container">
+            </div>
+          </div>
+        </div>
+
     <div className="d-flex">
     <div className="sidebar pt-5">
       <nav className="navbar navbar-expand-lg">
@@ -58,6 +67,8 @@ function CreateVacation() {
         </div>
         <button type="submit">Submit Time Off Request</button>
       </form>
+    </div>
+    </div>
     </div>
     </div>
   );
