@@ -139,6 +139,9 @@ export default function Calendar() {
             <button className="cal-button" id="nextButton">
               Next
             </button>
+            <button className="logout-button" id="logoutButton">
+              Log Out
+            </button>
           </div>
         </div>
 
