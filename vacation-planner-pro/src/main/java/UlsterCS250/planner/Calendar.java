@@ -56,17 +56,15 @@ public class Calendar {
     }
     private void update(){
         currentIndex=(gregorianCalendar.get(java.util.Calendar.DAY_OF_YEAR)-1)*2;
-        if(gregorianCalendar.get(java.util.Calendar.AM_PM)== java.util.Calendar.PM) currentIndex++;
+        if(gregorianCalendar.get(java.util.Calendar.AM_PM) == java.util.Calendar.PM) currentIndex++;
     }
     public String toString(){
         return "index: "+ currentIndex +" year: "+year+" current HalfDay: "+calendar.get(currentIndex)+" "+
                 calendar.stream().map(HalfDay::toString).reduce("",(String s, String x)->s+'\n'+x);
     }
-
     public ArrayList<HalfDay> getCalendar() {
         return calendar;
     }
-
     public void setCalendar(ArrayList<HalfDay> calendar) {
         this.calendar = calendar;
     }
@@ -79,7 +77,6 @@ public class Calendar {
     public int getYear() {
         return year;
     }
-
     public void setYear(int year) {
         this.year = year;
     }

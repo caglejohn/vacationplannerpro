@@ -1,7 +1,6 @@
 package UlsterCS250.repository;
 
 import UlsterCS250.entities.JHalfDay;
-import UlsterCS250.planner.HalfDay;
 import UlsterCS250.producers.RepositoryProducer;
 
 import java.sql.*;
@@ -15,20 +14,20 @@ public class HalfDayRepository {
     private static String pass = "abc123";
     private static RepositoryProducer repositoryProducer = new RepositoryProducer();
     private static final Logger LOGGER = Logger.getLogger(HalfDayRepository.class.getName());
-/* 
-    public ArrayList<JHalfDay> findAll(boolean assignTakenOff) {
+
+    public ArrayList<JHalfDay> findAll() {
         ArrayList<JHalfDay> halfDayList = new ArrayList<>();
         try {
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);
             ResultSet rs = conn.prepareStatement("SELECT * FROM HalfDays ORDER BY half_day_id").executeQuery();
-            while(rs.next()) halfDayList.add(makeHalfDay(rs,assignTakenOff));
+            while(rs.next()) halfDayList.add(makeHalfDay(rs));
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error while finding days", e);
             e.printStackTrace();
         }
         return halfDayList;
     }
-    public ArrayList<JHalfDay> findByEmployee(int id, boolean assignTakenOff) {
+    public ArrayList<JHalfDay> findByEmployee(int id) {
         ArrayList<JHalfDay> halfDayList = new ArrayList<>();
         try {
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -38,22 +37,21 @@ public class HalfDayRepository {
             stmt.setInt(1,id);
             ResultSet rs = stmt.executeQuery();
             System.out.println(rs.first());
-            while(rs.next()) halfDayList.add(makeHalfDay(rs,assignTakenOff));
+            while(rs.next()) halfDayList.add(makeHalfDay(rs));
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error while finding days", e);
             e.printStackTrace();
         }
         return halfDayList;
-    }/*
-    public static JHalfDay makeHalfDay(ResultSet rs, boolean assignTakenOff) throws SQLException {
-        return HalfDay.convert(
+    }
+    public static JHalfDay makeHalfDay(ResultSet rs) throws SQLException {
+        return new JHalfDay(
                 rs.getInt("half_day_id"),
+                rs.getBoolean("is_am"),
                 rs.getInt("day_of_week_id"),
                 rs.getDate("start_date"),
                 rs.getDate("end_date"),
-                rs.getBoolean("work_day"),
-                rs.getBoolean("is_am"),
-                assignTakenOff ? repositoryProducer.produceEmployeeRepository().findByDayOff(rs.getInt("half_day_id"),false) : null
+                rs.getBoolean("is_work_day")
         );
-    }*/
+    }
 }

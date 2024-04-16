@@ -1,5 +1,6 @@
 package UlsterCS250.rest;
-import UlsterCS250.entities.Employee;
+
+import UlsterCS250.entities.JEmployee;
 import UlsterCS250.repository.EmployeeRepository;
 import UlsterCS250.viewModels.EmployeeVM;
 import jakarta.ws.rs.PathParam;
@@ -16,7 +17,6 @@ import jakarta.ws.rs.core.Response;
 import java.net.http.HttpHeaders;
 import java.sql.SQLException;
 import java.util.ArrayList;
-//import java.util.logging.Logger;
 import jakarta.inject.Inject;
 
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -44,7 +44,7 @@ public class EmployeeResource {
                     description = "Internal server error")})
     public Response getEmployees() {
         try {
-            ArrayList<Employee> employees = employeeRepository.findAll();
+            ArrayList<JEmployee> employees = employeeRepository.findAll();
             if (employees.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                     .entity("No employees found")
@@ -70,7 +70,7 @@ public class EmployeeResource {
                  responseCode = "200",
                  description = "Success")})
     public Response getEmployeeByUsername(@PathParam("username") String username) {
-        Employee employee = employeeRepository.findByUsername(username);
+        JEmployee employee = employeeRepository.findByUsername(username);
 
         if (employee == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -109,48 +109,44 @@ public class EmployeeResource {
             }
         }
     }
+    @POST
+    @Path("/session")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @APIResponses(
+        value = {
+            @APIResponse(
+                responseCode = "404",
+                description = "Invalid Username or Password"),
+            @APIResponse(
+                responseCode = "201",
+                description = "Created"),
+            @APIResponse(
+                responseCode = "500",
+                description = "Internal server error")})
+    public Response addSession(@Context HttpHeaders headers, EmployeeVM employee) {
+        try {
+            if (employeeRepository.addSession(employee)){
+                NewCookie authTokenCookie = new NewCookie.Builder("authToken")
+                .value("valid_token")
+                .path("/")
+                .comment("Session cookie")
+                .maxAge(3600)
+                .build();
 
-@POST
-@Path("/session")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-@APIResponses(
-     value = {
-         @APIResponse(
-             responseCode = "404",
-             description = "Invalid Username or Password"),
-         @APIResponse(
-             responseCode = "201",
-             description = "Created"),
-         @APIResponse(
-             responseCode = "500",
-             description = "Internal server error")})
-public Response addSession(@Context HttpHeaders headers, EmployeeVM employee) {
-    try
-    {
-        if (employeeRepository.addSession(employee)){
-            NewCookie authTokenCookie = new NewCookie.Builder("authToken")
-            .value("valid_token")
-            .path("/")
-            .comment("Session cookie")
-            .maxAge(3600)
+                return Response.status(Response.Status.CREATED)
+                .cookie(authTokenCookie)
+                .build();
+            }
+
+            return Response.status(Response.Status.UNAUTHORIZED)
+            .entity("Invalid login credentials supplied")
             .build();
-
-            return Response.status(Response.Status.CREATED)
-                    .cookie(authTokenCookie)
-                    .build();
         }
-
-        return Response.status(Response.Status.UNAUTHORIZED)
-                    .entity("Invalid login credentials supplied")
-                    .build();
+        catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+            .entity("Error while attempting login: " + e.getMessage())
+            .build();
+        }
     }
-    catch (SQLException e)
-    {
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Error while attempting login: " + e.getMessage())
-                    .build();
-        
-    }
-}
 }

@@ -1,52 +1,62 @@
 package UlsterCS250.entities;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 public class JHalfDay {
-    public int index;
-    public String startHour;
-    public String endHour;
-    public String startWeekDay;
-    public String endWeekDay;
-    public String startMonth;
-    public String endMonth;
-    public String startYear;
-    public String endYear;
-    public int[] start; // MM/DD/YYYY/HH
-    public int[] end;   // MM/DD/YYYY/HH
-    public boolean isWorkDay;
-    public ArrayList<JEmployee> takenOff;
+    private int id;
+    private boolean isAm;
+    private int dayOfWeekId;
+    private Date startDate;
+    private Date endDate;
+    private boolean isWorkDay;
 
-    public String getStartWeekDay() {
-        return startWeekDay;
+    public JHalfDay(int id, boolean isAm, int dayOfWeekId, Date startDate, Date endDate, boolean isWorkDay) {
+        this.id = id;
+        this.isAm = isAm;
+        this.dayOfWeekId = dayOfWeekId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isWorkDay = isWorkDay;
     }
 
-    public void setStartWeekDay(String startWeekDay) {
-        this.startWeekDay = startWeekDay;
+    public int getId() {
+        return id;
     }
 
-    public String getStartMonth() {
-        return startMonth;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setStartMonth(String startMonth) {
-        this.startMonth = startMonth;
+    public boolean isAm() {
+        return isAm;
     }
 
-    public int[] getStart() {
-        return start;
+    public void setAm(boolean am) {
+        isAm = am;
     }
 
-    public void setStart(int[] start) {
-        this.start = start;
+    public int getDayOfWeekId() {
+        return dayOfWeekId;
     }
 
-    public int[] getEnd() {
-        return end;
+    public void setDayOfWeekId(int dayOfWeekId) {
+        this.dayOfWeekId = dayOfWeekId;
     }
 
-    public void setEnd(int[] end) {
-        this.end = end;
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public boolean isWorkDay() {
@@ -55,66 +65,5 @@ public class JHalfDay {
 
     public void setWorkDay(boolean workDay) {
         isWorkDay = workDay;
-    }
-
-    public ArrayList<JEmployee> getTakenOff() {
-        return takenOff;
-    }
-
-    public void setTakenOff(ArrayList<JEmployee> takenOff) {
-        this.takenOff = takenOff;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    public String getStartHour() {
-        return startHour;
-    }
-
-    public void setStartHour(String startHour) {
-        this.startHour = startHour;
-    }
-    public String getEndHour() {
-        return endHour;
-    }
-
-    public void setEndHour(String endHour) {
-        this.endHour = endHour;
-    }
-
-    public String getEndWeekDay() {
-        return endWeekDay;
-    }
-
-    public void setEndWeekDay(String endWeekDay) {
-        this.endWeekDay = endWeekDay;
-    }
-
-    public String getEndMonth() {
-        return endMonth;
-    }
-
-    public void setEndMonth(String endMonth) {
-        this.endMonth = endMonth;
-    }
-    public String getStartYear() {
-        return startYear;
-    }
-
-    public void setStartYear(String startYear) {
-        this.startYear = startYear;
-    }
-
-    public String getEndYear() {
-        return endYear;
-    }
-
-    public void setEndYear(String endYear) {
-        this.endYear = endYear;
     }
 }

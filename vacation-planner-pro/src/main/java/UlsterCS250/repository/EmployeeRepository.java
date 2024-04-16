@@ -2,7 +2,7 @@ package UlsterCS250.repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.*;
-import UlsterCS250.entities.Employee;
+import UlsterCS250.entities.JEmployee;
 import UlsterCS250.viewModels.EmployeeVM;
 
 public class EmployeeRepository {
@@ -12,8 +12,8 @@ public class EmployeeRepository {
 
     private static final Logger LOGGER = Logger.getLogger(EmployeeRepository.class.getName());
     
-    public ArrayList<Employee> findAll() {
-        ArrayList<Employee> employeesList = new ArrayList<>();
+    public ArrayList<JEmployee> findAll() {
+        ArrayList<JEmployee> employeesList = new ArrayList<>();
         try {
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Employees ORDER BY employee_id");
@@ -54,7 +54,7 @@ public class EmployeeRepository {
         }
     }
 
-    public Employee findByUsername(String username) {
+    public JEmployee findByUsername(String username) {
         try {
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Employees WHERE username ILIKE ?");
@@ -73,25 +73,13 @@ public class EmployeeRepository {
         }
     }
     
-    public ArrayList<Employee> findByDayOff(int index, boolean assignTimeOff) {
-        ArrayList<Employee> Employees = new ArrayList<>();
-        try {
-            Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Employees " +
-                    "JOIN EmployeeTimeOffs ON Employees.id = EmployeeTimeOffs.employee_id " +
-                    "WHERE EmployeeTimeOffs.half_day_id = ?");
-            stmt.setInt(1,index);
-            ResultSet rs = stmt.executeQuery();
-            while(rs.next()) Employees.add(makeEmployee(rs));
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error while finding days", e);
-            e.printStackTrace();
-        }
-        return Employees;
-    }
+    /*public ArrayList<Employee> findByDayOff(int index) {
 
-    public static Employee makeEmployee(ResultSet rs) throws SQLException {
-        return new Employee(
+    }*/
+
+    public static JEmployee makeEmployee(ResultSet rs) throws SQLException {
+        return new JEmployee(
+                rs.getInt("employee_id"),
                 rs.getString("username"),
                 rs.getString("password_hash"),
                 rs.getString("email"),
@@ -100,9 +88,8 @@ public class EmployeeRepository {
                 rs.getBoolean("is_manager"),
                 rs.getBoolean("is_active"),
                 rs.getString("last_login"),
-                rs.getString("created_at"),
-                rs.getString("department_id"),
-                rs.getString("years_of_service")
+                rs.getString("create_time"),
+                rs.getInt("years_of_service")
         );
     }
 

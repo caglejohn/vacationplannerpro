@@ -26,7 +26,7 @@ public class HalfDay {
         workDay=true;
     }
 
-    public static JHalfDay convert(int index, int dayOfWeek, Date startDate, Date endDate, boolean workDay, boolean isAm, ArrayList<JEmployee> takenOff) {
+    /*public static JHalfDay convert(int index, int dayOfWeek, Date startDate, Date endDate, boolean workDay, boolean isAm, ArrayList<JEmployee> takenOff) {
         JHalfDay halfDay = new JHalfDay();
         halfDay.setIndex(index);
         halfDay.setWorkDay(workDay);
@@ -44,7 +44,7 @@ public class HalfDay {
         halfDay.setEndYear(end[0]);
         halfDay.setTakenOff(takenOff);
         return halfDay;
-    }
+    }*/
 
     public static String getDayString(int id){
         return weekDays[id-1];

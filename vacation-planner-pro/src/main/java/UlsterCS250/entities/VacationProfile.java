@@ -22,7 +22,6 @@ public class VacationProfile {
                 this.vacationDaysRemaining = vacationDaysRemaining;
                 this.personalChoiceTaken = personalChoiceTaken;
                 this.personalChoiceDaysRemaining = personalChoiceDaysRemaining;
-
     }
 
 
