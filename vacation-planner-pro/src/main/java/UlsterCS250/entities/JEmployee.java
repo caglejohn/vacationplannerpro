@@ -1,7 +1,5 @@
 package UlsterCS250.entities;
 
-import java.util.ArrayList;
-
 public class JEmployee {
 
     private int id;
@@ -14,9 +12,7 @@ public class JEmployee {
     private Boolean isActive;
     private String lastLogin;
     private String createTime;
-    private String departmentId;
-    private String yearsOfService;
-    private ArrayList<JHalfDay> timeOff;
+    private int yearsOfService;
 
     public JEmployee(){
 
@@ -24,8 +20,8 @@ public class JEmployee {
 
     public JEmployee(int id, String username, String passwordHash, String email,
                     String firstName, String lastName, Boolean isManager, Boolean isActive,
-                    String lastLTime, String createTime, String departmentId,
-                    String yoe, ArrayList<JHalfDay> timeOff) {
+                    String lastLTime, String createTime,
+                    int yoe) {
         this.id=id;
         this.username = username;
         this.passwordHash = passwordHash;
@@ -36,9 +32,7 @@ public class JEmployee {
         this.isActive = isActive;
         this.lastLogin = lastLTime;
         this.createTime = createTime;
-        this.departmentId = departmentId;
         this.yearsOfService = yoe;
-        this.timeOff=timeOff;
     }
 
     public int getId() {
@@ -121,26 +115,11 @@ public class JEmployee {
         this.isActive = isActive;
     }
 
-    public String getDepartmentId(){
-        return departmentId;
-    }
-
-    public void setDepartmentId(String departmentId){
-        this.departmentId = departmentId;
-    }
-
-    public String getYoe(){
+    public int getYoe(){
         return yearsOfService;
     }
 
-    public void setYoe(String yoe){
+    public void setYoe(int yoe){
         this.yearsOfService = yoe;
-    }
-    public ArrayList<JHalfDay> getTimeOff() {
-        return timeOff;
-    }
-
-    public void setTimeOff(ArrayList<JHalfDay> halfDays) {
-        this.timeOff = halfDays;
     }
 }

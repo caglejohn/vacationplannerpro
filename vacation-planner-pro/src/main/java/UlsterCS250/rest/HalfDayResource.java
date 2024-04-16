@@ -2,6 +2,7 @@ package UlsterCS250.rest;
 
 import UlsterCS250.entities.JHalfDay;
 import UlsterCS250.repository.HalfDayRepository;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -14,11 +15,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 @Path("/half-days")
 public class HalfDayResource {
-    public HalfDayResource() {
-    }
-/* 
     private HalfDayRepository halfDayRepository;
     private static final Logger LOGGER = Logger.getLogger(HalfDayResource.class.getName());
+    @Inject
     public HalfDayResource(HalfDayRepository halfDayRepository) {
         this.halfDayRepository = halfDayRepository;
     }
@@ -38,7 +37,7 @@ public class HalfDayResource {
             })
     public Response getHalfDays() {
         try {
-            ArrayList<JHalfDay> halfDays = halfDayRepository.findAll(true);
+            ArrayList<JHalfDay> halfDays = halfDayRepository.findAll();
             if (halfDays.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("No half-days found")
@@ -66,8 +65,8 @@ public class HalfDayResource {
             })
     public Response getHalfDayByInd(@PathParam("ind") int username) {
         LOGGER.warning("Received username into API call: " + username);
-        JHalfDay halfDay = halfDayRepository.findAll(true).get(0);
+        JHalfDay halfDay = halfDayRepository.findAll().get(0);
         if (halfDay == null) return Response.status(Response.Status.NOT_FOUND).build();
         return Response.ok(halfDay).build();
-    }*/
+    }
 }
