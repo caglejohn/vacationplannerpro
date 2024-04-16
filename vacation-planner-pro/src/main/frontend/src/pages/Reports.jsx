@@ -78,6 +78,15 @@ const VacationProfiles = () => {
   const sortedProfiles = sortedData();
 
   return (
+    <div id="create-page">
+    <div id="container">
+      <div id="header">
+        <div className="nav-container">  {/*to add logo to top left of the page*/}
+          <div className="container">
+            </div>
+          </div>
+        </div>
+
     <div className="d-flex">
       <div className="sidebar pt-5">
         <nav className="navbar navbar-expand-lg">
@@ -99,24 +108,19 @@ const VacationProfiles = () => {
                   <Link className="nav-link" to="/calendar">
                     Calendar
                   </Link>
-                </li>
+               </li>
+               {/* 
                 <li className="nav-item">
-                  <Link className="nav-link" to="/calendar/create">
+                  <Link className="nav-link1" to="/calendar/create">
                     Schedule Vacation
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">
+                  <Link className="nav-link1" to="/">
                     Update Vacation
                   </Link>
                 </li>
-                {/*}
-                <li className="nav-item">
-                  <Link className="nav-link" to="/">
-                    Delete Vacation
-                  </Link>
-                </li>
-              */}
+                */}
               </ul>
             </div>
           </div>
@@ -229,6 +233,8 @@ const VacationProfiles = () => {
           </table>
         </div>
       </div>
+    </div>
+    </div>
     </div>
   );
 };

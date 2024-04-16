@@ -11,6 +11,7 @@
 .cal-button {
   margin: 0.25rem;
   padding: 0rem 0.75rem;
+  position: relative; top: 130px; right: 150px;
   cursor: pointer;
   box-shadow: 0px 0px 2px green;
   border-style: dotted;
@@ -19,6 +20,19 @@
   border-radius: 5px;
   color: #80ddff;
   background-color: #ea3a3d;
+}
+
+.logout-button {
+  margin: 0.25rem;
+  padding: 0rem 0.75rem;
+  cursor: pointer;
+  box-shadow: 0px 0px 2px green;
+  border-style: dotted;
+  font-size: 16px;
+  outline: none;
+  border-radius: 5px;
+  color: #ffb122;
+  background-color: #485664;
 }
 
 .edit-button {
@@ -56,18 +70,7 @@
   background-size: cover;
   background-image: url('/VacationPlannerProLOGO.png');
 }
-/*
-.image-container2 {
-  height: 1400px;
-  width: 1000px;
-  margin-right: auto;
-  background-image: url('/VPP2.png');
-}
 
-#container {
-  width: 770;
-}
-*/
 #weekdays {
   justify-content: center;
   width: 100%;
