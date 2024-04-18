@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.*;
 import UlsterCS250.entities.JEmployee;
 import UlsterCS250.producers.RepositoryProducer;
-import UlsterCS250.viewModels.EmployeeVM;
+import UlsterCS250.requests.EmployeeVM;
 
 public class ToFixEmployeeRepository {
     /*

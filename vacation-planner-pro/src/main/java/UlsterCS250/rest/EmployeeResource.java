@@ -2,7 +2,7 @@ package UlsterCS250.rest;
 
 import UlsterCS250.entities.JEmployee;
 import UlsterCS250.repository.EmployeeRepository;
-import UlsterCS250.viewModels.EmployeeVM;
+import UlsterCS250.requests.EmployeeVM;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;

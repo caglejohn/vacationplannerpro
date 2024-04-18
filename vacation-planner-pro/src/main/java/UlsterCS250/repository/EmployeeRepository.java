@@ -3,7 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.*;
 import UlsterCS250.entities.JEmployee;
-import UlsterCS250.viewModels.EmployeeVM;
+import UlsterCS250.requests.EmployeeVM;
 
 public class EmployeeRepository {
     private static String dbUrl = "jdbc:postgresql://localhost:5432/auth_database";
