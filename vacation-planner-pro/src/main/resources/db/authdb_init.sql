@@ -2,7 +2,7 @@
 CREATE EXTENSION IF NOT EXISTS citext;
 -- Creates the 'Employees' table with various fields
 CREATE TABLE Employees (
-    employee_id INTEGER PRIMARY KEY,
+    employee_id SERIAL PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     email CITEXT UNIQUE NOT NULL,
@@ -15,30 +15,30 @@ CREATE TABLE Employees (
     years_of_service INTEGER
 );
 -- Employees Dummy Data
-INSERT INTO Employees (employee_id, username, password_hash, email, first_name, last_name, is_manager, is_active, create_time, last_login, years_of_service) VALUES
-    (0, 'johndoe', 'hashed_password1', 'johndoe@example.com', 'John', 'Doe', FALSE, TRUE, NOW(), NULL, 5),
-    (1, 'janedoe', 'hashed_password2', 'janedoe@example.com', 'Jane', 'Doe', TRUE, TRUE, NOW(), NULL, 8),
-    (2, 'bobsmith', 'hashed_password3', 'bobsmith@example.com', 'Bob', 'Smith', FALSE, TRUE, NOW(), NULL, 3),
-    (3, 'alicewhite', 'hashed_password4', 'alicewhite@example.com', 'Alice', 'White', FALSE, TRUE, NOW(), NULL, 2),
-    (4, 'tomblack', 'hashed_password5', 'tomblack@example.com', 'Tom', 'Black', TRUE, FALSE, NOW(), NULL, 10),
-    (5, 'sarahgreen', 'hashed_password6', 'sarahgreen@example.com', 'Sarah', 'Green', FALSE, TRUE, NOW(), NULL, 4),
-    (6, 'davidbrown', 'hashed_password7', 'davidbrown@example.com', 'David', 'Brown', FALSE, TRUE, NOW(), NULL, 1),
-    (7, 'emilyclark', 'hashed_password8', 'emilyclark@example.com', 'Emily', 'Clark', TRUE, TRUE, NOW(), NULL, 7),
-    (8, 'brianmiller', 'hashed_password9', 'brianmiller@example.com', 'Brian', 'Miller', FALSE, TRUE, NOW(), NULL, 5),
-    (9, 'chloewilson', 'hashed_password10', 'chloewilson@example.com', 'Chloe', 'Wilson', TRUE, TRUE, NOW(), NULL, 6);
+INSERT INTO Employees (username, password_hash, email, first_name, last_name, is_manager, is_active, create_time, last_login, years_of_service) VALUES
+    ('johndoe', 'hashed_password1', 'johndoe@example.com', 'John', 'Doe', FALSE, TRUE, NOW(), NULL, 5),
+    ('janedoe', 'hashed_password2', 'janedoe@example.com', 'Jane', 'Doe', TRUE, TRUE, NOW(), NULL, 8),
+    ('bobsmith', 'hashed_password3', 'bobsmith@example.com', 'Bob', 'Smith', FALSE, TRUE, NOW(), NULL, 3),
+    ('alicewhite', 'hashed_password4', 'alicewhite@example.com', 'Alice', 'White', FALSE, TRUE, NOW(), NULL, 2),
+    ('tomblack', 'hashed_password5', 'tomblack@example.com', 'Tom', 'Black', TRUE, FALSE, NOW(), NULL, 10),
+    ('sarahgreen', 'hashed_password6', 'sarahgreen@example.com', 'Sarah', 'Green', FALSE, TRUE, NOW(), NULL, 4),
+    ('davidbrown', 'hashed_password7', 'davidbrown@example.com', 'David', 'Brown', FALSE, TRUE, NOW(), NULL, 1),
+    ('emilyclark', 'hashed_password8', 'emilyclark@example.com', 'Emily', 'Clark', TRUE, TRUE, NOW(), NULL, 7),
+    ('brianmiller', 'hashed_password9', 'brianmiller@example.com', 'Brian', 'Miller', FALSE, TRUE, NOW(), NULL, 5),
+    ('chloewilson', 'hashed_password10', 'chloewilson@example.com', 'Chloe', 'Wilson', TRUE, TRUE, NOW(), NULL, 6);
 
 -- HalfDay table
 CREATE TABLE HalfDays (
-    half_day_id INTEGER PRIMARY KEY NOT NULL, --index of where this day is located
+    half_day_id SERIAL PRIMARY KEY NOT NULL, --index of where this day is located
     is_am BOOLEAN NOT NULL, -- what part of the day this half day is
     day_of_week_id INTEGER NOT NULL, -- the day of the week this half day is (Sunday=0, Monday=1...)
     start_date DATE NOT NULL, -- start date
     end_date DATE NOT NULL, -- end date
     is_work_day BOOLEAN NOT NULL -- whether or not company works this day
     );
-INSERT INTO HalfDays (half_day_id, is_am, day_of_week_id, start_date, end_date, is_work_day) VALUES
-    (0, TRUE, 1, '2024-01-01', '2024-01-01', TRUE),
-    (1, FALSE, 1, '2024-01-01', '2024-01-02', TRUE);
+INSERT INTO HalfDays (is_am, day_of_week_id, start_date, end_date, is_work_day) VALUES
+    (TRUE, 1, '2024-01-01', '2024-01-01', TRUE),
+    (FALSE, 1, '2024-01-01', '2024-01-02', TRUE);
 ------------------------------------------------------------------------------------
 
 -- EmployeeTimeOffs Table: Tracks employee time offs, allowing for half-day (AM/PM) and full-day tracking.
@@ -51,10 +51,21 @@ CREATE TABLE EmployeeTimeOffs (
     FOREIGN KEY (half_day_id) REFERENCES HalfDays(half_day_id) ON DELETE CASCADE -- Cascading delete with day deletion
     );
 
--- EmployeeTimeOffs Dummy Data
-INSERT INTO EmployeeTimeOffs (employee_id, half_day_id, reason) VALUES
-    (0, 0, 'Family vacation'),
-    (0, 1, 'Medical appointment');
+WITH inserted_employees AS (
+    SELECT employee_id
+    FROM Employees
+    WHERE username IN ('johndoe') -- Adjust usernames as needed
+)
+INSERT INTO EmployeeTimeOffs (employee_id, half_day_id, reason)
+SELECT employee_id, 1, 'Family vacation' FROM inserted_employees;
+
+WITH inserted_employees AS (
+    SELECT employee_id
+    FROM Employees
+    WHERE username IN ('janedoe') -- Adjust usernames as needed
+)
+INSERT INTO EmployeeTimeOffs (employee_id, half_day_id, reason)
+SELECT employee_id, 2, 'Medical appointment' FROM inserted_employees;
 
 -- VacationProfiles Table: Tracks individual vacation accruals and usage for each employee.
 CREATE TABLE VacationProfiles (

@@ -99,7 +99,7 @@ public class EmployeeRepository {
         }
         try {
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Employees (username, password_hash, email, first_name, last_name, is_manager, is_active, last_login, created_at, department_id, years_of_service) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Employees (username, password_hash, email, first_name, last_name, is_manager, is_active, last_login, create_time, years_of_service) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)");
             stmt.setString(1, employee.getUsername());
             stmt.setString(2, employee.getPassword());
             stmt.setString(3, employee.getEmail());
@@ -108,7 +108,6 @@ public class EmployeeRepository {
             stmt.setBoolean(6, false);
             stmt.setBoolean(7, true);
             stmt.setInt(8, 1);
-            stmt.setInt(9, 1);
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) LOGGER.info("Employee added successfully");
             else LOGGER.warning("Failed to add employee");
