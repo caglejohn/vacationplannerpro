@@ -1,4 +1,4 @@
-package UlsterCS250.viewModels;
+package UlsterCS250.requests;
 
 public class EmployeeVM {
 
