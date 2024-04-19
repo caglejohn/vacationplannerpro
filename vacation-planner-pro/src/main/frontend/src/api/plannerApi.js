@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 const plannerApi = axios.create({
-  baseURL: 'http://localhost:9080',
+    // for working on dev
+  //baseURL: 'http://localhost:9080',
+
+  // for working on prod
+  baseURL: 'http://148.100.108.158:9080',
 });
 
 export const postAuth = async (user) => {
