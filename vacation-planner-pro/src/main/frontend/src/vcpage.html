@@ -11,40 +11,75 @@
     <div class="container">
         <header>
             <h1>Schedule Your Time Off</h1>
+            <!-- <button onclick="window.history.back()" class="btn btn-secondary">Go Back</button> -->
         </header>
         <div class="row">
-            <!-- Leave Type Form -->
-            <div class="col-md-6">
-                <form id="timeOffForm">
-                    <div class="form-group">
-                        <label for="leaveType">Leave Type:</label>
-                        <select id="leaveType" name="leaveType" class="form-control">
-                            <option value="personal">Personal</option>
-                            <option value="vacation">Vacation</option>
-                            <option value="sick">Sick</option>
-                            <option value="other">Maternity/Paternity Leave</option>
-                            <option value="other">Company Holiday</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="startDate">Start Date:</label>
-                        <input type="date" id="startDate" name="startDate" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="endDate">End Date:</label>
-                        <input type="date" id="endDate" name="endDate" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="reason">Reason for Leave:</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+<!-- Leave Type Form -->
+<div class="col-md-6">
+    <form id="timeOffForm">
+        <div class="form-row align-items-center">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="leaveType">Leave Type:</label>
+                    <select id="leaveType" name="leaveType" class="form-control">
+                        <option value="personal">Personal</option>
+                        <option value="vacation">Vacation</option>
+                        <option value="sick">Sick</option>
+                        <option value="maternity">Maternity/Paternity Leave</option>
+                        <option value="holiday">Company Holiday</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
             </div>
-    
+        </div>
+            <div id="color-code" class="col-md-12">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="leave-color-reference">
+                            <div class="color-type"><span class="color-indicator personal"></span>Personal</div>
+                            <div class="color-type"><span class="color-indicator vacation"></span>Vacation</div>
+                            <div class="color-type"><span class="color-indicator sick"></span>Sick</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="leave-color-reference">
+                            <div class="color-type"><span class="color-indicator maternity"></span>Maternity/Paternity</div>
+                            <div class="color-type"><span class="color-indicator holiday"></span>Company Holiday</div>
+                            <div class="color-type"><span class="color-indicator other"></span>Other</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+
+
+        <!-- Start and End Date in another row -->
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" name="startDate" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" name="endDate" class="form-control">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reason for Leave -->
+        <div class="form-group">
+            <label for="reason">Reason for Leave:</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
             <!-- Status Cards -->
             <div class="col-md-6">
                 <div class="row" id="cards">
@@ -78,24 +113,11 @@
     </div>
     
     <!-- Calendar Week View -->
-    <div class="row">
+    <div class="calendar-week-view">
         <div class="col-12">
             <div class="calendar-container p-4">
                 <div id="week-calendar" class="week-calendar">
-                <div class="day">Monday</div>
-                <div class="day">Tuesday</div>
-                <div class="day">Wednesday</div>
-                <div class="day">Thursday</div>
-                <div class="day">Friday</div>
-                <div class="day">Saturday</div>
-                <div class="day">Sunday</div>
-                <div class="day">18</div>
-                <div class="day">19</div>
-                <div class="day">20</div>
-                <div class="day">21</div>
-                <div class="day">22</div>
-                <div class="day">23</div>
-                <div class="day">24</div>
+                
             </div>
             <div class="week-hours">     
                 <div class="hour">8:00 am</div>
