@@ -81,20 +81,11 @@
 
     <cors
       domain="/api/"
-      allowedOrigins="http://localhost:5173"
+      allowedOrigins="http://localhost:5173, http://148.100.108.158:5173"
       allowedMethods="GET,POST,PUT,DELETE,OPTIONS,HEAD"
       allowedHeaders="origin,content-type,accept,authorization"
       exposeHeaders=""
       allowCredentials="true"
       maxAge="3600" />
-
-      <cors
-      domain="/api/"
-      allowedOrigins="http://148.100.108.158:5173"
-      allowedMethods="GET,POST,PUT,DELETE,OPTIONS,HEAD"
-      allowedHeaders="origin,content-type,accept,authorization"
-      exposeHeaders=""
-      allowCredentials="true"
-      maxAge="3600" />
-
+      
 </server>

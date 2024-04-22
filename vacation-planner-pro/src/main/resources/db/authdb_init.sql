@@ -89,6 +89,14 @@ INSERT INTO VacationProfiles (employee_id, total_vacation_days, personal_choice_
     (5, 15, 5, 7, 8, 4, 1), -- Most personal choice days used
     (6, 30, 10, 15, 15, 5, 5); -- High entitlement, half used
 
+CREATE TABLE UserSessions (
+    session_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    employee_id INTEGER NOT NULL REFERENCES Employees(employee_id),
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+CREATE INDEX index_usersessions_employee_id ON UserSessions(employee_id);
+
 -- Audit Logs Table: Stores user actions for audit purposes.
 -- CREATE TABLE audit_logs (
 --    audit_log_id SERIAL PRIMARY KEY, -- Unique audit log entry identifier

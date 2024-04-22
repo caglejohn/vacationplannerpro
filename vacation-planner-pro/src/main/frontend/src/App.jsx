@@ -4,6 +4,8 @@ import {
   RouterProvider,
   Navigate,
 } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getAuth } from './api/plannerApi';
 import Root from './pages/Root';
 import Error from './Error';
 import LogIn from './pages/LogIn';
@@ -12,16 +14,35 @@ import SignUp from './pages/SignUp';
 import CreateVacation from './pages/CreateVacation';
 import VacationProfiles from './pages/Reports';
 
-const isAuthenticated = () => {
-  const cookie = document.cookie
-    .split(';')
-    .find((cookie) => cookie.trim().startsWith('authToken'));
-  return cookie !== undefined;
+const isAuthenticated = async () => {
+  try {
+    const response = await getAuth();
+    return response.status === 200;
+  } catch (error) {
+    return false;
+  }
 };
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ element }) => {
-  return isAuthenticated() ? element : <Navigate to="/login" />;
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      const authenticated = await isAuthenticated();
+      setIsLoggedIn(authenticated);
+      setIsLoading(false);
+    };
+
+    checkAuthentication();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return isLoggedIn ? element : <Navigate to="/login" />;
 };
 
 const routes = [

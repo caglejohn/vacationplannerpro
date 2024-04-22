@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const plannerApi = axios.create({
-    // for working on dev
+  // for working on dev
   //baseURL: 'http://localhost:9080',
 
   // for working on prod
@@ -22,6 +22,24 @@ export const postAuth = async (user) => {
     withCredentials: true,
   });
   return resp;
+};
+
+export const deleteSession = async () => {
+  const resp = await plannerApi.delete('/api/employees/session', {
+    withCredentials: true,
+  });
+  return resp;
+};
+
+export const getAuth = async () => {
+  try {
+    const resp = await plannerApi.get('/api/employees/session', {
+      withCredentials: true,
+    });
+    return resp;
+  } catch (error) {
+    /* empty */
+  }
 };
 
 export const postSignup = async (user) => {

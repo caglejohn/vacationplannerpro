@@ -1,6 +1,7 @@
 import '../styles/styleCal.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LogoutButton from '../components/LogoutButton';
 
 export default function Calendar() {
   const [nav, setNav] = useState(0);
@@ -139,9 +140,7 @@ export default function Calendar() {
             <button className="cal-button" id="nextButton">
               Next
             </button>
-            <button className="logout-button" id="logoutButton">
-              Log Out
-            </button>
+            <LogoutButton />
           </div>
         </div>
 
