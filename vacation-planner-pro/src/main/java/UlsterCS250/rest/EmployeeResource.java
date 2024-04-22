@@ -99,7 +99,7 @@ public class EmployeeResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @APIResponses(value = {
-            @APIResponse(responseCode = "404", description = "Invalid user credentials"),
+            @APIResponse(responseCode = "401", description = "Invalid user credentials"),
             @APIResponse(responseCode = "201", description = "Created"),
             @APIResponse(responseCode = "500", description = "Internal server error") })
     public Response addSession(@Context HttpHeaders headers, EmployeeVM employee) {
@@ -135,6 +135,7 @@ public class EmployeeResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @APIResponses(value = {
             @APIResponse(responseCode = "400", description = "Session cookie not found"),
+            @APIResponse(responseCode = "404", description = "Invalid session"),
             @APIResponse(responseCode = "200", description = "Session deleted"),
             @APIResponse(responseCode = "500", description = "Internal server error")
     })
@@ -173,6 +174,7 @@ public class EmployeeResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @APIResponses(value = {
             @APIResponse(responseCode = "400", description = "Session cookie not found"),
+            @APIResponse(responseCode = "404", description = "Invalid session"),
             @APIResponse(responseCode = "200", description = "Session found"),
             @APIResponse(responseCode = "500", description = "Internal server error")
     })
@@ -184,7 +186,7 @@ public class EmployeeResource {
                         .build();
             }
 
-            boolean isAuthorized = employeeRepository.getSession(sessionId);
+            boolean isAuthorized = employeeRepository.validateSession(sessionId);
             if (isAuthorized) {
                 return Response.ok().build();
             } else {
@@ -194,7 +196,7 @@ public class EmployeeResource {
             }
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Error finding session: " + e.getMessage())
+                    .entity("Internal server error: " + e.getMessage())
                     .build();
         }
     }
