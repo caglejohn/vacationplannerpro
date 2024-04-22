@@ -77,7 +77,7 @@ public class EmployeeRepository {
         return isDeleted;
     }
 
-    public boolean getSession(String sessionId) throws SQLException {
+    public boolean validateSession(String sessionId) throws SQLException {
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
                 PreparedStatement stmt = conn.prepareStatement("SELECT * FROM usersessions WHERE session_id = ?")) {
             stmt.setObject(1, UUID.fromString(sessionId));
@@ -88,6 +88,21 @@ public class EmployeeRepository {
             LOGGER.log(Level.SEVERE, "Error while attempting to get session: ", e);
             return false;
         }
+    }
+
+    public int getEmpIdBySessionId(String sessionId) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM usersessions WHERE session_id = ?")) {
+            stmt.setObject(1, UUID.fromString(sessionId));
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("employee_id");
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error while attempting to get session: ", e);
+        }
+        return 0;
     }
 
     public String getSessionIdByEmpId(EmployeeVM employee) throws SQLException {
