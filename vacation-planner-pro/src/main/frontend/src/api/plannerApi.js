@@ -8,59 +8,8 @@ const plannerApi = axios.create({
   baseURL: 'http://148.100.108.158:9080',
 });
 
-export const postAuth = async (user) => {
-  const companyIdAsNumber = parseInt(user.companyId, 10);
-  if (isNaN(companyIdAsNumber)) {
-    throw new Error('Company Id must be a number');
-  }
-  const userParsed = {
-    username: user.username,
-    password: user.password,
-    email: 'test@test.com',
-  };
-  const resp = await plannerApi.post('/api/employees/session', userParsed, {
-    withCredentials: true,
-  });
-  return resp;
-};
-
-export const deleteSession = async () => {
-  const resp = await plannerApi.delete('/api/employees/session', {
-    withCredentials: true,
-  });
-  return resp;
-};
-
-export const getAuth = async () => {
-  try {
-    const resp = await plannerApi.get('/api/employees/session', {
-      withCredentials: true,
-      timeout: 1000,
-    });
-    return resp;
-  } catch (error) {
-    /* empty */
-  }
-};
-
-export const postSignup = async (user) => {
-  const companyIdAsNumber = parseInt(user.companyId, 10);
-  if (isNaN(companyIdAsNumber)) {
-    throw new Error('Company Id must be a number');
-  }
-  const userParsed = {
-    username: user.username,
-    password: user.password,
-    email: user.email,
-  };
-  const resp = await plannerApi.post('/api/employees', userParsed, {
-    withCredentials: true,
-  });
-  return resp;
-};
-
 export const getCalendar = async () => {
-  const resp = await plannerApi.get('/calendar');
+  const resp = await plannerApi.get('/api/calendar');
   return resp.data;
 };
 

@@ -5,7 +5,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getAuth } from './api/plannerApi';
+import { getAuth } from './api/authApi';
 import Root from './pages/Root';
 import Error from './Error';
 import LogIn from './pages/LogIn';
