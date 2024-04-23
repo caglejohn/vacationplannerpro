@@ -1,5 +1,5 @@
 import React from 'react';
-import { deleteSession } from '../api/plannerApi';
+import { deleteSession } from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styleCal.css';
 

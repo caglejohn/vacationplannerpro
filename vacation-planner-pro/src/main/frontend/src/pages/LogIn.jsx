@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { postAuth } from '../api/plannerApi';
+import { postAuth } from '../api/authApi';
 import { useNavigate, Link } from 'react-router-dom';
 import Input from '../components/form/Input';
 
