@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { postSignup } from '../api/plannerApi';
 import { useNavigate, Link } from 'react-router-dom';
+import { useDebounce } from '../hooks/useDebounce';
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -27,6 +28,7 @@ export default function SignUp() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const debouncedForm = useDebounce(form, 400);
 
   const navigate = useNavigate();
   const signupRef = useRef();
@@ -63,7 +65,7 @@ export default function SignUp() {
       email: emailVal,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form]);
+  }, [debouncedForm]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -114,6 +116,7 @@ export default function SignUp() {
           <div className="login-box">
             <form onSubmit={handleSubmit}>
               <h1 className="text-center">Sign Up</h1>
+
               {error && (
                 <p
                   className="text-danger mb-2"
@@ -199,7 +202,7 @@ export default function SignUp() {
                 <input
                   type="email"
                   name="email"
-                  maxLength={50}
+                  maxLength={254}
                   className="form-control mt-1"
                   onChange={handleInput}
                   id="email"

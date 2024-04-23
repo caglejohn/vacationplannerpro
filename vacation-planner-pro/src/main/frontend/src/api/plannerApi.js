@@ -35,6 +35,7 @@ export const getAuth = async () => {
   try {
     const resp = await plannerApi.get('/api/employees/session', {
       withCredentials: true,
+      timeout: 1000,
     });
     return resp;
   } catch (error) {

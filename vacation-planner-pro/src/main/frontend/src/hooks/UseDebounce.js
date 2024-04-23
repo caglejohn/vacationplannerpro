@@ -1,22 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 
-export const useDebounce = (value, delay) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+export const useDebounce = (callback, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(null);
   const handler = useRef(null);
 
   useEffect(() => {
     if (handler.current) {
       clearTimeout(handler.current);
     }
-
     handler.current = setTimeout(() => {
-      setDebouncedValue(value); // Use value from closure
+      setDebouncedValue(callback);
     }, delay);
 
     return () => {
       clearTimeout(handler.current);
     };
-  }, [value, delay]);
+  }, [callback, delay]);
 
   return debouncedValue;
 };
