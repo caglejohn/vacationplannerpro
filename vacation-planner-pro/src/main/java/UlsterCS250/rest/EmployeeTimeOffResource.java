@@ -24,11 +24,6 @@ public class EmployeeTimeOffResource {
     private static final Logger LOGGER = Logger.getLogger(EmployeeResource.class.getName());
 
     @Inject
-    private EmployeeTimeOffResource(EmployeeTimeOffRepository employeeTimeOffRepository) {
-        this.employeeTimeOffRepository = employeeTimeOffRepository;
-    }
-
-    @Inject
     private EmployeeRepository employeeRepository;
 
     @GET
