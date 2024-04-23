@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { postSignup } from '../api/authApi';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDebounce } from '../hooks/useDebounce';
+import { useDebounce } from '../hooks/UseDebounce.js';
 
 export default function SignUp() {
   const [form, setForm] = useState({
