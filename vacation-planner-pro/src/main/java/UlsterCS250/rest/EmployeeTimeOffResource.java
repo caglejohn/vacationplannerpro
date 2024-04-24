@@ -20,8 +20,10 @@ import java.util.logging.Logger;
 
 @Path("/employee-time-off")
 public class EmployeeTimeOffResource {
-    private EmployeeTimeOffRepository employeeTimeOffRepository;
     private static final Logger LOGGER = Logger.getLogger(EmployeeResource.class.getName());
+
+    @Inject
+    private EmployeeTimeOffRepository employeeTimeOffRepository;
 
     @Inject
     private EmployeeRepository employeeRepository;
