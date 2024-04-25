@@ -27,18 +27,79 @@ INSERT INTO Employees (username, password_hash, email, first_name, last_name, is
     ('brianmiller', 'hashed_password9', 'brianmiller@example.com', 'Brian', 'Miller', FALSE, TRUE, NOW(), NULL, 5),
     ('chloewilson', 'hashed_password10', 'chloewilson@example.com', 'Chloe', 'Wilson', TRUE, TRUE, NOW(), NULL, 6);
 
--- HalfDay table
 CREATE TABLE HalfDays (
-    half_day_id SERIAL PRIMARY KEY NOT NULL, --index of where this day is located
-    is_am BOOLEAN NOT NULL, -- what part of the day this half day is
-    day_of_week_id INTEGER NOT NULL, -- the day of the week this half day is (Sunday=0, Monday=1...)
-    start_date DATE NOT NULL, -- start date
-    end_date DATE NOT NULL, -- end date
-    is_work_day BOOLEAN NOT NULL -- whether or not company works this day
-    );
-INSERT INTO HalfDays (is_am, day_of_week_id, start_date, end_date, is_work_day) VALUES
+    half_day_id SERIAL PRIMARY KEY NOT NULL,
+    is_am BOOLEAN NOT NULL,
+    day_of_week_id INTEGER NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    is_work_day BOOLEAN NOT NULL
+);
+
+INSERT INTO HalfDays (is_am, day_of_week_id, start_date, end_date, is_work_day)
+VALUES
     (TRUE, 1, '2024-01-01', '2024-01-01', TRUE),
-    (FALSE, 1, '2024-01-01', '2024-01-02', TRUE);
+    (FALSE, 1, '2024-01-01', '2024-01-02', TRUE),
+    (TRUE, 2, '2024-01-02', '2024-01-02', TRUE),
+    (FALSE, 2, '2024-01-02', '2024-01-03', TRUE),
+    (TRUE, 3, '2024-01-03', '2024-01-03', TRUE),
+    (FALSE, 3, '2024-01-03', '2024-01-04', TRUE),
+    (TRUE, 4, '2024-01-04', '2024-01-04', TRUE),
+    (FALSE, 4, '2024-01-04', '2024-01-05', TRUE),
+    (TRUE, 5, '2024-01-05', '2024-01-05', TRUE),
+    (FALSE, 5, '2024-01-05', '2024-01-06', TRUE),
+    (TRUE, 6, '2024-01-06', '2024-01-06', TRUE),
+    (FALSE, 6, '2024-01-06', '2024-01-07', TRUE),
+    (TRUE, 7, '2024-01-07', '2024-01-07', TRUE),
+    (FALSE, 7, '2024-01-07', '2024-01-08', TRUE),
+    (TRUE, 1, '2024-01-08', '2024-01-08', TRUE),
+    (FALSE, 1, '2024-01-08', '2024-01-09', TRUE),
+    (TRUE, 2, '2024-01-09', '2024-01-09', TRUE),
+    (FALSE, 2, '2024-01-09', '2024-01-10', TRUE),
+    (TRUE, 3, '2024-01-10', '2024-01-10', TRUE),
+    (FALSE, 3, '2024-01-10', '2024-01-11', TRUE),
+    (TRUE, 4, '2024-01-11', '2024-01-11', TRUE),
+    (FALSE, 4, '2024-01-11', '2024-01-12', TRUE),
+    (TRUE, 5, '2024-01-12', '2024-01-12', TRUE),
+    (FALSE, 5, '2024-01-12', '2024-01-13', TRUE),
+    (TRUE, 6, '2024-01-13', '2024-01-13', TRUE),
+    (FALSE, 6, '2024-01-13', '2024-01-14', TRUE),
+    (TRUE, 7, '2024-01-14', '2024-01-14', TRUE),
+    (FALSE, 7, '2024-01-14', '2024-01-15', TRUE),
+    (TRUE, 1, '2024-01-15', '2024-01-15', TRUE),
+    (FALSE, 1, '2024-01-15', '2024-01-16', TRUE),
+    (TRUE, 2, '2024-01-16', '2024-01-16', TRUE),
+    (FALSE, 2, '2024-01-16', '2024-01-17', TRUE),
+    (TRUE, 3, '2024-01-17', '2024-01-17', TRUE),
+    (FALSE, 3, '2024-01-17', '2024-01-18', TRUE),
+    (TRUE, 4, '2024-01-18', '2024-01-18', TRUE),
+    (FALSE, 4, '2024-01-18', '2024-01-19', TRUE),
+    (TRUE, 5, '2024-01-19', '2024-01-19', TRUE),
+    (FALSE, 5, '2024-01-19', '2024-01-20', TRUE),
+    (TRUE, 6, '2024-01-20', '2024-01-20', TRUE),
+    (FALSE, 6, '2024-01-20', '2024-01-21', TRUE),
+    (TRUE, 7, '2024-01-21', '2024-01-21', TRUE),
+    (FALSE, 7, '2024-01-21', '2024-01-22', TRUE),
+    (TRUE, 1, '2024-01-22', '2024-01-22', TRUE),
+    (FALSE, 1, '2024-01-22', '2024-01-23', TRUE),
+    (TRUE, 2, '2024-01-23', '2024-01-23', TRUE),
+    (FALSE, 2, '2024-01-23', '2024-01-24', TRUE),
+    (TRUE, 3, '2024-01-24', '2024-01-24', TRUE),
+    (FALSE, 3, '2024-01-24', '2024-01-25', TRUE),
+    (TRUE, 4, '2024-01-25', '2024-01-25', TRUE),
+    (FALSE, 4, '2024-01-25', '2024-01-26', TRUE),
+    (TRUE, 5, '2024-01-26', '2024-01-26', TRUE),
+    (FALSE, 5, '2024-01-26', '2024-01-27', TRUE),
+    (TRUE, 6, '2024-01-27', '2024-01-27', TRUE),
+    (FALSE, 6, '2024-01-27', '2024-01-28', TRUE),
+    (TRUE, 7, '2024-01-28', '2024-01-28', TRUE),
+    (FALSE, 7, '2024-01-28', '2024-01-29', TRUE),
+    (TRUE, 1, '2024-01-29', '2024-01-29', TRUE),
+    (FALSE, 1, '2024-01-29', '2024-01-30', TRUE),
+    (TRUE, 2, '2024-01-30', '2024-01-30', TRUE),
+    (FALSE, 2, '2024-01-30', '2024-01-31', TRUE),
+    (TRUE, 3, '2024-01-31', '2024-01-31', TRUE),
+    (FALSE, 3, '2024-01-31', '2024-02-01', TRUE);
 ------------------------------------------------------------------------------------
 
 -- EmployeeTimeOffs Table: Tracks employee time offs, allowing for half-day (AM/PM) and full-day tracking.

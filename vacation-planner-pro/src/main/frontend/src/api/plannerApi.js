@@ -8,9 +8,11 @@ const plannerApi = axios.create({
   baseURL: 'http://148.100.108.158:9080',
 });
 
-export const getCalendar = async () => {
-  const resp = await plannerApi.get('/api/calendar');
-  return resp.data;
+export const getCalendar = async (req) => {
+  const resp = await plannerApi.get('/api/calendar', req, {
+    withCredentials: true,
+  });
+  return resp;
 };
 
 export default plannerApi;
