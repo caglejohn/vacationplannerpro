@@ -21,7 +21,7 @@ public class VacationDayRepository {
         int calIndex = 0;
 
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-            PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT start_date FROM HalfDays")) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT start_date FROM HalfDays")) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -42,7 +42,8 @@ public class VacationDayRepository {
 
     private JHalfDay getHalfDay(Date date, boolean isAM) {
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-             PreparedStatement stmt = conn.prepareStatement("SELECT half_day_id, is_am, day_of_week_id, start_date, end_date, is_work_day FROM HalfDays WHERE start_date = ? AND is_am = ?")) {
+                PreparedStatement stmt = conn.prepareStatement(
+                        "SELECT half_day_id, is_am, day_of_week_id, start_date, end_date, is_work_day FROM HalfDays WHERE start_date = ? AND is_am = ?")) {
             stmt.setDate(1, date);
             stmt.setBoolean(2, isAM);
             ResultSet rs = stmt.executeQuery();
@@ -56,8 +57,6 @@ public class VacationDayRepository {
                 boolean isWorkDay = rs.getBoolean("is_work_day");
 
                 ArrayList<JEmployeeTimeOff> employeeTimeOffs = getEmployeeTimeOffs(halfDayId);
-                String size = Integer.toString(employeeTimeOffs.size());
-                LOGGER.log(Level.SEVERE, size);
                 return new JHalfDay(halfDayId, isAMHalf, dayOfWeekId, startDate, endDate, isWorkDay, employeeTimeOffs);
             }
         } catch (SQLException e) {
@@ -71,7 +70,8 @@ public class VacationDayRepository {
         ArrayList<JEmployeeTimeOff> employeeTimeOffs = new ArrayList<>();
 
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-             PreparedStatement stmt = conn.prepareStatement("SELECT employee_time_off_id, employee_id, half_day_id, reason FROM EmployeeTimeOffs WHERE half_day_id = ?")) {
+                PreparedStatement stmt = conn.prepareStatement(
+                        "SELECT employee_time_off_id, employee_id, half_day_id, reason FROM EmployeeTimeOffs WHERE half_day_id = ?")) {
             stmt.setInt(1, halfDayId);
             ResultSet rs = stmt.executeQuery();
 
@@ -80,7 +80,6 @@ public class VacationDayRepository {
                 int employeeId = rs.getInt("employee_id");
                 int nhalfDayId = rs.getInt("half_day_id");
                 String reason = rs.getString("reason");
-                LOGGER.log(Level.SEVERE, reason);
                 employeeTimeOffs.add(new JEmployeeTimeOff(timeOffId, employeeId, nhalfDayId, reason));
             }
         } catch (SQLException e) {
@@ -95,7 +94,8 @@ public class VacationDayRepository {
         int calIndex = 0;
 
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-             PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT start_date FROM HalfDays WHERE EXTRACT(MONTH FROM start_date) = ? AND EXTRACT(YEAR FROM start_date) = ?")) {
+                PreparedStatement stmt = conn.prepareStatement(
+                        "SELECT DISTINCT start_date FROM HalfDays WHERE EXTRACT(MONTH FROM start_date) = ? AND EXTRACT(YEAR FROM start_date) = ?")) {
             stmt.setInt(1, month);
             stmt.setInt(2, year);
             ResultSet rs = stmt.executeQuery();
