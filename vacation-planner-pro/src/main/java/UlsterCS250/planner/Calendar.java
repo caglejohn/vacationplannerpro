@@ -32,7 +32,7 @@ public class Calendar {
     }
     public void setWeeklyWorkPattern(int startInd, int endInd, boolean[] pattern){
         if(pattern.length%14!=0) throw new RuntimeException("pattern length error");
-        if(calendar.get(startInd).getStart()[3]!=0) startInd--;
+        if(startInd%2==1) startInd--;
         System.out.println("starting at: "+calendar.get(startInd));
         int ind=2*(calendar.get(startInd).getId()-1); //find index of where we are in pattern (encase year does not start on a Monday)
         while(startInd<=endInd&&startInd<calendar.size()){
