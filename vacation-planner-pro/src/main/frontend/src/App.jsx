@@ -13,6 +13,7 @@ import Calendar from './pages/Calendar';
 import SignUp from './pages/SignUp';
 import CreateVacation from './pages/CreateVacation';
 import VacationProfiles from './pages/Reports';
+import AboutUs from './pages/AboutUs';
 
 const isAuthenticated = async () => {
   try {
@@ -78,6 +79,10 @@ const routes = [
       {
         path: 'signup',
         element: <SignUp />,
+      },
+      {
+      path: 'aboutus',
+      element: <AboutUs />
       },
     ],
   },

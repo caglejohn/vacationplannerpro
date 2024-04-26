@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Employee {
     public static final String[] names = new String[]{"Cathrine","Oscar","Adam","John","Cheyenne","Kyle","Lou","Stafford","Zandonella","Marsh","Cagle","Demskie","Sullivan","Thomason"};
     public static final String[] emails = new String[]{"@gmail.com","@yahoo.com","@AOL.com"};
-    private ArrayList<VacationInterval> timeOff;
+  //  private ArrayList<VacationInterval> timeOff;
     private int vacationTime;
     private String name;
     private String email;
