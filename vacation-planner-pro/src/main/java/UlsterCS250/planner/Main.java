@@ -1,21 +1,25 @@
 package UlsterCS250.planner;
+
+import UlsterCS250.entities.JEmployee;
+import UlsterCS250.entities.JEmployeeTimeOff;
+import UlsterCS250.repository.EmployeeRepository;
+import UlsterCS250.repository.EmployeeTimeOffRepository;
 import UlsterCS250.repository.HalfDayRepository;
 
 public class Main {
     public static void main(String[] args){
-        /*Calendar p = new Calendar(TimeZone.getTimeZone("EST"));
-        boolean[] pattern=new boolean[]{false,false,true,true,true,true,true,true,true,true,true,true,false,false};
-        p.setWeeklyWorkPattern(0,732,pattern);
-        p.setWorkDay(133, false);
-        System.out.println(p);
-        ArrayList<JHalfDay> days = new ArrayList<>();
-        for(HalfDay h : p.getCalendar()){
-            days.add(h.convert());
-            System.out.println(days.get(days.size()-1).getStartDate());
+        try {
+            HalfDayRepository h = new HalfDayRepository();
+            h.fillCalendar();
+            EmployeeRepository e = new EmployeeRepository();
+            e.addEmployee(new JEmployee(1,"johndoe", "hashed_password1", "johndoe@example.com", "John", "Doe", false, true, null, null, 5));
+            e.addEmployee(new JEmployee(2,"janedoe", "hashed_password2", "janedoe@example.com", "Jane", "Doe", true, true, null, null, 8));
+            EmployeeTimeOffRepository o = new EmployeeTimeOffRepository();
+            o.addDayOff(new JEmployeeTimeOff(1,1,1,"sick"));
+            o.addDayOff(new JEmployeeTimeOff(2,2,3,"dentist"));
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        System.out.println(days);
-        Date d = new Date(2024);*/
-        HalfDayRepository h = new HalfDayRepository();
-        h.fillCalendar();
+
     }
 }

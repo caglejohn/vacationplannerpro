@@ -11,21 +11,9 @@ CREATE TABLE Employees (
     is_manager BOOLEAN NOT NULL DEFAULT FALSE,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     create_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    last_login TIMESTAMP WITH TIME ZONE,
+    last_login TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     years_of_service INTEGER
 );
--- Employees Dummy Data
-INSERT INTO Employees (username, password_hash, email, first_name, last_name, is_manager, is_active, create_time, last_login, years_of_service) VALUES
-    ('johndoe', 'hashed_password1', 'johndoe@example.com', 'John', 'Doe', FALSE, TRUE, NOW(), NULL, 5),
-    ('janedoe', 'hashed_password2', 'janedoe@example.com', 'Jane', 'Doe', TRUE, TRUE, NOW(), NULL, 8),
-    ('bobsmith', 'hashed_password3', 'bobsmith@example.com', 'Bob', 'Smith', FALSE, TRUE, NOW(), NULL, 3),
-    ('alicewhite', 'hashed_password4', 'alicewhite@example.com', 'Alice', 'White', FALSE, TRUE, NOW(), NULL, 2),
-    ('tomblack', 'hashed_password5', 'tomblack@example.com', 'Tom', 'Black', TRUE, FALSE, NOW(), NULL, 10),
-    ('sarahgreen', 'hashed_password6', 'sarahgreen@example.com', 'Sarah', 'Green', FALSE, TRUE, NOW(), NULL, 4),
-    ('davidbrown', 'hashed_password7', 'davidbrown@example.com', 'David', 'Brown', FALSE, TRUE, NOW(), NULL, 1),
-    ('emilyclark', 'hashed_password8', 'emilyclark@example.com', 'Emily', 'Clark', TRUE, TRUE, NOW(), NULL, 7),
-    ('brianmiller', 'hashed_password9', 'brianmiller@example.com', 'Brian', 'Miller', FALSE, TRUE, NOW(), NULL, 5),
-    ('chloewilson', 'hashed_password10', 'chloewilson@example.com', 'Chloe', 'Wilson', TRUE, TRUE, NOW(), NULL, 6);
 
 CREATE TABLE HalfDays (
     half_day_id SERIAL PRIMARY KEY NOT NULL,
@@ -36,70 +24,6 @@ CREATE TABLE HalfDays (
     is_work_day BOOLEAN NOT NULL
 );
 
-INSERT INTO HalfDays (is_am, day_of_week_id, start_date, end_date, is_work_day)
-VALUES
-    (TRUE, 1, '2024-01-01', '2024-01-01', TRUE),
-    (FALSE, 1, '2024-01-01', '2024-01-02', TRUE),
-    (TRUE, 2, '2024-01-02', '2024-01-02', TRUE),
-    (FALSE, 2, '2024-01-02', '2024-01-03', TRUE),
-    (TRUE, 3, '2024-01-03', '2024-01-03', TRUE),
-    (FALSE, 3, '2024-01-03', '2024-01-04', TRUE),
-    (TRUE, 4, '2024-01-04', '2024-01-04', TRUE),
-    (FALSE, 4, '2024-01-04', '2024-01-05', TRUE),
-    (TRUE, 5, '2024-01-05', '2024-01-05', TRUE),
-    (FALSE, 5, '2024-01-05', '2024-01-06', TRUE),
-    (TRUE, 6, '2024-01-06', '2024-01-06', TRUE),
-    (FALSE, 6, '2024-01-06', '2024-01-07', TRUE),
-    (TRUE, 7, '2024-01-07', '2024-01-07', TRUE),
-    (FALSE, 7, '2024-01-07', '2024-01-08', TRUE),
-    (TRUE, 1, '2024-01-08', '2024-01-08', TRUE),
-    (FALSE, 1, '2024-01-08', '2024-01-09', TRUE),
-    (TRUE, 2, '2024-01-09', '2024-01-09', TRUE),
-    (FALSE, 2, '2024-01-09', '2024-01-10', TRUE),
-    (TRUE, 3, '2024-01-10', '2024-01-10', TRUE),
-    (FALSE, 3, '2024-01-10', '2024-01-11', TRUE),
-    (TRUE, 4, '2024-01-11', '2024-01-11', TRUE),
-    (FALSE, 4, '2024-01-11', '2024-01-12', TRUE),
-    (TRUE, 5, '2024-01-12', '2024-01-12', TRUE),
-    (FALSE, 5, '2024-01-12', '2024-01-13', TRUE),
-    (TRUE, 6, '2024-01-13', '2024-01-13', TRUE),
-    (FALSE, 6, '2024-01-13', '2024-01-14', TRUE),
-    (TRUE, 7, '2024-01-14', '2024-01-14', TRUE),
-    (FALSE, 7, '2024-01-14', '2024-01-15', TRUE),
-    (TRUE, 1, '2024-01-15', '2024-01-15', TRUE),
-    (FALSE, 1, '2024-01-15', '2024-01-16', TRUE),
-    (TRUE, 2, '2024-01-16', '2024-01-16', TRUE),
-    (FALSE, 2, '2024-01-16', '2024-01-17', TRUE),
-    (TRUE, 3, '2024-01-17', '2024-01-17', TRUE),
-    (FALSE, 3, '2024-01-17', '2024-01-18', TRUE),
-    (TRUE, 4, '2024-01-18', '2024-01-18', TRUE),
-    (FALSE, 4, '2024-01-18', '2024-01-19', TRUE),
-    (TRUE, 5, '2024-01-19', '2024-01-19', TRUE),
-    (FALSE, 5, '2024-01-19', '2024-01-20', TRUE),
-    (TRUE, 6, '2024-01-20', '2024-01-20', TRUE),
-    (FALSE, 6, '2024-01-20', '2024-01-21', TRUE),
-    (TRUE, 7, '2024-01-21', '2024-01-21', TRUE),
-    (FALSE, 7, '2024-01-21', '2024-01-22', TRUE),
-    (TRUE, 1, '2024-01-22', '2024-01-22', TRUE),
-    (FALSE, 1, '2024-01-22', '2024-01-23', TRUE),
-    (TRUE, 2, '2024-01-23', '2024-01-23', TRUE),
-    (FALSE, 2, '2024-01-23', '2024-01-24', TRUE),
-    (TRUE, 3, '2024-01-24', '2024-01-24', TRUE),
-    (FALSE, 3, '2024-01-24', '2024-01-25', TRUE),
-    (TRUE, 4, '2024-01-25', '2024-01-25', TRUE),
-    (FALSE, 4, '2024-01-25', '2024-01-26', TRUE),
-    (TRUE, 5, '2024-01-26', '2024-01-26', TRUE),
-    (FALSE, 5, '2024-01-26', '2024-01-27', TRUE),
-    (TRUE, 6, '2024-01-27', '2024-01-27', TRUE),
-    (FALSE, 6, '2024-01-27', '2024-01-28', TRUE),
-    (TRUE, 7, '2024-01-28', '2024-01-28', TRUE),
-    (FALSE, 7, '2024-01-28', '2024-01-29', TRUE),
-    (TRUE, 1, '2024-01-29', '2024-01-29', TRUE),
-    (FALSE, 1, '2024-01-29', '2024-01-30', TRUE),
-    (TRUE, 2, '2024-01-30', '2024-01-30', TRUE),
-    (FALSE, 2, '2024-01-30', '2024-01-31', TRUE),
-    (TRUE, 3, '2024-01-31', '2024-01-31', TRUE),
-    (FALSE, 3, '2024-01-31', '2024-02-01', TRUE);
 ------------------------------------------------------------------------------------
 
 -- EmployeeTimeOffs Table: Tracks employee time offs, allowing for half-day (AM/PM) and full-day tracking.
@@ -111,22 +35,6 @@ CREATE TABLE EmployeeTimeOffs (
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE, -- Cascading delete with employee deletion
     FOREIGN KEY (half_day_id) REFERENCES HalfDays(half_day_id) ON DELETE CASCADE -- Cascading delete with day deletion
     );
-
-WITH inserted_employees AS (
-    SELECT employee_id
-    FROM Employees
-    WHERE username IN ('johndoe') -- Adjust usernames as needed
-)
-INSERT INTO EmployeeTimeOffs (employee_id, half_day_id, reason)
-SELECT employee_id, 1, 'Family vacation' FROM inserted_employees;
-
-WITH inserted_employees AS (
-    SELECT employee_id
-    FROM Employees
-    WHERE username IN ('janedoe') -- Adjust usernames as needed
-)
-INSERT INTO EmployeeTimeOffs (employee_id, half_day_id, reason)
-SELECT employee_id, 2, 'Medical appointment' FROM inserted_employees;
 
 -- VacationProfiles Table: Tracks individual vacation accruals and usage for each employee.
 CREATE TABLE VacationProfiles (
@@ -140,15 +48,6 @@ CREATE TABLE VacationProfiles (
     personal_choice_days_remaining INTEGER NOT NULL, -- Total remaining personal choice days
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE -- Cascading delete with employee deletion
     );
-
--- VacationProfiles Dummy Data
-INSERT INTO VacationProfiles (employee_id, total_vacation_days, personal_choice_days, vacation_days_taken, vacation_days_remaining, personal_choice_taken, personal_choice_days_remaining) VALUES
-    (1, 22, 3, 5, 17, 2, 1), -- More personal choice days used
-    (2, 18, 5, 0, 18, 0, 5), -- Hasn't taken any days yet
-    (3, 20, 2, 10, 10, 1, 1), -- Half of the vacation days already used
-    (4, 25, 5, 3, 22, 0, 5), -- Minimal vacation days taken
-    (5, 15, 5, 7, 8, 4, 1), -- Most personal choice days used
-    (6, 30, 10, 15, 15, 5, 5); -- High entitlement, half used
 
 CREATE TABLE UserSessions (
     session_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

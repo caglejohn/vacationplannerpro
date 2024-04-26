@@ -48,21 +48,22 @@ public class HalfDayRepository {
         return halfDayList;
     }
     public void fillCalendar(){
-        Calendar calendar = new Calendar(TimeZone.getTimeZone("EST"));
         try{
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO HalfDays (half_day_id, is_am, day_of_week_id, start_date, end_date, is_work_day) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM HalfDays");
+            if(stmt.executeQuery().next()) return;
+            stmt = conn.prepareStatement("INSERT INTO HalfDays (half_day_id, is_am, day_of_week_id, start_date, end_date, is_work_day) VALUES (?, ?, ?, ?, ?, ?)");
+            Calendar calendar = new Calendar(TimeZone.getTimeZone("EST"));
+            calendar.setWeeklyWorkPattern(0,calendar.getCalendar().size()-1,new boolean[]{false,false,true,true,true,true,true,true,true,true,true,true,false,false});
             for(HalfDay day : calendar.getCalendar()){
                 JHalfDay jHalfDay = day.convert();
-                if(jHalfDay.getId()>2){
-                    stmt.setInt(1, jHalfDay.getId());
-                    stmt.setBoolean(2, jHalfDay.isAm());
-                    stmt.setInt(3, jHalfDay.getDayOfWeekId());
-                    stmt.setDate(4, jHalfDay.getStartDate());
-                    stmt.setDate(5, jHalfDay.getEndDate());
-                    stmt.setBoolean(6, jHalfDay.isWorkDay());
-                    stmt.executeUpdate();
-                }
+                stmt.setInt(1, jHalfDay.getId());
+                stmt.setBoolean(2, jHalfDay.isAm());
+                stmt.setInt(3, jHalfDay.getDayOfWeekId());
+                stmt.setDate(4, jHalfDay.getStartDate());
+                stmt.setDate(5, jHalfDay.getEndDate());
+                stmt.setBoolean(6, jHalfDay.isWorkDay());
+                stmt.executeUpdate();
             }
         }catch (SQLException e){
             throw new RuntimeException(e);

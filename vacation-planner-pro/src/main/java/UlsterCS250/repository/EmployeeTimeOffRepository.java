@@ -46,19 +46,13 @@ public class EmployeeTimeOffRepository {
         }
     }
 
-    public void addDayOff(Long id, Long employeeId, Date date) throws SQLException {
-        if (isDateFree(date)) {
-            throw new SQLException("Day already requested off");
-        }
+    public void addDayOff(JEmployeeTimeOff timeOff) throws SQLException {
         try {
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO EmployeeTimeOff (id, employee_id, date, is_am, is_pm, is_personal) VALUES (?,?,?,?,?,?)");
-            stmt.setLong(1, id);
-            stmt.setLong(2, employeeId);
-            stmt.setString(3, date.toString());
-            stmt.setBoolean(4, false);
-            stmt.setBoolean(5, true);
-            stmt.setBoolean(6, true);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO EmployeeTimeOffs (employee_id, half_day_id, reason) VALUES (?,?,?)");
+            stmt.setInt(1, timeOff.getEmployeeId());
+            stmt.setInt(2, timeOff.getHalfDayId());
+            stmt.setString(3, timeOff.getReason());
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
                 LOGGER.info("Vacation time added successfully");

@@ -8,8 +8,8 @@ public class JEmployee {
     private String email;
     private String firstName;
     private String lastName;
-    private Boolean isManager;
-    private Boolean isActive;
+    private boolean isManager;
+    private boolean isActive;
     private String lastLogin;
     private String createTime;
     private int yearsOfService;
