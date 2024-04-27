@@ -1,0 +1,173 @@
+.update-container {
+  max-width: 100vh;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-week-view {
+  margin-top: 80px;
+}
+
+#color-code {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.status-card {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.approved {
+  background-color: #c3e6cb;
+}
+.declined {
+  background-color: #f5c6cb;
+}
+.pending {
+  background-color: #ffeeba;
+}
+.remaining {
+  background-color: #b8daff;
+}
+
+.status-number {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.status-type {
+  font-size: 1em;
+  margin-top: 0.5em;
+}
+
+#leaveType,
+#start-date,
+#end-date {
+  width: 250px;
+}
+#start-date {
+  margin-right: 40px;
+}
+.leave-form {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input[type='date'],
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.calendar-container.p-4 {
+  max-width: 1300px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-left: 130px;
+  margin-right: 130px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.week-calendar {
+  display: grid;
+  grid-template-columns: repeat(
+    7,
+    1fr
+  ); /* 7 equal columns for 7 days of the week */
+  text-align: center;
+  padding: 15px;
+  margin-left: 90px;
+  margin-right: 40px;
+}
+
+.week-days-row,
+.dates-row {
+  display: contents;
+}
+
+.day,
+.date {
+  padding: 10px;
+  border: 1px solid #dddddd;
+  background-color: #f8f9fa;
+}
+
+.day {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.week-hours {
+  display: grid;
+  grid-template-columns: 100px repeat(7, 1fr);
+}
+
+.hour {
+  grid-column: 1 / 2; /* Span the first column */
+  text-align: right;
+  padding-right: 10px; /* Align with the days */
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.leave-type-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leave-color-reference {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+}
+
+.color-indicator {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.color-type {
+  margin-bottom: 10px;
+}
+
+.color-indicator.personal {
+  background-color: #4056a1;
+}
+.color-indicator.vacation {
+  background-color: #9a1750;
+}
+.color-indicator.sick {
+  background-color: #ff652f;
+}
+.color-indicator.maternity {
+  background-color: #116466;
+}
+.color-indicator.holiday {
+  background-color: #2e9cca;
+}
+.color-indicator.other {
+  background-color: #ffe400;
+}

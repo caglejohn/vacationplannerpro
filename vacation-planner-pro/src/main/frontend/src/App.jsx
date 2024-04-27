@@ -11,7 +11,8 @@ import Error from './Error';
 import LogIn from './pages/LogIn';
 import Calendar from './pages/Calendar';
 import SignUp from './pages/SignUp';
-import CreateVacation from './pages/CreateVacation';
+import CreateVacationRev from './pages/CreateVacationRevised';
+import UpdateVacation from './pages/UpdateVacation';
 import VacationProfiles from './pages/Reports';
 import AboutUs from './pages/AboutUs';
 
@@ -74,15 +75,19 @@ const routes = [
       },
       {
         path: 'calendar/create',
-        element: <ProtectedRoute element={<CreateVacation />} />,
+        element: <ProtectedRoute element={<CreateVacationRev />} />,
+      },
+      {
+        path: 'calendar/update',
+        element: <ProtectedRoute element={<UpdateVacation />} />,
       },
       {
         path: 'signup',
         element: <SignUp />,
       },
       {
-      path: 'aboutus',
-      element: <AboutUs />
+        path: 'about',
+        element: <AboutUs />,
       },
     ],
   },

@@ -1,18 +1,14 @@
-#AboutUsPage{
-    justify-content: center;
-    background: white;
-    margin: 2rem 6rem;
-}
-
-#AboutUS-contanier{
-    
+#AboutUsPage {
+  justify-content: center;
+  background: white;
+  margin: 2rem 6rem;
 }
 
 #Aboutus-image-container {
-    background-image: url('/VacationPlannerProLOGO.png');
-    left: 0;
-    height: 170px;
-    width: 170px;
+  background-image: url('/VacationPlannerProLOGO.png');
+  left: 0;
+  height: 170px;
+  width: 170px;
 }
 /*
 .image-container-two {
@@ -22,26 +18,23 @@
     width: 170px;
   }
 */
-#AboutUsBox{
-    position: left;
+#AboutUsBox {
+  position: left;
 }
 
-#TextBox{
+#TextBox {
   position: top;
-    background: lightblue;
-    padding: 3rem;
+  background: lightblue;
+  padding: 3rem;
   padding-top: 2.2rem;
-  margin: 2rem 6rem;
   border-radius: 1rem;
 }
 
-
-#TextBoxTwo{
-    position: top;
-    background: lightblue;
-    padding: 3rem;
+#TextBoxTwo {
+  position: top;
+  background: lightblue;
+  padding: 3rem;
   padding-top: 2.2rem;
-  margin: 2rem 6rem;
   border-radius: 1rem;
 }
 
@@ -52,7 +45,8 @@
   font-size: 18px;
   outline: none;
   border-radius: 5px;
-  position: relative; top: 150px;
+  position: relative;
+  top: 150px;
   color: #80ddff;
   text-align: center;
   background-color: #ea3a3d;
