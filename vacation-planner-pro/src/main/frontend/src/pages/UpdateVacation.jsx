@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../styles/updateVacation.css';
+import { Link } from 'react-router-dom';
 
 function UpdateVacation() {
   const [vacations, setVacations] = useState([]);
@@ -64,6 +65,42 @@ function UpdateVacation() {
   }
 
   return (
+    <div id="create-page">
+    <div id="container">
+      <div id="header">
+        <div className="nav-container">  {/*to add logo to top left of the page*/}
+          <div className="container">
+            </div>
+          </div>
+        </div>
+
+    <div className="d-flex">
+      <div className="sidebar pt-5">
+        <nav className="navbar navbar-expand-lg">
+          <div className="container-fluid">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav flex-column">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/calendar"> {/*back to calendar button*/}
+                    Calendar
+                  </Link>
+               </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
     <div className="update">
       <div>
         <h1 className="update">Your Scheduled Time Off</h1>
@@ -104,6 +141,10 @@ function UpdateVacation() {
         )}
       </div>
     </div>
+    </div>
+    </div>
+    </div>
+        
   );
 }
 
