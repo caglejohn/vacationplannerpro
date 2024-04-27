@@ -12,6 +12,10 @@ export default function Calendar() {
     navigate('/calendar/create');
   };
 
+  const handleUpdate = () => {
+    navigate('/calendar/update');
+  };
+
   const handleReports = () => {
     navigate('/reports');
   };
@@ -118,7 +122,7 @@ export default function Calendar() {
                 >
                   Schedule Vacation
                 </button>
-                <button className="edit-button" id="updateButton">
+                <button className="edit-button" onClick={handleUpdate}>
                   Update Vacation
                 </button>
                 {/*<button className="edit-button" id="cancelButton">

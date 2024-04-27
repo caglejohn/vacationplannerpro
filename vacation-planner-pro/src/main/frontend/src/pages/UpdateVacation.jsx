@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './update_delete_page.css';
+import { useState, useEffect } from 'react';
+import '../styles/updateVacation.css';
 
-function VacationManager() {
+function UpdateVacation() {
   const [vacations, setVacations] = useState([]);
   const [editData, setEditData] = useState(null);
 
@@ -64,45 +64,47 @@ function VacationManager() {
   }
 
   return (
-    <div>
-      <h1>Your Scheduled Time Off</h1>
+    <div className="update">
       <div>
-        {vacations.map((vacation) => (
-          <div className="vacation-entry" key={vacation.id}>
-            <p>
-              <strong>{vacation.description}</strong> from {vacation.startDate}{' '}
-              to {vacation.endDate}
-            </p>
-            <button
-              onClick={() => editVacation(vacation.id)}
-              className="edit-button"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => deleteVacation(vacation.id)}
-              className="delete-button"
-            >
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
-      {editData && (
-        <div className="modal">
-          <input
-            type="text"
-            value={editData.description}
-            onChange={(e) =>
-              setEditData({ ...editData, description: e.target.value })
-            }
-          />
-          <button onClick={() => saveEdit(editData)}>Save Changes</button>
-          <button onClick={() => setEditData(null)}>Cancel</button>
+        <h1 className="update">Your Scheduled Time Off</h1>
+        <div>
+          {vacations.map((vacation) => (
+            <div className="vacation-entry" key={vacation.id}>
+              <p>
+                <strong>{vacation.description}</strong> from{' '}
+                {vacation.startDate} to {vacation.endDate}
+              </p>
+              <button
+                onClick={() => editVacation(vacation.id)}
+                className="update-button"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => deleteVacation(vacation.id)}
+                className="delete-button"
+              >
+                Delete
+              </button>
+            </div>
+          ))}
         </div>
-      )}
+        {editData && (
+          <div className="modal">
+            <input
+              type="text"
+              value={editData.description}
+              onChange={(e) =>
+                setEditData({ ...editData, description: e.target.value })
+              }
+            />
+            <button onClick={() => saveEdit(editData)}>Save Changes</button>
+            <button onClick={() => setEditData(null)}>Cancel</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-export default VacationManager;
+export default UpdateVacation;
