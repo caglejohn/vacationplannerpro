@@ -1,11 +1,35 @@
 div.update {
-  margin: 0;
+  margin: 0 auto;
   padding: 20px;
 }
 
 h1.update {
   text-align: left;
   color: #333;
+}
+
+/* works for all pages, used to get back to calendar*/
+.nav-link {
+  margin: 1.8rem;
+  padding: 0rem 0.75rem;
+  cursor: pointer;
+  font-size: 18px;
+  outline: none;
+  border-radius: 5px;
+  position: relative; top: 150px;
+  color: #80ddff;
+  text-align: center;
+  background-color: #ea3a3d;
+}
+
+/* logo on each page */
+.nav-container {
+  padding: 20px;
+  left: 0;
+  height: 170px;
+  width: 170px;
+  background-size: cover;
+  background-image: url('/VacationPlannerProLOGO.png');
 }
 
 /* Style for the vacation entries */
@@ -28,7 +52,7 @@ h1.update {
   margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid #ddd;
-  width: 60%;
+  width: 100%;
   max-width: 1000px;
 }
 
