@@ -38,8 +38,9 @@
 
 .edit-button {
   position: relative;
-  left: 15px;
+  left: 10px;
   top: 190px;
+  width: 100%;
   margin: 0.25rem;
   padding: 0rem 0.75rem;
   cursor: pointer;
@@ -74,9 +75,11 @@
 
 #weekdays {
   justify-content: center;
-  width: 100%;
+  width: 97%;
   display: flex;
   color: #485664;
+  text-align: justify;
+  gap: 40px;
 }
 
 #weekdays div {
