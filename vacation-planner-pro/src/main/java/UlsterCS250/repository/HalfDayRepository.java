@@ -1,10 +1,13 @@
 package UlsterCS250.repository;
 
 import UlsterCS250.entities.JHalfDay;
+import UlsterCS250.planner.Calendar;
+import UlsterCS250.planner.HalfDay;
 import UlsterCS250.producers.RepositoryProducer;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,6 +46,28 @@ public class HalfDayRepository {
             e.printStackTrace();
         }
         return halfDayList;
+    }
+    public void fillCalendar(){
+        try{
+            Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM HalfDays");
+            if(stmt.executeQuery().next()) return;
+            stmt = conn.prepareStatement("INSERT INTO HalfDays (half_day_id, is_am, day_of_week_id, start_date, end_date, is_work_day) VALUES (?, ?, ?, ?, ?, ?)");
+            Calendar calendar = new Calendar(TimeZone.getTimeZone("EST"));
+            calendar.setWeeklyWorkPattern(0,calendar.getCalendar().size()-1,new boolean[]{false,false,true,true,true,true,true,true,true,true,true,true,false,false});
+            for(HalfDay day : calendar.getCalendar()){
+                JHalfDay jHalfDay = day.convert();
+                stmt.setInt(1, jHalfDay.getId());
+                stmt.setBoolean(2, jHalfDay.isAm());
+                stmt.setInt(3, jHalfDay.getDayOfWeekId());
+                stmt.setDate(4, jHalfDay.getStartDate());
+                stmt.setDate(5, jHalfDay.getEndDate());
+                stmt.setBoolean(6, jHalfDay.isWorkDay());
+                stmt.executeUpdate();
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
     public static JHalfDay makeHalfDay(ResultSet rs) throws SQLException {
         return new JHalfDay(

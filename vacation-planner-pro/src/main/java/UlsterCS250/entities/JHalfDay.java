@@ -1,7 +1,7 @@
 package UlsterCS250.entities;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class JHalfDay {
     private int id;

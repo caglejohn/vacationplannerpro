@@ -206,4 +206,29 @@ public class EmployeeRepository {
             LOGGER.log(Level.SEVERE, "Error while adding employee", e);
         }
     }
+    public void addEmployee(JEmployee employee) throws SQLException {
+        if (!isUsernameUnique(employee.getUsername())) {
+            throw new SQLException("Username already exists");
+        }
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+            PreparedStatement stmt = conn.prepareStatement(
+                    "INSERT INTO Employees (username, password_hash, email, first_name, last_name, is_manager, is_active, last_login, create_time, years_of_service) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)");
+            stmt.setString(1, employee.getUsername());
+            stmt.setString(2, employee.getPasswordHash());
+            stmt.setString(3, employee.getEmail());
+            stmt.setString(4, employee.getFirstName());
+            stmt.setString(5, employee.getLastName());
+            stmt.setBoolean(6, employee.getIsManager());
+            stmt.setBoolean(7, employee.getIsActive());
+            stmt.setInt(8,employee.getYoe());
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0)
+                LOGGER.info("Employee added successfully");
+            else
+                LOGGER.warning("Failed to add employee");
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error while adding employee", e);
+        }
+    }
 }
