@@ -1,0 +1,97 @@
+div.update {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1.update {
+  text-align: left;
+  color: #333;
+}
+
+/* works for all pages, used to get back to calendar*/
+.nav-link {
+  margin: 1.8rem;
+  padding: 0rem 0.75rem;
+  cursor: pointer;
+  font-size: 18px;
+  outline: none;
+  border-radius: 5px;
+  position: relative; top: 150px;
+  color: #80ddff;
+  text-align: center;
+  background-color: #ea3a3d;
+}
+
+/* logo on each page */
+.nav-container {
+  padding: 20px;
+  left: 0;
+  height: 170px;
+  width: 170px;
+  background-size: cover;
+  background-image: url('/VacationPlannerProLOGO.png');
+}
+
+/* Style for the vacation entries */
+#vacationList {
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vacation-entry {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.vacation-entry p {
+  margin: 0;
+  color: #555;
+  font-size: 1em;
+}
+
+.update-button {
+  padding: 10px 15px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #68cef0;
+}
+
+.update-button:hover {
+  background-color: #4bb8e7;
+}
+
+.delete-button {
+  padding: 10px 15px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #f44336;
+}
+
+.delete-button:hover {
+  background-color: #da190b;
+}
