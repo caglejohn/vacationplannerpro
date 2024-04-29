@@ -112,7 +112,7 @@ export default function SignUp() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-6 box pt-4">
+        <div className="col-md-6 box">
           <div className="login-box">
             <form onSubmit={handleSubmit}>
               <h1 className="text-center">Sign Up</h1>

@@ -42,7 +42,7 @@ export default function LogIn() {
   const companyRegex = /^[0-9]+$/;
 
   return (
-    <div className="container-fluid">
+    <div className="">
       <div className="row">
         <div className="col-md-6 box pt-5">
           <div className="login-box">
