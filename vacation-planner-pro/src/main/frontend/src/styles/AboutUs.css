@@ -1,7 +1,6 @@
 #AboutUsPage {
   justify-content: center;
-  background: white;
-  margin: 2rem 6rem;
+  background: #80ddff;
 }
 
 #Aboutus-image-container {
@@ -24,7 +23,7 @@
 
 #TextBox {
   position: top;
-  background: lightblue;
+  background: white;
   padding: 3rem;
   padding-top: 2.2rem;
   border-radius: 1rem;
@@ -32,7 +31,7 @@
 
 #TextBoxTwo {
   position: top;
-  background: lightblue;
+  background: white;
   padding: 3rem;
   padding-top: 2.2rem;
   border-radius: 1rem;

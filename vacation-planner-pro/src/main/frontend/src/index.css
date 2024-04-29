@@ -12,9 +12,11 @@ body {
 
 .image-container {
   height: 100vh;
-  background-image: url('/VPP.png');
+  background-image: url('/latest-logo-bg.png');
   background-size: cover;
   background-position: center;
+  padding-left: 0rem;
+  padding-right: 0rem;
 }
 
 .login-box button {
@@ -23,7 +25,7 @@ body {
 
 .box {
   background-color: #80ddff;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 
 .box img {
