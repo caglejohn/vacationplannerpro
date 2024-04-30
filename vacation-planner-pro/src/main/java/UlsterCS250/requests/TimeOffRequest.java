@@ -1,18 +1,25 @@
 package UlsterCS250.requests;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TimeOffRequest {
-    private Date day;
+    private String day;
     private String time; // "AM" or "PM"
     private String reason;
 
-    public Date getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(String day) {
         this.day = day;
+    }
+
+    public LocalDate getFormattedDay() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(day, formatter);
+        return date;
     }
 
     public String getTime() {
@@ -21,6 +28,10 @@ public class TimeOffRequest {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public boolean getIsAm() {
+        return time.equals("AM") ? true : false;
     }
 
     public String getReason() {

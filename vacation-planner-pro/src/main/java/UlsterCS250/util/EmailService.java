@@ -1,5 +1,9 @@
 package UlsterCS250.util;
 
+import java.util.ArrayList;
+
+import UlsterCS250.repository.EmployeeRepository;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -8,10 +12,12 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class EmailService {
+
     public void sendEmail() {
         Client client = ClientBuilder.newClient();
         String apiUrl = EmailSecrets.SMTP_URL;
         String apiKey = EmailSecrets.SMTP_KEY;
+
         String receiver = "Catherine Stafford <catstaffo@gmail.com>";
         String employeeName = "John Doe";
         String timeOff = "April 28";
@@ -33,6 +39,7 @@ public class EmailService {
                 System.out.println("Response: " + responseBody);
             } else {
                 System.out.println("Error: " + response.getStatus());
+                System.out.println(response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,4 +47,5 @@ public class EmailService {
             client.close();
         }
     }
+
 }

@@ -29,11 +29,11 @@ public class SeedDb {
             EmployeeRepository e = new EmployeeRepository();
             e.addEmployee(new JEmployee(1, "johndoe", "hashed_password1", "johndoe@example.com", "John", "Doe", false,
                     true, null, null, 5));
-            e.addEmployee(new JEmployee(2, "janedoe", "hashed_password2", "janedoe@example.com", "Jane", "Doe", true,
+            e.addEmployee(new JEmployee(2, "janedoe", "hashed_password2", "janedoe@example.com", "Jane", "Doe", false,
                     true, null, null, 8));
             EmployeeTimeOffRepository o = new EmployeeTimeOffRepository();
-            o.addDayOff(new JEmployeeTimeOff(1, 1, 1, "sick"));
-            o.addDayOff(new JEmployeeTimeOff(2, 2, 3, "dentist"));
+            o.addDayOff(new JEmployeeTimeOff(1, 1, 1, "Personal"));
+            o.addDayOff(new JEmployeeTimeOff(2, 2, 3, "Vacation"));
         } catch (Exception e) {
             e.printStackTrace();
         }

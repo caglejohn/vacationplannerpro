@@ -3,7 +3,9 @@ package UlsterCS250.rest;
 import UlsterCS250.entities.JEmployeeTimeOff;
 import UlsterCS250.repository.EmployeeRepository;
 import UlsterCS250.repository.EmployeeTimeOffRepository;
+import UlsterCS250.repository.HalfDayRepository;
 import UlsterCS250.requests.TimeOffRequest;
+import UlsterCS250.util.EmailService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.CookieParam;
 import jakarta.ws.rs.GET;
@@ -23,10 +25,16 @@ public class EmployeeTimeOffResource {
     private static final Logger LOGGER = Logger.getLogger(EmployeeResource.class.getName());
 
     @Inject
+    private EmailService emailService;
+
+    @Inject
     private EmployeeTimeOffRepository employeeTimeOffRepository;
 
     @Inject
     private EmployeeRepository employeeRepository;
+
+    @Inject
+    private HalfDayRepository halfDayRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,7 +63,7 @@ public class EmployeeTimeOffResource {
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponses(value = {
             @APIResponse(responseCode = "400", description = "Invalid request"),
-            @APIResponse(responseCode = "404", description = "User not found"),
+            @APIResponse(responseCode = "404", description = "Info not found"),
             @APIResponse(responseCode = "201", description = "Created"),
             @APIResponse(responseCode = "500", description = "Internal server error") })
     public Response postEmployeeTimeOff(TimeOffRequest req, @CookieParam("sessionId") String sessionId) {
@@ -68,17 +76,20 @@ public class EmployeeTimeOffResource {
             int employeeId = employeeRepository.getEmpIdBySessionId(sessionId);
             if (employeeId == 0) {
                 return Response.status(Response.Status.NOT_FOUND)
-                        .entity("User not found")
+                        .entity("Info not found")
                         .build();
             }
-            /*
-             * -> call to EmployeeTimeOffRepository using:
-             * data for employeeId using id grabbed above
-             * data for halfdayId found by looking up the halfday id-
-             * given the date and time of day sent in TimeOffRequest
-             */
+            int halfDayId = halfDayRepository.findHalfDayIdByDateAndTime(req.getFormattedDay(), req.getIsAm());
+            if (halfDayId == 0) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("Info not found")
+                        .build();
+            }
+            employeeTimeOffRepository.addTimeOff(employeeId, halfDayId, req.getReason());
 
-            return Response.ok().build();
+            emailService.sendEmail();
+
+            return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Internal server error: " + e.getMessage())
