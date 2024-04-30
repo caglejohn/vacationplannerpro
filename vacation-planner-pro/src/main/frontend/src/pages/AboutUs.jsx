@@ -22,9 +22,9 @@ const AboutUs = () => {
           <div className="authors">
             <h1 id="The Team">The Team</h1>
             <p id="TextBoxTwo">
-              John Cagle, Oscar Zandonella, Adam Marsh, Catherine Stafford,
-              Geovanny Mora, Gabriella Romero, Cory Waldheim, Mariia Voianova,
-              Ruth Zaccardo, Cheyenne Rossler-Demskie,
+            Adam Marsh, Catherine Stafford, Cheyenne Rossler-Demskie, Cory Waldheim, Gabriella Romero, 
+              Jevaughn Hastings, Geovanny Mora, John Cagle, Kyle Sullivan, 
+              Mariia Voianova, Oscar Zandonella, Ruth Zaccardo
             </p>
           </div>
         </div>
