@@ -2,8 +2,6 @@ package UlsterCS250.util;
 
 import java.util.ArrayList;
 
-import UlsterCS250.repository.EmployeeRepository;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -13,21 +11,24 @@ import jakarta.ws.rs.core.Response;
 
 public class EmailService {
 
-    public void sendEmail() {
+    public void sendEmail(ArrayList<String> receivers, String username, String day) {
         Client client = ClientBuilder.newClient();
         String apiUrl = EmailSecrets.SMTP_URL;
         String apiKey = EmailSecrets.SMTP_KEY;
 
-        String receiver = "Catherine Stafford <catstaffo@gmail.com>";
-        String employeeName = "John Doe";
-        String timeOff = "April 28";
+        StringBuilder toField = new StringBuilder("[");
+        for (String receiver : receivers) {
+            toField.append("\"").append(receiver).append("\", ");
+        }
+        toField.delete(toField.length() - 2, toField.length());
+        toField.append("]");
 
         String requestPayload = "{\"api_key\": \"" + apiKey + "\"," +
-                "\"to\": [\"" + receiver + "\"], " +
+                "\"to\": " + toField.toString() + ", " +
                 "\"sender\": \"Vacation Planner Pro <vacationplannerpro@catstaffo.com>\", " +
                 "\"subject\": \"New Vacation\", " +
-                "\"text_body\": \"" + employeeName + " submitted time off for " + timeOff + "\", " +
-                "\"html_body\": \"<p>" + employeeName + " submitted time off for " + timeOff + "</p>\"}";
+                "\"text_body\": \"" + username.toUpperCase() + " submitted time off for " + day + "\", " +
+                "\"html_body\": \"<p>" + username.toUpperCase() + " submitted time off for " + day + "</p>\"}";
 
         try {
             WebTarget target = client.target(apiUrl);
@@ -47,5 +48,4 @@ public class EmailService {
             client.close();
         }
     }
-
 }

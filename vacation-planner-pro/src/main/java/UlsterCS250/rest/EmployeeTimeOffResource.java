@@ -87,7 +87,9 @@ public class EmployeeTimeOffResource {
             }
             employeeTimeOffRepository.addTimeOff(employeeId, halfDayId, req.getReason());
 
-            emailService.sendEmail();
+            ArrayList<String> receivers = employeeRepository.findAllManagersEmails();
+            String employeeUsername = employeeRepository.getEmployeeNameById(employeeId);
+            emailService.sendEmail(receivers, employeeUsername, req.getDay());
 
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
