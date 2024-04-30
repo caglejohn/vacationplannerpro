@@ -33,6 +33,28 @@ public class EmployeeTimeOffRepository {
         return timeOffList;
     }
 
+    public ArrayList<String> findByUser(int id) {
+        ArrayList<String> timeOffList = new ArrayList<>();
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+            PreparedStatement stmt = conn
+                    .prepareStatement(
+                            "SELECT hd.start_date \n" + //
+                                    "FROM EmployeeTimeOffs eto \n" + //
+                                    "JOIN HalfDays hd ON eto.half_day_id = hd.half_day_id \n" + //
+                                    "WHERE eto.employee_id = ? \n" + //
+                                    "ORDER BY hd.start_date");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next())
+                timeOffList.add(rs.getDate("start_date").toString());
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error while finding employee time off data", e);
+            e.printStackTrace();
+        }
+        return timeOffList;
+    }
+
     public boolean isDateFree(Date date) {
         try {
             Connection conn = DriverManager.getConnection(dbUrl, user, pass);

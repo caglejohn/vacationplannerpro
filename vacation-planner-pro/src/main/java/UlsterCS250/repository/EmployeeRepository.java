@@ -29,22 +29,6 @@ public class EmployeeRepository {
         return employeesList;
     }
 
-    public ArrayList<JEmployee> findAllManagers() {
-        ArrayList<JEmployee> employeesList = new ArrayList<>();
-        try {
-            Connection conn = DriverManager.getConnection(dbUrl, user, pass);
-            PreparedStatement stmt = conn
-                    .prepareStatement("SELECT * FROM Employees WHERE is_manager = TRUE ORDER BY employee_id");
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next())
-                employeesList.add(makeEmployee(rs));
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error while finding employees", e);
-            e.printStackTrace();
-        }
-        return employeesList;
-    }
-
     public ArrayList<String> findAllManagersEmails() {
         ArrayList<String> emailsList = new ArrayList<>();
         try {
@@ -63,7 +47,6 @@ public class EmployeeRepository {
             LOGGER.log(Level.SEVERE, "Error while finding employees", e);
             e.printStackTrace();
         }
-        LOGGER.log(Level.SEVERE, Integer.toString(emailsList.size()));
 
         return emailsList;
     }
@@ -159,6 +142,24 @@ public class EmployeeRepository {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error while attempting to log in: ", e);
+        }
+        return "";
+    }
+
+    public String getEmployeeNameById(int id) throws SQLException {
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+            PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT username FROM Employees WHERE employee_id = ? LIMIT 1");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("username");
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error while attempting to retrieve employee name: ", e);
         }
         return "";
     }

@@ -95,18 +95,4 @@ public class CalendarResource {
                     .build();
         }
     }
-
-    @GET
-    @Path("/test-email")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response testEmail() {
-        try {
-            emailService.sendEmail();
-            return Response.ok().build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
-    }
-
 }

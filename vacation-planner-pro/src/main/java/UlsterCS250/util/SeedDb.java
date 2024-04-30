@@ -31,9 +31,6 @@ public class SeedDb {
                     true, null, null, 5));
             e.addEmployee(new JEmployee(2, "janedoe", "hashed_password2", "janedoe@example.com", "Jane", "Doe", false,
                     true, null, null, 8));
-            EmployeeTimeOffRepository o = new EmployeeTimeOffRepository();
-            o.addDayOff(new JEmployeeTimeOff(1, 1, 1, "Personal"));
-            o.addDayOff(new JEmployeeTimeOff(2, 2, 3, "Vacation"));
         } catch (Exception e) {
             e.printStackTrace();
         }
