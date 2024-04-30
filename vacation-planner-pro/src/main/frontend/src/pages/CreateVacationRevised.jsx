@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/createVacationRev.css';
 import { Link } from 'react-router-dom';
-import { postTimeOff } from '../api/plannerApi';
+import { postTimeOff, getUserVacations } from '../api/plannerApi';
 
 const CreateVacationRev = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,8 @@ const CreateVacationRev = () => {
     time: '',
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState(null); // To store success or error status
+  const [status, setStatus] = useState(null);
+  const [vacations, setVacations] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,13 +21,37 @@ const CreateVacationRev = () => {
     }));
   };
 
+  useEffect(() => {
+    fetchVacations();
+  }, []);
+
+  const fetchVacations = async () => {
+    try {
+      const response = await getUserVacations();
+      const userVacations = response.data;
+      if (Array.isArray(userVacations)) {
+        setVacations(userVacations);
+      } else {
+        console.error(
+          'getUserVacations did not return an array:',
+          userVacations,
+        );
+        setVacations([]);
+      }
+    } catch (error) {
+      console.error('Error fetching vacations: ', error);
+      setVacations([]);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Set loading state to true
+    setIsLoading(true);
     try {
       const resp = await postTimeOff(formData);
       if (resp.status === 201) {
         setStatus('success');
+        fetchVacations();
       }
     } catch (error) {
       if (error.response.status === 401) {
@@ -90,7 +115,7 @@ const CreateVacationRev = () => {
               <div className="col-md-6" style={{ alignSelf: 'center' }}>
                 <form id="timeOffForm" onSubmit={handleSubmit}>
                   <div className="form-row align-items-center">
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                       <div className="form-group">
                         <label htmlFor="reason">Leave Type:</label>
                         <select
@@ -171,8 +196,12 @@ const CreateVacationRev = () => {
                     </div>
                   </div>
                   <div className="form-group">
-                    <button type="submit" className="btn btn-primary">
-                      Submit
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? 'Submitting...' : 'Submit'}
                     </button>
                   </div>
                 </form>
@@ -216,6 +245,14 @@ const CreateVacationRev = () => {
                 Error creating vacation. Please try again later.
               </p>
             )}
+            <div className="current-timeoff">
+              <h2>My Vacations</h2>
+              <ul>
+                {vacations.map((vacation, index) => (
+                  <li key={index}>{vacation}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

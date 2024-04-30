@@ -15,6 +15,13 @@ export const getCalendar = async (req) => {
   return resp;
 };
 
+export const getUserVacations = async () => {
+  const resp = await plannerApi.get('/api/employee-time-off/user', {
+    withCredentials: true,
+  });
+  return resp;
+};
+
 export const postTimeOff = async (req) => {
   const resp = await plannerApi.post('/api/employee-time-off', req, {
     withCredentials: true,

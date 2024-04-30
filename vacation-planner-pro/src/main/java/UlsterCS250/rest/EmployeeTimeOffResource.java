@@ -59,6 +59,41 @@ public class EmployeeTimeOffResource {
         }
     }
 
+    @GET
+    @Path("/user")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponses(value = {
+            @APIResponse(responseCode = "404", description = "No half-days found"),
+            @APIResponse(responseCode = "200", description = "Success"),
+            @APIResponse(responseCode = "500", description = "Internal server error")
+    })
+    public Response getEmployeeTimeOffs(@CookieParam("sessionId") String sessionId) {
+        try {
+            if (sessionId == null) {
+                return Response.status(Response.Status.BAD_REQUEST)
+                        .entity("Invalid request")
+                        .build();
+            }
+            int employeeId = employeeRepository.getEmpIdBySessionId(sessionId);
+            if (employeeId == 0) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("Info not found")
+                        .build();
+            }
+            ArrayList<String> employeeTimeOffs = employeeTimeOffRepository.findByUser(employeeId);
+            if (employeeTimeOffs.isEmpty()) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("No employee-time-offs found")
+                        .build();
+            }
+            return Response.ok(employeeTimeOffs).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error retrieving employee-time-offs: " + e.getMessage())
+                    .build();
+        }
+    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @APIResponses(value = {
