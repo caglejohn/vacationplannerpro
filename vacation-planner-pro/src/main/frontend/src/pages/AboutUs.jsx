@@ -10,13 +10,11 @@ const AboutUs = () => {
             <h1 id="AboutUsBox">About Us</h1>
 
             <p id="TextBox">
-              Vacation Planner Pro's delevopment process started on January
-              24th, 2024. The biggest goal for creating the site was to change
-              the way companies manage employee vaction time. With just this one
-              tool, companies big or small will have the ablity to track, view,
-              and manage employee time off. Our team's mission is to relieve the
-              stress of double booked vacations or vacation time piling up to
-              close to the end of the year.
+            Vacation Planner Pro's development process started on January 24th, 2024. 
+            The biggest goal for creating this app was to change the way companies manage employee vacation time. 
+            With just this one tool, companies big or small will have the ability to track, view, and manage employee time off. 
+            Our team's mission is to relieve the stress of double booked vacations or vacation time piling up close to the end of the year.
+
             </p>
           </div>
           <div className="authors">
