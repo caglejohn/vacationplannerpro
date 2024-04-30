@@ -29,6 +29,45 @@ public class EmployeeRepository {
         return employeesList;
     }
 
+    public ArrayList<JEmployee> findAllManagers() {
+        ArrayList<JEmployee> employeesList = new ArrayList<>();
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+            PreparedStatement stmt = conn
+                    .prepareStatement("SELECT * FROM Employees WHERE is_manager = TRUE ORDER BY employee_id");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next())
+                employeesList.add(makeEmployee(rs));
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error while finding employees", e);
+            e.printStackTrace();
+        }
+        return employeesList;
+    }
+
+    public ArrayList<String> findAllManagersEmails() {
+        ArrayList<String> emailsList = new ArrayList<>();
+        try {
+            Connection conn = DriverManager.getConnection(dbUrl, user, pass);
+            PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT first_name, last_name, email FROM Employees WHERE is_manager = TRUE ORDER BY employee_id");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                String email = rs.getString("email");
+                String formattedEmail = firstName + " " + lastName + " <" + email + ">";
+                emailsList.add(formattedEmail);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error while finding employees", e);
+            e.printStackTrace();
+        }
+        LOGGER.log(Level.SEVERE, Integer.toString(emailsList.size()));
+
+        return emailsList;
+    }
+
     public boolean isUsernameUnique(String username) throws SQLException {
         try (Connection conn = DriverManager.getConnection(dbUrl, user, pass);
                 PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Employees WHERE username = ?")) {
@@ -192,9 +231,9 @@ public class EmployeeRepository {
             stmt.setString(1, employee.getUsername());
             stmt.setString(2, employee.getPassword());
             stmt.setString(3, employee.getEmail());
-            stmt.setString(4, "test");
-            stmt.setString(5, "test");
-            stmt.setBoolean(6, false);
+            stmt.setString(4, "FirstName");
+            stmt.setString(5, "LastName");
+            stmt.setBoolean(6, true);
             stmt.setBoolean(7, true);
             stmt.setInt(8, 1);
             int rowsInserted = stmt.executeUpdate();

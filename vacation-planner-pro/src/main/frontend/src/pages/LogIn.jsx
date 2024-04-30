@@ -1,10 +1,17 @@
 import { useState, useRef } from 'react';
 import { postAuth } from '../api/authApi';
 import { useNavigate, Link } from 'react-router-dom';
-import Input from '../components/form/Input';
 
 export default function LogIn() {
   const loginRef = useRef();
+
+  const [validUsername, setValidUsername] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+  const [validCompany, setValidCompany] = useState(true);
+
+  const usernameRegex = /^[a-zA-Z0-9_]{5,15}$/;
+  const passwordRegex = /^.{8,24}$/;
+  const companyRegex = /^[0-9]+$/;
 
   const [formError, setFormError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -13,6 +20,13 @@ export default function LogIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    let valC = validateCompany();
+    let valU = validateUsername();
+    let valP = validatePassword();
+    if (!valU || !valC || !valP) {
+      setIsLoading(false);
+      return;
+    }
     try {
       const user = {
         username: loginRef.current.username.value,
@@ -34,12 +48,23 @@ export default function LogIn() {
     }
   };
 
-  // 5-15 alpha-numeric characters and underscores
-  const usernameRegex = /^[a-zA-Z0-9_]{5,15}$/;
-  // 8-24 characters
-  const passwordRegex = /^.{8,24}$/;
-  // 1-10 numbers
-  const companyRegex = /^[0-9]+$/;
+  function validateUsername() {
+    const result = usernameRegex.test(loginRef.current.username.value);
+    setValidUsername(result);
+    return result;
+  }
+
+  function validatePassword() {
+    const result = passwordRegex.test(loginRef.current.password.value);
+    setValidPassword(result);
+    return result;
+  }
+
+  function validateCompany() {
+    const result = companyRegex.test(loginRef.current.companyId.value);
+    setValidCompany(result);
+    return result;
+  }
 
   return (
     <div className="">
@@ -53,30 +78,101 @@ export default function LogIn() {
                   {formError}
                 </p>
               )}
-              <Input
-                label="Username:"
-                type="text"
-                name="username"
-                maxLength={20}
-                validationRegex={usernameRegex}
-                validationError="5-15 characters and/or underscores"
-              />
-              <Input
-                label="Password:"
-                type="password"
-                name="password"
-                maxLength={30}
-                validationRegex={passwordRegex}
-                validationError="8-24 characters long"
-              />
-              <Input
-                label="Company Id:"
-                type="number"
-                name="companyId"
-                maxLength={10}
-                validationRegex={companyRegex}
-                validationError="1-10 numbers"
-              />
+              <div className="form-group mb-2">
+                <label htmlFor="username">
+                  Username:
+                  {!validUsername && (
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
+                      <i
+                        className="fa fa-times text-danger ml-6"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  )}
+                </label>
+                <input
+                  type="text"
+                  className="form-control mt-1 mb-0"
+                  id="username"
+                  name="username"
+                  maxLength={20}
+                  aria-required="true"
+                  aria-invalid={!!validUsername}
+                  aria-describedby="usernote"
+                />
+                {!validUsername && (
+                  <small
+                    className="text-danger"
+                    style={{ fontWeight: 400 }}
+                    role="alert"
+                    id="usernote"
+                  >
+                    5-15 characters and/or underscores
+                  </small>
+                )}
+              </div>
+              <div className="form-group mb-2">
+                <label htmlFor="password">
+                  Password:
+                  {!validPassword && (
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
+                      <i
+                        className="fa fa-times text-danger ml-6"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  )}
+                </label>
+                <input
+                  className="form-control mt-1 mb-0"
+                  id="password"
+                  type="password"
+                  name="password"
+                  maxLength={30}
+                  aria-required="true"
+                  aria-invalid={!!validPassword}
+                  aria-describedby="passwordnote"
+                />
+                {!validPassword && (
+                  <small className="text-danger" role="alert" id="passwordnote">
+                    8-24 characters long
+                  </small>
+                )}
+              </div>
+              <div className="form-group mb-1">
+                <label htmlFor="companyId">
+                  Company Id:
+                  {!validCompany && (
+                    <span
+                      style={{ marginLeft: '5px', verticalAlign: 'middle' }}
+                    >
+                      <i
+                        className="fa fa-times text-danger ml-6"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  )}
+                </label>
+                <input
+                  type="number"
+                  className="form-control mt-1 mb-0"
+                  id="companyId"
+                  name="companyId"
+                  maxLength={10}
+                  aria-required="true"
+                  aria-invalid={!!validCompany}
+                  aria-describedby="companynote"
+                />
+                {!validCompany && (
+                  <small className="text-danger" role="alert" id="companynote">
+                    1 or more numbers
+                  </small>
+                )}
+              </div>
               <div>
                 <button
                   type="submit"

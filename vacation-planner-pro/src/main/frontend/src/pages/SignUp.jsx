@@ -95,7 +95,6 @@ export default function SignUp() {
         setError('Error signing up, please try later');
       }
     } catch (error) {
-      console.error('Error: ', error);
       setError(error.response.data.message);
     } finally {
       setIsLoading(false);
