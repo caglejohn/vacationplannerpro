@@ -75,19 +75,13 @@
 
 #weekdays {
   justify-content: center;
-  width: 97%;
+  width: 100%;
+  padding: 10px;
   display: flex;
   color: #485664;
-  text-align: justify;
-  gap: 40px;
+  gap: 4.9%;
 }
 
-#weekdays div {
-  width: 100px;
-  margin: 0 0.5rem;
-  padding: 10px;
-  text-align: center;
-}
 
 #calendar {
   width: 60%;
